@@ -12,61 +12,51 @@ class Card:
         """
         # --- Core Identification & Cost ---
         self.name: str = card_data.get("Name", "Unknown Name")
-        # Store Unique_ID for precise identification if needed later
-        self.unique_id: str | None = card_data.get("Unique_ID")
-        self.cost: int = card_data.get("Cost", 0) # Default cost 0 if missing
-        self.inkable: bool = card_data.get("Inkable", False) # Default False if missing
+        self.unique_id: str | None = card_data.get("Unique_ID") # Keep Unique_ID if available
+        self.cost: int = card_data.get("Cost", 0)
+        self.inkable: bool = card_data.get("Inkable", False)
 
         # --- Card Type & Colors ---
-        self.type: str = card_data.get("Type", "Unknown Type") # e.g., Character, Action, Item
+        self.type: str = card_data.get("Type", "Unknown Type")
         raw_color: str | None = card_data.get("Color")
-        # Split comma-separated colors into a list, handle None/empty string
         self.colors: list[str] = [c.strip() for c in raw_color.split(',')] if raw_color else []
 
         # --- Character Stats (handle None for non-characters) ---
         self.strength: int | None = card_data.get("Strength")
         self.willpower: int | None = card_data.get("Willpower")
-        self.lore: int | None = card_data.get("Lore") # Use None if missing, check type later
+        self.lore: int | None = card_data.get("Lore")
 
         # --- Rules Text & Keywords ---
-        # Store raw text - parsing happens in game engine
         self.body_text: str = card_data.get("Body_Text", "")
-        # Store list of classifications (e.g., Dreamborn, Hero, Princess)
         raw_class: str | None = card_data.get("Classifications")
         self.classifications: list[str] = [c.strip() for c in raw_class.split(',')] if raw_class else []
-        # Store list of keyword abilities (often repeated in body_text)
         raw_abilities: str | None = card_data.get("Abilities")
         self.abilities: list[str] = [a.strip() for a in raw_abilities.split(',')] if raw_abilities else []
 
         # --- Sanity check/conversion for numerical stats ---
-        # Ensure numerical fields are integers if they exist
         if self.strength is not None:
             try:
                 self.strength = int(self.strength)
             except (ValueError, TypeError):
-                print(f"Warning: Could not convert Strength '{self.strength}' to int for card '{self.name}'. Setting to None.")
+                # print(f"Warning: Could not convert Strength '{self.strength}' to int for card '{self.name}'. Setting to None.")
                 self.strength = None
         if self.willpower is not None:
             try:
                 self.willpower = int(self.willpower)
             except (ValueError, TypeError):
-                print(f"Warning: Could not convert Willpower '{self.willpower}' to int for card '{self.name}'. Setting to None.")
+                # print(f"Warning: Could not convert Willpower '{self.willpower}' to int for card '{self.name}'. Setting to None.")
                 self.willpower = None
         if self.lore is not None:
             try:
                 self.lore = int(self.lore)
             except (ValueError, TypeError):
-                print(f"Warning: Could not convert Lore '{self.lore}' to int for card '{self.name}'. Setting to None.")
+                # print(f"Warning: Could not convert Lore '{self.lore}' to int for card '{self.name}'. Setting to None.")
                 self.lore = None
-
-        # Store the original raw data dictionary if needed for debugging or future fields
-        # self._raw_data = card_data
-
 
     def __str__(self) -> str:
         """Provides a user-friendly string representation."""
         if self.type == "Character":
-            stats = f"{self.strength}/{self.willpower} {self.lore}L"
+            stats = f"{self.strength or '?'}/{self.willpower or '?'} {self.lore or '?'}L"
         else:
             stats = self.type
         ink = "Inkable" if self.inkable else "Non-Ink"
@@ -74,112 +64,100 @@ class Card:
 
     def __repr__(self) -> str:
         """Provides a developer-friendly string representation."""
-        # Consider adding unique_id here for clarity if needed
-        return f"<Card(Name='{self.name}', Cost={self.cost}, Type='{self.type}')>"
+        return f"<Card(Name='{self.name}', ID='{self.unique_id or 'N/A'}', Cost={self.cost}, Type='{self.type}')>"
 
-# --- Helper function to parse the full list ---
+# --- Updated Helper function to parse the full list ---
 
-def parse_card_data(raw_data_list: list[dict]) -> dict[str, Card]:
+def parse_card_data(raw_data_list: list[dict]) -> tuple[dict[str, Card], dict[str, Card], dict[str, Card]]:
     """
-    Parses a list of raw card dictionaries into a dictionary of Card objects.
+    Parses a list of raw card dictionaries into dictionaries of Card objects,
+    mapped by Unique_ID, by Name, and by lowercase Name.
 
     Args:
         raw_data_list: A list of dictionaries, where each dict is raw card data.
 
     Returns:
-        A dictionary mapping unique card identifiers (e.g., Unique_ID or Name)
-        to Card objects. Using Unique_ID is generally safer if available.
-        Falls back to Name if Unique_ID is missing.
+        A tuple containing three dictionaries:
+        1. cards_by_id: Maps Unique_ID (str) to Card object.
+        2. cards_by_name: Maps Name (str) to Card object.
+        3. cards_by_lowercase_name: Maps lowercase Name (str) to Card object.
     """
-    cards = {}
+    cards_by_id = {}
+    cards_by_name = {}
+    cards_by_lowercase_name = {}
     if not raw_data_list:
-        return cards
+        return cards_by_id, cards_by_name, cards_by_lowercase_name  # Return all three
+
+    duplicate_names = set()
+    seen_names = set()
 
     for card_data in raw_data_list:
         card_obj = Card(card_data)
-        # Use Unique_ID as the primary key if available and valid
-        key = card_obj.unique_id if card_obj.unique_id else card_obj.name
-        if not key:
-            print(f"Warning: Card data missing both Unique_ID and Name: {card_data}")
-            continue # Skip cards without a usable identifier
 
-        if key in cards:
-             # This might happen if fallback to Name is used and names aren't unique
-             # Or if the API somehow returns duplicate Unique_IDs
-             print(f"Warning: Duplicate card identifier '{key}' found. Overwriting previous entry.")
-        cards[key] = card_obj
+        # Map by Unique_ID if available
+        if card_obj.unique_id:
+            if card_obj.unique_id in cards_by_id:
+                print(f"Warning: Duplicate Unique_ID '{card_obj.unique_id}' found. Overwriting previous entry.")
+            cards_by_id[card_obj.unique_id] = card_obj
+        else:
+            print(f"Warning: Card '{card_obj.name}' missing Unique_ID.")
 
-    print(f"Parsed {len(cards)} cards into Card objects.")
-    return cards
+        # Map by Name
+        if card_obj.name:
+            if card_obj.name in cards_by_name:
+                # Lorcana rules generally allow different versions of Characters
+                # but deckbuilding limits copies by *full name*.
+                # If names are truly identical across different Unique_IDs, it's ambiguous.
+                # For now, we'll store the *last* one encountered for the name map,
+                # but flag duplicates. Relying on Unique_ID is safer if possible.
+                if card_obj.name not in seen_names:  # Only warn once per duplicated name
+                    print(
+                        f"Warning: Duplicate card Name '{card_obj.name}' found. Name map will only store one version.")
+                    duplicate_names.add(card_obj.name)
+                seen_names.add(card_obj.name)
+            cards_by_name[card_obj.name] = card_obj
+
+            # Also map by lowercase name for case-insensitive lookups
+            cards_by_lowercase_name[card_obj.name.lower()] = card_obj
+        else:
+            print(f"Warning: Card data missing Name field: {card_data}")
+
+    print(f"Parsed {len(cards_by_id)} cards by Unique_ID and {len(cards_by_name)} cards by Name.")
+    if duplicate_names:
+        print(f"Note: The following card names appeared multiple times: {list(duplicate_names)}")
+    return cards_by_id, cards_by_name, cards_by_lowercase_name  # Return all three
 
 # --- Example usage (demonstrates using fetcher and parser) ---
 if __name__ == "__main__":
     try:
         from dataFetcher import fetch_lorcana_data
     except ImportError:
-        print("Error: data_fetcher.py not found or fetch_lorcana_data function missing.")
-        # Define a dummy function for basic testing if fetcher is unavailable
-        '''
+        print("Error: dataFetcher.py not found or fetch_lorcana_data function missing.")
         def fetch_lorcana_data(**kwargs):
             print("Using dummy fetch_lorcana_data.")
             # Example structure matching the user's provided data
             return [
-                {
-                    "Artist": "Aubrey Archer", "Set_Name": "Archazia's Island", "Classifications": "Storyborn, Ally",
-                    "Date_Added": "2025-03-08T22:29:21", "Abilities": "Evasive", "Set_Num": 7,
-                    "Color": "Amber, Amethyst", "Gamemode": "Lorcana", "Franchise": "Tangled",
-                    "Image": "https://lorcana-api.com/images/pascal/garden_chameleon/pascal-garden_chameleon-large.png",
-                    "Cost": 4, "Inkable": False, "Name": "Pascal - Garden Chameleon", "Type": "Character",
-                    "Lore": 3, "Rarity": "Uncommon", "Flavor_Text": "Once Pascal got into Archazia's flowerbeds...",
-                    "Unique_ID": "ARI-019", "Card_Num": 19,
-                    "Body_Text": "Evasive (Only characters with Evasive can challenge this character.)",
-                    "Willpower": 3, "Date_Modified": "2025-03-09 00:50:35.0", "Strength": 3, "Set_ID": "ARI"
-                },
-                {
-                    "Name": "Fire the Cannons!", "Cost": 1, "Inkable": True, "Type": "Action", "Color": "Ruby",
-                    "Body_Text": "Deal 2 damage to chosen character.", "Unique_ID": "TFC-001",
-                    "Abilities": None, "Classifications": None, "Lore": None, "Strength": None, "Willpower": None
-                }
+                {"Unique_ID": "ARI-019", "Name": "Pascal - Garden Chameleon", "Cost": 4, "Inkable": False, "Type": "Character", "Color": "Amber, Amethyst", "Strength": 3, "Willpower": 3, "Lore": 3, "Abilities": "Evasive", "Classifications": "Storyborn, Ally", "Body_Text": "Evasive (...)"},
+                {"Unique_ID": "TFC-173", "Name": "Fire the Cannons!", "Cost": 1, "Inkable": True, "Type": "Action", "Color": "Ruby", "Body_Text": "Deal 2 damage...", "Strength": None, "Willpower": None, "Lore": None},
             ]
-'''
-    # 1. Fetch the raw data
-    raw_cards = fetch_lorcana_data() # Uses local file if available and recent
+
+    raw_cards = fetch_lorcana_data()
 
     if raw_cards:
-        # 2. Parse the raw data into Card objects
-        all_cards = parse_card_data(raw_cards)
+        all_cards_by_id, all_cards_by_name, all_cards_by_lowercase_name = parse_card_data(raw_cards)
 
-        # 3. Now you can access the cards dictionary
-        print(f"\nTotal distinct cards parsed: {len(all_cards)}")
+        print(f"\nTotal distinct cards parsed (by ID): {len(all_cards_by_id)}")
+        print(f"Total distinct cards parsed (by Name): {len(all_cards_by_name)}")
 
-        # Example: Accessing a specific card (if it exists)
-        pascal_key = "ARI-019" # Using Unique_ID
-        if pascal_key in all_cards:
-            pascal_card = all_cards[pascal_key]
-            print(f"\nExample Access:")
-            print(f"  Card: {pascal_card.name}")
-            print(f"  Cost: {pascal_card.cost}, Inkable: {pascal_card.inkable}")
-            print(f"  Type: {pascal_card.type}")
-            print(f"  Colors: {pascal_card.colors}")
-            print(f"  Stats: S:{pascal_card.strength} W:{pascal_card.willpower} L:{pascal_card.lore}")
-            print(f"  Keywords: {pascal_card.abilities}")
-            print(f"  Classifications: {pascal_card.classifications}")
-            print(f"  Body Text: {pascal_card.body_text}")
-            print(f"  Repr: {repr(pascal_card)}")
-            print(f"  Str: {str(pascal_card)}")
+        # Example: Accessing via ID
+        pascal_id_key = "ARI-019"
+        if pascal_id_key in all_cards_by_id:
+            print(f"\nAccess via ID '{pascal_id_key}': {repr(all_cards_by_id[pascal_id_key])}")
 
-        # Example: Accessing an action card
-        fire_cannons_key = "TFC-197"
-        if fire_cannons_key in all_cards:
-             cannon_card = all_cards[fire_cannons_key]
-             print(f"\nExample Action Card:")
-             print(f"  Card: {cannon_card.name}")
-             print(f"  Cost: {cannon_card.cost}, Inkable: {cannon_card.inkable}")
-             print(f"  Type: {cannon_card.type}")
-             print(f"  Colors: {cannon_card.colors}")
-             print(f"  Stats: Str:{cannon_card.strength} Will:{cannon_card.willpower} Lore:{cannon_card.lore}") # Expect None
-             print(f"  Body Text: {cannon_card.body_text}")
-             print(f"  Str: {str(cannon_card)}")
+        # Example: Accessing via Name
+        pascal_name_key = "Pascal - Garden Chameleon"
+        if pascal_name_key in all_cards_by_name:
+             print(f"Access via Name '{pascal_name_key}': {repr(all_cards_by_name[pascal_name_key])}")
 
     else:
         print("Could not retrieve card data to parse.")
