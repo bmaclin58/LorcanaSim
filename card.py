@@ -1,4 +1,6 @@
 import json
+from typing import List, Optional
+from effects import EffectData
 
 class Card:
     """Represents a single Lorcana card with relevant attributes for simulation."""
@@ -52,6 +54,8 @@ class Card:
             except (ValueError, TypeError):
                 # print(f"Warning: Could not convert Lore '{self.lore}' to int for card '{self.name}'. Setting to None.")
                 self.lore = None
+
+        self.parsed_effects: List[EffectData] = []
 
     def __str__(self) -> str:
         """Provides a user-friendly string representation."""

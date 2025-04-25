@@ -8,6 +8,7 @@ import time
 {w} = willpower
 {s} = strength
 {l} = lore
+{e} = exert
 
 '''
 

@@ -1,17 +1,19 @@
-from typing import List, Optional, Dict, Any
-import random # mulligan, but not strictly needed yet
+# player.py
+
+from typing import List, Optional, Dict, Any # For type hinting
+import random # Potentially for mulligan later, but not strictly needed yet
 
 # Attempt to import necessary classes, handle potential ImportError
 try:
     from card import Card
     from deck import Deck
 except ImportError:
-    print("Warning: Could not import Card or Deck classes.")
-    exit()
+    print("Warning: Could not import Card or Deck classes. Player class functionality will be limited.")
 
 # Define a type alias for cards in play for clarity
 # Each item will be a dictionary holding the card and its state
-PlayableCard = Dict[str, Any] # Keys: 'card': Card, 'exerted': bool, 'damage': int, etc.
+# Added 'uuid' for unique identification within the play area if needed later
+PlayableCard = Dict[str, Any] # Keys: 'card': Card, 'exerted': bool, 'damage': int, 'uuid': int
 
 class Player:
     """Represents a player in the Lorcana game."""
@@ -32,9 +34,10 @@ class Player:
         self.inkwell: List[Card] = [] # Cards used as ink
         self.discard_pile: List[Card] = []
         # Cards currently on the board (characters, items, locations)
-        # Each entry is a PlayableCard dictionary: {'card': Card, 'exerted': False, 'damage': 0}
+        # Each entry is a PlayableCard dictionary
         self.play_area: List[PlayableCard] = []
         self.lore: int = 0
+        self._play_area_uuid_counter = 0 # Simple counter for unique IDs in play
 
         # Ink state
         self.total_ink: int = 0 # Total number of cards in inkwell
@@ -48,6 +51,11 @@ class Player:
 
         # --- Initial Setup ---
         self._initial_draw()
+
+    def _generate_play_uuid(self) -> int:
+        """Generates a simple unique ID for a card entering the play area."""
+        self._play_area_uuid_counter += 1
+        return self._play_area_uuid_counter
 
     def _initial_draw(self, num_cards: int = 7):
         """Draws the initial hand."""
@@ -67,7 +75,6 @@ class Player:
         drawn_card = self.deck.draw()
         if drawn_card:
             self.hand.append(drawn_card)
-            # print(f"{self.name}: Drew {drawn_card.name}") # Optional: for debugging
             return drawn_card
         else:
             if not self.lost_game: # Only print/set loss once
@@ -91,60 +98,71 @@ class Player:
         if not card_to_ink.inkable:
             print(f"{self.name} Error: Card '{card_to_ink.name}' is not inkable.")
             return False
-        # Optional: Add check for self.has_inked_this_turn if enforcing 1 ink/turn strictly here
+        if self.has_inked_this_turn:
+             print(f"{self.name} Error: Already inked a card this turn.")
+             return False
 
         # Move card
         self.hand.remove(card_to_ink)
         self.inkwell.append(card_to_ink)
-        self.ready_ink =+ 1
         self.total_ink = len(self.inkwell) # Update total ink count
         self.has_inked_this_turn = True # Mark that ink action was taken
         print(f"{self.name}: Inked '{card_to_ink.name}'. Total ink: {self.total_ink}")
         return True
 
-    def play_card(self, card_to_play: Card) -> bool:
+    def play_card(self, card_to_play: Card) -> Optional[PlayableCard]:
         """
         Plays a card from the hand to the play area if enough ink is available.
+        Handles immediate discard for Actions/Songs.
 
         Args:
             card_to_play: The specific Card object instance from the hand to play.
 
         Returns:
-            True if the card was successfully played, False otherwise.
+            The PlayableCard dictionary representing the card in play if it stays,
+            or None if it was an Action/Song or playing failed.
         """
         if card_to_play not in self.hand:
             print(f"{self.name} Error: Card '{card_to_play.name}' not found in hand.")
-            return False
+            return None
 
         cost = card_to_play.cost
         if cost > self.ready_ink:
             print(f"{self.name} Error: Cannot play '{card_to_play.name}'. "
                   f"Cost {cost}, Ready Ink {self.ready_ink}.")
-            return False
+            return None
 
         # Pay the cost
         self.ready_ink -= cost
         self.exerted_ink += cost
 
-        # Move card to play area
+        # Move card from hand
         self.hand.remove(card_to_play)
-        # Add to play area with default state
-        playable_card_state: PlayableCard = {'card': card_to_play, 'exerted': False, 'damage': 0}
-        # Characters usually enter ready unless they have Rush or BodyGuard(handle later)
-        # Items/Actions might resolve immediately (handle later)
-        self.play_area.append(playable_card_state)
 
         print(f"{self.name}: Played '{card_to_play.name}' for {cost} ink. "
               f"({self.ready_ink} ink remaining).")
 
-        # Basic handling for Actions - assume they resolve and discard immediately
-        # More complex actions/songs will need engine support
+        # Handle Actions/Songs - assume they resolve and discard immediately
+        # More complex effects need engine support
         if card_to_play.type == "Action" or "Song" in card_to_play.type: # Simple check
              print(f"{self.name}: Action/Song '{card_to_play.name}' resolved (effect TBD) and discarded.")
-             self.play_area.remove(playable_card_state) # Remove from play immediately
              self.discard_pile.append(card_to_play)
+             # TODO: Trigger any "On Play" effects here later
+             return None # Doesn't stay in play
 
-        return True
+        # For Characters, Items, Locations - Add to play area
+        playable_card_state: PlayableCard = {
+            'card': card_to_play,
+            'exerted': False, # Characters enter ready unless Rush
+            'damage': 0,
+            'uuid': self._generate_play_uuid() # Assign a unique ID for this instance
+            # Add other state flags later (e.g., 'can_challenge_this_turn': False for summoning sickness)
+        }
+        # TODO: Handle summoning sickness - characters usually can't challenge/quest the turn they are played unless they have Rush
+        self.play_area.append(playable_card_state)
+        # TODO: Trigger any "On Play" effects here later
+        return playable_card_state
+
 
     def quest(self, playable_card: PlayableCard) -> bool:
         """
@@ -157,7 +175,7 @@ class Player:
             True if questing was successful, False otherwise.
         """
         if playable_card not in self.play_area:
-             print(f"{self.name} Error: Card '{playable_card['card'].name}' not found in play area.")
+             print(f"{self.name} Error: Card '{playable_card['card'].name}' (UUID: {playable_card.get('uuid', 'N/A')}) not found in play area.")
              return False
 
         card = playable_card['card']
@@ -167,9 +185,12 @@ class Player:
         if playable_card['exerted']:
              print(f"{self.name} Error: Cannot quest with exerted character '{card.name}'.")
              return False
+        # TODO: Add check for summoning sickness if not implemented elsewhere
+
         if card.lore is None or card.lore <= 0:
-             print(f"{self.name} Error: Character '{card.name}' has no lore value to quest for.")
-             return False
+             # Some cards might gain lore ability later, but base check is useful
+             print(f"{self.name}: Character '{card.name}' has no base lore value to quest for.")
+             return False # Or potentially allow questing for 0 if effects can grant lore? TBD
 
         # Exert the character
         playable_card['exerted'] = True
@@ -180,17 +201,107 @@ class Player:
               f"Total lore: {self.lore}.")
         return True
 
+    def challenge(self, attacker_pc: PlayableCard, defender_pc: PlayableCard, opponent: 'Player') -> bool:
+        """
+        Handles the challenge action between two characters.
+
+        Args:
+            attacker_pc: The PlayableCard dict of the attacking character (from self.play_area).
+            defender_pc: The PlayableCard dict of the defending character (from opponent.play_area).
+            opponent: The opposing Player object.
+
+        Returns:
+            True if the challenge sequence was initiated, False otherwise (e.g., invalid target).
+        """
+        # --- Validation ---
+        if attacker_pc not in self.play_area:
+            print(f"{self.name} Error: Attacker '{attacker_pc['card'].name}' not in play area.")
+            return False
+        if defender_pc not in opponent.play_area:
+             print(f"{self.name} Error: Defender '{defender_pc['card'].name}' not in opponent's play area.")
+             return False
+
+        attacker_card = attacker_pc['card']
+        defender_card = defender_pc['card']
+
+        if attacker_card.type != "Character":
+            print(f"{self.name} Error: Attacker '{attacker_card.name}' is not a character.")
+            return False
+        if defender_card.type != "Character":
+            print(f"{self.name} Error: Defender '{defender_card.name}' is not a character.")
+            return False
+        if attacker_pc['exerted']:
+            print(f"{self.name} Error: Attacker '{attacker_card.name}' is already exerted.")
+            return False
+        # TODO: Add check for summoning sickness for the attacker
+        # TODO: Add checks for keywords like Evasive, Ward, Bodyguard
+
+        print(f"{self.name}: '{attacker_card.name}' challenges '{defender_card.name}'!")
+
+        # --- Exert Attacker ---
+        attacker_pc['exerted'] = True
+
+        # --- Damage Calculation ---
+        # Use strength, default to 0 if None (shouldn't happen for chars, but safety)
+        attacker_strength = attacker_card.strength or 0
+        defender_strength = defender_card.strength or 0
+        # TODO: Factor in Challenger keyword bonus here
+
+        print(f"  > '{attacker_card.name}' ({attacker_strength} Str) deals {attacker_strength} damage.")
+        print(f"  > '{defender_card.name}' ({defender_strength} Str) deals {defender_strength} damage.")
+
+        # --- Apply Damage ---
+        # Note: Damage is applied simultaneously
+        defender_pc['damage'] += attacker_strength
+        attacker_pc['damage'] += defender_strength
+
+        print(f"  > '{defender_card.name}' now has {defender_pc['damage']} damage (Willpower: {defender_card.willpower or 0}).")
+        print(f"  > '{attacker_card.name}' now has {attacker_pc['damage']} damage (Willpower: {attacker_card.willpower or 0}).")
+
+        # --- Check for Banishment ---
+        # Check defender first
+        if defender_pc['damage'] >= (defender_card.willpower or 0):
+            print(f"  > '{defender_card.name}' is banished!")
+            opponent.banish(defender_pc) # Opponent handles their banishment
+
+        # Check attacker (only if not already banished by the defender check, though simultaneous)
+        # Need to refetch from play_area in case it was banished
+        if attacker_pc in self.play_area and attacker_pc['damage'] >= (attacker_card.willpower or 0):
+            print(f"  > '{attacker_card.name}' is banished!")
+            self.banish(attacker_pc) # Self handles own banishment
+
+        return True
+
+
+    def banish(self, playable_card: PlayableCard):
+        """
+        Moves a card from the play area to the discard pile.
+
+        Args:
+            playable_card: The dictionary representing the card to be banished.
+        """
+        if playable_card in self.play_area:
+             self.play_area.remove(playable_card)
+             self.discard_pile.append(playable_card['card'])
+             print(f"{self.name}: '{playable_card['card'].name}' moved from play to discard.")
+             # TODO: Trigger any "On Banish" effects here later
+        else:
+             # This might happen if multiple effects try to banish the same card
+             print(f"{self.name} Info: Tried to banish '{playable_card['card'].name}', but it was already removed.")
+
+
     # --- Turn Phase Methods ---
 
     def turn_start_ready_phase(self):
         """Performs start-of-turn readying actions."""
-        print(f"\n--- {self.name}'s Turn Start ---")
+        print(f"\n--- {self.name}'s Turn Start (Ready Phase) ---")
         # 1. Ready all cards in play
+        readied_count = 0
         for p_card in self.play_area:
             if p_card['exerted']:
-                 # print(f"{self.name}: Readying {p_card['card'].name}") # Can be verbose
                  p_card['exerted'] = False
-        print(f"{self.name}: Readied all cards in play.")
+                 readied_count += 1
+        if readied_count > 0: print(f"{self.name}: Readied {readied_count} card(s) in play.")
 
         # 2. Ready ink
         self.ready_ink = self.total_ink
@@ -201,14 +312,25 @@ class Player:
         self.has_drawn_this_turn = False
         self.has_inked_this_turn = False
 
+    def turn_start_set_phase(self):
+        """
+        Performs start-of-turn 'Set' phase actions (Check win, effects).
+        Called by GameState *before* Ready phase usually.
+        """
+        # Currently empty, win check is in GameState.next_turn
+        # TODO: Add any "start of turn" effects triggering here later
+        pass
+
+
     def turn_start_draw_phase(self):
         """Performs the start-of-turn draw."""
+        print(f"--- {self.name}'s Turn Start (Draw Phase) ---")
         if not self.has_drawn_this_turn:
-            print(f"{self.name}: Drawing card for turn...")
+            # print(f"{self.name}: Drawing card for turn...") # Less verbose
             self.draw_card()
             self.has_drawn_this_turn = True
-        else:
-            print(f"{self.name}: Already drew this turn.")
+        # else: # No need to print if already drawn
+            # print(f"{self.name}: Already drew this turn.")
 
 
     def display_state(self):
@@ -222,7 +344,10 @@ class Player:
         for p_card in self.play_area:
             state = "Ready" if not p_card['exerted'] else "Exerted"
             damage = f" ({p_card['damage']} dmg)" if p_card['damage'] > 0 else ""
-            print(f"  - {p_card['card'].name} [{state}]{damage}")
+            stats = ""
+            if p_card['card'].type == 'Character':
+                 stats = f" [{p_card['card'].strength or '?'}/{p_card['card'].willpower or '?'}|{p_card['card'].lore or '?'}]"
+            print(f"  - {p_card['card'].name}{stats} [{state}]{damage} (UUID: {p_card.get('uuid', 'N/A')})")
         print(f"Deck: {len(self.deck)} cards remaining")
         print(f"Discard ({len(self.discard_pile)} cards): {[card.name for card in self.discard_pile]}")
         if self.lost_game: print("!! Player has lost the game (decked out) !!")
@@ -246,75 +371,65 @@ if __name__ == "__main__":
     if not raw_card_data: exit("Failed to load card data.")
     all_cards_by_id, all_cards_by_name, all_cards_by_lowercase_name = parse_card_data(raw_card_data)
     if not all_cards_by_name: exit("Card name map is empty.")
-    # Combine maps for robust lookup
     combined_name_map = {**all_cards_by_name, **all_cards_by_lowercase_name}
 
 
-    # 2. Load a Deck
-    deck_filename = "Decks/LandGo.txt" # Or your preferred test deck
-    print(f"\nLoading deck '{deck_filename}'...")
-    deck_card_names = load_deck_identifiers_from_file(deck_filename)
-    if not deck_card_names: exit(f"Failed to load deck file '{deck_filename}'.")
+    # 2. Load a Deck (using dummy data for simplicity here)
+    # Create some dummy cards for testing challenge
+    dummy_card_data = [
+        Card({'Name': 'Basic Attacker', 'Cost': 1, 'Inkable': True, 'Type': 'Character', 'Strength': 2, 'Willpower': 2, 'Lore': 1}),
+        Card({'Name': 'Basic Defender', 'Cost': 1, 'Inkable': True, 'Type': 'Character', 'Strength': 1, 'Willpower': 3, 'Lore': 1}),
+        Card({'Name': 'Big Guy', 'Cost': 3, 'Inkable': True, 'Type': 'Character', 'Strength': 4, 'Willpower': 4, 'Lore': 2}),
+        Card({'Name': 'Ink Fodder', 'Cost': 1, 'Inkable': True, 'Type': 'Action'}), # Action to test play
+    ]
+    # Create a simple deck list from these dummies
+    test_deck_cards = []
+    for c in dummy_card_data:
+        test_deck_cards.extend([c] * 4) # 4 copies of each
+    random.shuffle(test_deck_cards)
+    # Create a dummy Deck object directly (bypassing file load for this example)
+    class SimpleDeck:
+        def __init__(self, cards): self.cards = list(cards)
+        def draw(self): return self.cards.pop(0) if self.cards else None
+        def __len__(self): return len(self.cards)
 
-    player1_deck = Deck(deck_card_names, combined_name_map)
-    if player1_deck.failed_lookups: print("Warning: Deck created with missing cards.")
-    if not player1_deck.is_valid(check_size=True, check_copies=True):
-         print("Warning: Loaded deck is not valid according to rules.")
-         # Continue anyway for testing player mechanics
+    player1_deck = SimpleDeck(test_deck_cards[:]) # Give copies
+    player2_deck = SimpleDeck(test_deck_cards[:])
 
-
-    # 3. Create a Player instance
+    # 3. Create Player instances
     player1 = Player(name="Player 1", deck=player1_deck, player_id=0)
+    player2 = Player(name="Player 2", deck=player2_deck, player_id=1)
+
+    # Manually set up a scenario for challenge
+    print("\n--- Setting up Challenge Scenario ---")
+    player1.ready_ink = 5 # Give some ink
+    player2.ready_ink = 5
+
+    # Player 1 plays an attacker
+    attacker_card_obj = next((c for c in dummy_card_data if c.name == 'Basic Attacker'), None)
+    if attacker_card_obj:
+        player1.hand.append(attacker_card_obj) # Add to hand first
+        attacker_pc = player1.play_card(attacker_card_obj)
+        if attacker_pc: print(f"Player 1 has '{attacker_pc['card'].name}' in play.")
+
+    # Player 2 plays a defender
+    defender_card_obj = next((c for c in dummy_card_data if c.name == 'Basic Defender'), None)
+    if defender_card_obj:
+        player2.hand.append(defender_card_obj)
+        defender_pc = player2.play_card(defender_card_obj)
+        if defender_pc: print(f"Player 2 has '{defender_pc['card'].name}' in play.")
+
     player1.display_state()
+    player2.display_state()
 
-    # 4. Simulate some actions
-    # --- Turn 1 ---
-    player1.turn_start_ready_phase() # Readies initial state (0 ink)
-    player1.turn_start_draw_phase() # Should already have initial hand, this is turn 1 draw
-
-    # Find an inkable card in hand
-    inkable_card = next((card for card in player1.hand if card.inkable), None)
-    if inkable_card:
-        player1.ink_card(inkable_card)
+    # 4. Simulate a challenge
+    print("\n--- Simulating Challenge ---")
+    if attacker_pc and defender_pc:
+        # Assume it's Player 1's turn and they choose to challenge
+        # TODO: Add summoning sickness check - for now assume attacker can challenge
+        player1.challenge(attacker_pc, defender_pc, player2)
     else:
-        print("Player 1: No inkable card found in hand to ink.")
+        print("Could not set up challenge scenario properly.")
 
     player1.display_state()
-
-    # --- Turn 2 ---
-    player1.turn_start_ready_phase() # Should ready 1 ink
-    player1.turn_start_draw_phase() # Draw for turn 2
-
-    # Try to play a 1-cost card (if available and affordable)
-    playable_1_cost = next((card for card in player1.hand if card.cost == 1), None)
-    if playable_1_cost and player1.ready_ink >= 1:
-        player1.play_card(playable_1_cost)
-    else:
-        print("Player 1: Cannot play a 1-cost card (none in hand or not enough ink).")
-
-    # Try to ink another card
-    inkable_card_t2 = next((card for card in player1.hand if card.inkable), None)
-    if inkable_card_t2:
-        player1.ink_card(inkable_card_t2)
-
-    player1.display_state()
-
-    # --- Turn 3 ---
-    player1.turn_start_ready_phase() # Should ready 2 ink
-    player1.turn_start_draw_phase()
-
-    # Try to quest with a character played last turn (if any)
-    characters_in_play = [p_card for p_card in player1.play_area if p_card['card'].type == "Character"]
-    if characters_in_play:
-        # Quest with the first available character
-        # (More complex AI needed later)
-        char_to_quest = next((p_card for p_card in characters_in_play if not p_card['exerted']), None)
-        if char_to_quest:
-            player1.quest(char_to_quest)
-        else:
-            print("Player 1: No ready characters in play to quest with.")
-    else:
-        print("Player 1: No characters in play.")
-
-
-    player1.display_state()
+    player2.display_state()
