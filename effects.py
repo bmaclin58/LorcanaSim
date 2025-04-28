@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 import re
 from card import Card
-from effects_Definitions import TriggerCondition, EffectType, TargetType
+from CardEffects.effects_Definitions import TriggerCondition, EffectType, TargetType
 
 @dataclass
 class EffectCost:
@@ -159,70 +159,3 @@ class EffectParser:
             amount_str = match_draw.group(1).lower()
             parameters['amount'] = 1 if amount_str == 'a' else int(amount_str)
             target = TargetType.SELF_PLAYER # Drawing usually affects self
-            print(f"DEBUG PARSER ({card_name_for_debug}): Parsed DRAW_CARD. Amount: {parameters['amount']}")
-
-        # Example: Parse Gain Lore
-        match_lore = GAIN_LORE_REGEX.search(effect_text)
-        elif match_lore:
-            effect_type = EffectType.GAIN_LORE
-            parameters['amount'] = int(match_lore.group(1))
-            target = TargetType.SELF_PLAYER
-            print(f"DEBUG PARSER ({card_name_for_debug}): Parsed GAIN_LORE. Amount: {parameters['amount']}")
-
-        # Example: Parse Stat Mod
-        match_stat = STAT_MOD_REGEX.search(effect_text)
-        elif match_stat:
-             effect_type = EffectType.MODIFY_STATS
-             amount = int(match_stat.group(1))
-             stat_char = match_stat.group(2).lower()
-             stat_map = {'s': 'strength', 'w': 'willpower', 'l': 'lore'}
-             if stat_char in stat_map:
-                  parameters['stat'] = stat_map[stat_char]
-                  parameters['amount'] = amount
-                  # Crude target assumption - needs refinement
-                  if "chosen character" in effect_text.lower():
-                       target = TargetType.TARGET_CHARACTER_CHOSEN
-                  elif "your other characters" in effect_text.lower():
-                       target = TargetType.ALL_OWN_CHARACTERS
-                  else: # Assume self? Needs better logic
-                       target = TargetType.SELF_CARD
-                  # TODO: Parse duration (e.g., "this turn")
-                  parameters['duration'] = 'turn' # Placeholder
-                  print(f"DEBUG PARSER ({card_name_for_debug}): Parsed MODIFY_STATS. Stat: {parameters['stat']}, Amount: {amount}")
-             else:
-                  print(f"Warning ({card_name_for_debug}): Unknown stat char '{stat_char}' in '{original_text}'")
-                  effect_type = EffectType.OTHER # Fallback
-
-
-        # ... Add many more effect parsing patterns ...
-
-        # If we successfully identified an effect type other than OTHER, create the EffectData
-        if effect_type != EffectType.OTHER:
-            return EffectData(
-                original_text=original_text,
-                trigger=trigger,
-                effect_type=effect_type,
-                target=target,
-                parameters=parameters,
-                cost=cost
-            )
-        # If no specific effect was parsed from this text part, return None or a placeholder
-        # print(f"DEBUG PARSER ({card_name_for_debug}): Could not parse effect type from: '{effect_text}'")
-        return EffectData(original_text=original_text, trigger=trigger, effect_type=EffectType.OTHER) # Return placeholder
-
-
-# --- Integration Point ---
-# This function would ideally be called within card.py after a Card object is created,
-# or perhaps within the parse_card_data function itself.
-
-def populate_card_effects(card: Card):
-    """Parses and adds EffectData to a Card object."""
-    if EffectData is None: return # Skip if EffectData couldn't be imported
-
-    parser = EffectParser()
-    card.parsed_effects = parser.parse_effects(card)
-    # Optional: Print parsed effects for debugging
-    # if card.parsed_effects:
-    #     print(f"Parsed effects for {card.name}:")
-    #     for effect in card.parsed_effects:
-    #         print(f"  - {effect}")

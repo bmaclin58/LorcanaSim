@@ -12,35 +12,36 @@ output_file = os.path.join(parent_dir, "lorcana_cards_simplified.json")
 
 
 def clean_body_text(text):
-	if not text:
-		return text
+    if not text:
+        return text
 
-	# Remove text between parentheses
-	text = re.sub(r'\([^)]*\)', '', text)
+    # Remove text between parentheses
+    text = re.sub(r'\([^)]*\)', '', text)
 
-	# Specific pattern for abilities followed by a colon
-	# Match a word or phrase at the start of a line or after a newline, followed by a colon and whitespace
-	text = re.sub(r'(^|\n)([^:\n]+):\s*', r'\1', text)
+    # Specific pattern for abilities followed by a colon
+    # Match a word or phrase at the start of a line or after a newline, followed by a colon and whitespace
+    text = re.sub(r'(^|\n)([^:\n]+):\s*', r'\1', text)
 
-	# Specific pattern for abilities followed by a dash
-	# Match a word or phrase at the start of a line or after a newline, followed by a dash and whitespace
-	text = re.sub(r'(^|\n)([^-\n]+)-\s*', r'\1', text)
+    # Specific pattern for abilities followed by a dash
+    # Match a word or phrase at the start of a line or after a newline, followed by a dash and whitespace
+    text = re.sub(r'(^|\n)([^-\n]+)-\s*', r'\1', text)
 
-	# Replace patterns like "Trapped! " at the start of a line or after newline
-	text = re.sub(r'(^|\n)(\w+)!\s*', r'\1', text)
+    # Replace patterns like "Trapped! " at the start of a line or after newline
+    text = re.sub(r'(^|\n)(\w+)!\s*', r'\1', text)
 
-	# Remove any redundant newlines that might have been created
-	text = re.sub(r'\n\s*\n', '\n', text)
+    # Remove any redundant newlines that might have been created
+    text = re.sub(r'\n\s*\n', '\n', text)
 
-	text = re.sub(r'\n', ' ', text)
+    text = re.sub(r"\n", ' ', text)
+    text = re.sub(r'\n*', ' ', text)
 
-	text = re.sub(r'{i}', ' ink', text)
-	text = re.sub(r'{w}', ' willpower', text)
-	text = re.sub(r'{s}', ' strength', text)
-	text = re.sub(r'{l}', ' lore', text)
-	text = re.sub(r'{e}', ' exert', text)
+    text = re.sub(r'{i}', ' ink', text)
+    text = re.sub(r'{w}', ' willpower', text)
+    text = re.sub(r'{s}', ' strength', text)
+    text = re.sub(r'{l}', ' lore', text)
+    text = re.sub(r'{e}', ' exert', text)
 
-	return text.strip()
+    return text.strip()
 
 
 def create_smaller_json(input_file, output_file):
