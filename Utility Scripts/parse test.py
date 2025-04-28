@@ -2,7 +2,7 @@ import json
 import os
 import sys
 import re
-from CardEffects.TextPatterns import parse_keyword
+from CardEffects.ability_parser import parse_keyword
 
 
 def extract_keywords_from_text(text):

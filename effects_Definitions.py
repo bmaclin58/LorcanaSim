@@ -1,121 +1,192 @@
+# effects_Definitions.py
 from enum import Enum, auto
 
+# ==============================================================================
+# Trigger Condition Enum
+# ==============================================================================
 class TriggerCondition(Enum):
-    # --- Keywords / Static Abilities ---
-    ON_SING = auto()
-    KEYWORD_VANISH = auto()
-    KEYWORD_RECKLESS = auto()
-    KEYWORD_EVASIVE = auto()
-    KEYWORD_RUSH = auto()
-    KEYWORD_BODYGUARD = auto()
-    KEYWORD_SUPPORT = auto()
-    KEYWORD_CHALLENGER = auto() # e.g., Challenger +X
-    KEYWORD_RESIST = auto() # e.g., Resist +X
-    KEYWORD_WARD = auto()
-    KEYWORD_SHIFT = auto()
-    KEYWORD_SINGER = auto() # e.g., Singer X
+    """Defines *when* an ability might trigger or be active."""
+
+    # --- Static / Continuous Conditions ---
+    CONTINUOUS = auto()             # Effect is always active while the card is in the correct state/zone
+    STATIC_COST_MODIFIER = auto()   # Modifies the cost to play the card itself (checked during play action)
+    WHILE_AT_LOCATION = auto()      # Effect is active while the character is at any location
+    ON_YOUR_TURN = auto()           # Effect is active only during your turn (passive)
 
     # --- Event-Based Triggers ---
-    ON_PLAY = auto()            # When you play this card
-    ON_BANISH = auto()          # When this card is banished (in challenge, or by effect)
-    ON_QUEST = auto()           # When this character quests
-    ON_CHALLENGE = auto()       # When this character challenges
-    ON_BEING_CHALLENGED = auto()# When this character is challenged
-    ON_EXERT = auto()           # When this character exerts (for any reason)
-    ON_READY = auto()           # When this character becomes ready
-    ON_DISCARD = auto()         # When this card is discarded
-    ON_OPPONENT_PLAYS_CARD = auto() # e.g., "Whenever an opponent plays an action..."
-    ON_CHARACTER_ENTERS_PLAY = auto() # e.g., "Whenever one of your other characters..."
-    ON_CHARACTER_LEAVES_PLAY = auto() # e.g., "Whenever one of your characters is banished..."
+    ON_PLAY = auto()                # When you play this card/character/item/location
+    ON_BANISH = auto()              # When this card is banished (from challenge or effect)
+    ON_QUEST = auto()               # When this character quests
+    ON_CHALLENGE = auto()           # When this character initiates a challenge
+    ON_BEING_CHALLENGED = auto()    # When this character is challenged by an opponent
+    ON_EXERT = auto()               # When this character exerts (for any reason: quest, challenge, sing, ability cost)
+    ON_READY = auto()               # When this character becomes ready (e.g., at start of turn)
+    ON_DISCARD = auto()             # When this card is discarded from hand
+    ON_OPPONENT_PLAYS_CARD = auto() # When an opponent plays a card (can be filtered by type)
+    ON_CHARACTER_ENTERS_PLAY = auto()# When any character enters play (own or opponent's, can be filtered)
+    ON_CHARACTER_LEAVES_PLAY = auto()# When any character leaves play (own or opponent's, banished or returned)
+    ON_MOVE_TO_LOCATION = auto()    # When a character moves to this location (for location abilities)
+    ON_CHARACTER_MOVES_FROM_LOCATION = auto() # When a character moves away from this location
+    ON_SING = auto()                # When this character sings a song
+    START_OF_TURN = auto()          # At the beginning of your turn
+    END_OF_TURN = auto()            # At the end of your turn
 
-    # --- Turn Phased Triggers ---
-    START_OF_TURN = auto()
-    END_OF_TURN = auto()
-    ON_YOUR_TURN = auto()       # Generic passive effect active only on your turn
-    ON_OPPONENTS_TURN = auto()  # Generic passive effect active only on opponent's turn
+    # --- Activated Ability Trigger ---
+    ACTIVATED = auto()              # Requires manual activation by the player (often with {e} or ink cost)
 
-    # --- Activated Abilities ---
-    ACTIVATED = auto()          # Requires explicit player activation (usually cost involved)
+    # --- Keyword-Related Triggers/Identifiers ---
+    # These might trigger specific game rule interactions or checks
+    KEYWORD_BODYGUARD = auto()      # Must be challenged if possible
+    KEYWORD_CHALLENGER = auto()     # Gets +X Strength when challenging
+    KEYWORD_EVASIVE = auto()        # Can only be challenged by characters with Evasive
+    KEYWORD_RECKLESS = auto()       # Must challenge if able
+    KEYWORD_RESIST = auto()         # Takes X less damage from challenges/effects
+    KEYWORD_RUSH = auto()           # Can challenge the turn it's played
+    KEYWORD_SHIFT = auto()          # Can be played for alternate cost on another character
+    KEYWORD_SINGER = auto()         # Can exert to sing songs of cost X or less
+    KEYWORD_SUPPORT = auto()        # When questing, adds Strength to another chosen character
+    KEYWORD_VANISH = auto()         # Can be banished to opponent's inkwell (if targeted by opponent's action effect)
+    KEYWORD_WARD = auto()           # Cannot be chosen by opponent's effects (except challenges)
+    # Note: Sing Together isn't a trigger itself but a condition check during ON_SING
 
-    # --- Continuous / Passive Effects ---
-    CONTINUOUS = auto()         # Always active while the card is in play (e.g., static stat buffs)
+    # --- Catch-all ---
+    OTHER = auto()                  # For triggers not fitting standard categories (use sparingly)
 
-    # --- Location Specific ---
-    ON_MOVE_TO_LOCATION = auto() # When a character moves here
-    WHILE_AT_LOCATION = auto()   # Effect active while conditions met at location
 
-    OTHER = auto()              # Catch-all for complex/unique triggers
-
+# ==============================================================================
+# Effect Type Enum
+# ==============================================================================
 class EffectType(Enum):
-    # --- Player State Modification ---
-    BANISH_CARD = auto()
-    BANISH_SELF = auto()
+    """Defines *what* an ability does."""
+
+    # --- Player State Changes ---
     DRAW_CARD = auto()
     GAIN_LORE = auto()
-    LOSE_LORE = auto()          # For opponent
+    LOSE_LORE = auto()
     DISCARD_CARD_RANDOM = auto()
-    DISCARD_CARD_CHOSEN = auto()
-    ADD_INK_FROM_HAND = auto()
+    DISCARD_CARD_CHOSEN = auto()    # Player chooses which card(s) to discard
+    LOOK_AT_HAND = auto()           # Look at opponent's hand
+    SHUFFLE_DECK = auto()
 
-    # --- Character/Item State Modification ---
+    # --- Card Manipulation / Movement ---
+    MOVE_TO_ZONE = auto()           # Move card(s) between zones (hand, deck, discard, inkwell, play) -> Use parameters for source, dest, filter
+    # Specific MOVE_TO_ZONE aliases (can be used for clarity or handled purely by parameters)
+    # RETURN_TO_HAND = auto()       # Parameterized MOVE_TO_ZONE
+    # PUT_ON_TOP_OF_DECK = auto()   # Parameterized MOVE_TO_ZONE
+    # PUT_ON_BOTTOM_OF_DECK = auto()# Parameterized MOVE_TO_ZONE
+    # SHUFFLE_INTO_DECK = auto()    # Parameterized MOVE_TO_ZONE
+    # BANISH_CARD = auto()          # Parameterized MOVE_TO_ZONE (to discard)
+    # INK_CARD = auto()             # Parameterized MOVE_TO_ZONE (to inkwell)
+    REVEAL_CARD = auto()            # Reveal card(s) from hand or deck
+    LOOK_AT_TOP_CARDS = auto()      # Look at top N cards of a deck
+    PLAY_CARD = auto()              # Play a card (often from non-hand zone, potentially ignoring cost/restrictions) -> Parameters needed
+
+    # --- In-Play Card State Changes ---
     DEAL_DAMAGE = auto()
-    HEAL_DAMAGE = auto()        # Remove damage tokens
-    MODIFY_STATS = auto()       # Change Strength/Willpower/Cost/Lore value
-    GRANT_KEYWORD = auto()      # Give temporary or permanent keyword (Evasive, Rush etc)
-    REMOVE_KEYWORD = auto()
+    HEAL_DAMAGE = auto()            # Remove damage counters
+    MODIFY_STATS = auto()           # Change Strength, Willpower, Lore value (can be temporary or permanent)
+    MODIFY_LOCATION_STATS = auto()  # Change Location Willpower or Move Cost
     EXERT_CARD = auto()
     READY_CARD = auto()
-    CANNOT_QUEST = auto()       # Apply restriction
-    CANNOT_CHALLENGE = auto()   # Apply restriction
-    CANNOT_BE_CHALLENGED = auto() # Apply protection
+    GRANT_KEYWORD = auto()          # Give a card a keyword (e.g., Evasive, Rush) (can be temporary)
+    REMOVE_KEYWORD = auto()         # Remove a keyword
+    SET_ATTRIBUTE = auto()          # Set a specific attribute (e.g., cannot be challenged, becomes inkable)
+    PREVENT_ACTION = auto()         # Prevent a character from performing an action (quest, challenge, etc.) -> Parameter needed
+    # CANNOT_BE_CHALLENGED = auto() # Parameterized PREVENT_ACTION
+    # CANNOT_QUEST = auto()         # Parameterized PREVENT_ACTION
 
-    # --- Card Manipulation ---
-    RETURN_TO_HAND = auto()
-    PUT_IN_INKWELL = auto()     # Own or opponent's card
-    PUT_INTO_PLAY = auto()      # From hand or discard pile
-    LOOK_AT_TOP_CARDS = auto()
-    REVEAL_CARD = auto()
-    SHUFFLE_INTO_DECK = auto()
+    # --- Cost Modification ---
+    MODIFY_COST_TO_PLAY = auto()    # Modify the ink cost to play a card (applies to next card, specific type, etc.) -> Parameters needed
 
-    # --- Targeting/Selection ---
-    CHOOSE_CARD = auto()        # Used when an effect requires a player choice before proceeding
+    # --- Targeting / Choice ---
+    CHOOSE_TARGET = auto()          # Player controlling effect chooses target(s) -> Parameters define criteria
+    OPPONENT_CHOOSES = auto()       # Opponent chooses target(s) for an effect -> Parameters define pool and effect
 
-    # --- Game State ---
-    TAKE_EXTRA_TURN = auto()
+    # --- Meta / Control Flow ---
+    CHOOSE_EFFECT = auto()          # Player chooses one effect from a list to resolve ("Choose one - ...")
+    CONDITIONAL = auto()            # Effect only happens if a condition is met (often precedes another effect)
+    REPEAT_EFFECT = auto()          # Repeat an effect N times or for each X
 
-    # --- Meta Effects ---
-    MODIFY_COST_TO_PLAY = auto() # Modify cost of cards in hand/deck
-    CONDITIONAL = auto()        # Effect only happens if a condition is met
-    OTHER = auto()              # Catch-all
+    # --- Catch-all ---
+    OTHER = auto()                  # For effects not fitting standard categories (use sparingly)
 
+# ==============================================================================
+# Target Type Enum
+# ==============================================================================
 class TargetType(Enum):
-    # --- Targets based on player ---
-    SELF_PLAYER = auto()
-    OPPONENT_PLAYER = auto()
+    """Defines *who* or *what* an effect applies to, often used with parameters for filtering."""
 
-    # --- Targets based on cards/characters ---
-    SELF_CARD = auto()          # The card generating the effect
-    TARGET_CHARACTER_CHOSEN = auto() # Player chooses one character
-    TARGET_ITEM_CHOSEN = auto()
-    TARGET_LOCATION_CHOSEN = auto()
-    TARGET_CARD_IN_PLAY_CHOSEN = auto() # Any type
-    TARGET_CARD_IN_HAND_CHOSEN = auto()
-    TARGET_CARD_IN_DISCARD_CHOSEN = auto()
+    # --- Player Targets ---
+    SELF_PLAYER = auto()            # The player controlling the effect
+    OPPONENT_PLAYER = auto()        # The opponent(s) of the player controlling the effect
+
+    # --- Card Targets (Usually requires player choice unless specified) ---
+    SELF_CARD = auto()              # The card source of the effect
+
+    # Generic Targets (Player chooses ONE unless specified otherwise)
+    TARGET_CHARACTER_CHOSEN = auto() # Player chooses one character in play
+    TARGET_ITEM_CHOSEN = auto()     # Player chooses one item in play
+    TARGET_LOCATION_CHOSEN = auto() # Player chooses one location in play
+    TARGET_CARD_IN_PLAY_CHOSEN = auto() # Player chooses any card type in play
+    TARGET_CARD_IN_HAND_CHOSEN = auto() # Player chooses card(s) from a specific hand
+    TARGET_CARD_IN_DISCARD_CHOSEN = auto()# Player chooses card(s) from a specific discard pile
+    TARGET_CARD_IN_INKWELL_CHOSEN = auto()# Player chooses card(s) from a specific inkwell
+
+    # Opponent Choice Targets
+    OPPONENT_CHOOSES_CHARACTER = auto() # Opponent chooses one of their characters
+    OPPONENT_CHOOSES_ITEM = auto()      # Opponent chooses one of their items
+    OPPONENT_CHOOSES_LOCATION = auto()  # Opponent chooses one of their locations
+    OPPONENT_CHOOSES_CARD_IN_PLAY = auto()# Opponent chooses one of their cards in play
+    OPPONENT_CHOOSES_CARD_IN_HAND = auto()# Opponent chooses card(s) from their hand
+    OPPONENT_CHOOSES_CARD_IN_DISCARD = auto()# Opponent chooses card(s) from their discard
+
+    # Group Targets (Affects all matching cards without choice)
     ALL_OWN_CHARACTERS = auto()
     ALL_OWN_ITEMS = auto()
+    ALL_OWN_LOCATIONS = auto()
+    ALL_OWN_CARDS_IN_PLAY = auto()
     ALL_OPPONENT_CHARACTERS = auto()
     ALL_OPPONENT_ITEMS = auto()
-    ALL_CHARACTERS = auto()     # All characters in play (own and opponent's)
+    ALL_OPPONENT_LOCATIONS = auto()
+    ALL_OPPONENT_CARDS_IN_PLAY = auto()
+    ALL_CHARACTERS = auto()             # All characters in play (own and opponent's)
     ALL_ITEMS = auto()
+    ALL_LOCATIONS = auto()
+    ALL_CARDS_IN_PLAY = auto()
 
-    # --- Special Targets ---
-    DAMAGED_CHARACTER = auto()  # Often used with specific effects like healing
-    CHARACTER_WITH_KEYWORD = auto() # Filter target selection
-    EXERTED_CHARACTER = auto()
-    READY_CHARACTER = auto()
-    CARD_TYPE = auto()          # e.g., Target an Action card
+    # Location-Relative Targets
+    CHARACTER_AT_THIS_LOCATION = auto() # A character at the location generating the effect
+    CHARACTER_AT_OTHER_LOCATION = auto()# A character at a different location
+    ALL_CHARACTERS_AT_LOCATION = auto() # All characters at a specific location (own, opponent's, or both - often needs parameters)
 
-    # --- Meta ---
-    EFFECT_GENERATOR = auto() # Targets the source of the effect (e.g., for costs)
-    NONE = auto()               # Effect doesn't target anything specific (e.g. Draw Card)
-    OTHER = auto()
+    # Zone/Position Targets
+    TOP_CARD_OF_DECK = auto()
+    BOTTOM_CARD_OF_DECK = auto()
+
+    # Contextual Targets (depend on the current game action)
+    CARD_BEING_PLAYED = auto()          # The card currently being resolved/played (e.g., for cost mods)
+    LOOKED_AT_CARDS = auto()            # Cards revealed by a LOOK_AT_TOP_CARDS effect
+    CHALLENGING_CHARACTER = auto()      # The character initiating the current challenge
+    DEFENDING_CHARACTER = auto()        # The character being challenged
+
+    # --- Special / Filter Targets (Often used as parameters rather than distinct types) ---
+    # It's generally better to use parameters on broader types like TARGET_CHARACTER_CHOSEN
+    # Examples (Can be handled by parameters):
+    # DAMAGED_CHARACTER = auto()
+    # EXERTED_CHARACTER = auto()
+    # READY_CHARACTER = auto()
+    # CHARACTER_WITH_KEYWORD = auto()
+    # CHARACTER_WITH_CLASSIFICATION = auto()
+
+    # --- No specific target (effect applies globally or to the game state) ---
+    NONE = auto()
+    OTHER = auto() # Catch-all
+
+# Example of parameter usage (conceptual):
+# Effect(effect_type=EffectType.DEAL_DAMAGE,
+#        target=TargetType.TARGET_CHARACTER_CHOSEN,
+#        parameters={'amount': 2, 'filter': {'max_cost': 3, 'color': 'Ruby'}})
+#
+# Effect(effect_type=EffectType.MOVE_TO_ZONE,
+#        target=TargetType.LOOKED_AT_CARDS,
+#        parameters={'source_zone': 'deck_top_N', 'destination_zone': 'discard', 'filter': {'type': 'Action', 'match': False}}) # Move non-Actions

@@ -1,7 +1,7 @@
 import json
 import os
 import re
-from CardEffects.TextPatterns import PATTERNS, EFFECT_PATTERNS, KEYWORD_PATTERNS
+from CardEffects.ability_parser import PATTERNS, EFFECT_PATTERNS, KEYWORD_PATTERNS
 
 
 def load_cards(json_file_path):

@@ -32,6 +32,14 @@ def clean_body_text(text):
 	# Remove any redundant newlines that might have been created
 	text = re.sub(r'\n\s*\n', '\n', text)
 
+	text = re.sub(r'\n', ' ', text)
+
+	text = re.sub(r'{i}', ' ink', text)
+	text = re.sub(r'{w}', ' willpower', text)
+	text = re.sub(r'{s}', ' strength', text)
+	text = re.sub(r'{l}', ' lore', text)
+	text = re.sub(r'{e}', ' exert', text)
+
 	return text.strip()
 
 
