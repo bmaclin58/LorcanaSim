@@ -2,6 +2,8 @@ import json
 import os
 import re
 
+import unicodedata
+
 # Get the parent directory of the script's directory
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)  # This goes up one level to the parent directory
@@ -15,34 +17,48 @@ def clean_body_text(text):
     if not text:
         return text
 
-    # Remove text between parentheses
-    text = re.sub(r'\([^)]*\)', '', text)
+    text = re.sub(r"(?mi)^[ \t]*Shift\s+\d+\s*(?:\r?\n)?", "", text)
 
-    # Specific pattern for abilities followed by a colon
-    # Match a word or phrase at the start of a line or after a newline, followed by a colon and whitespace
-    text = re.sub(r'(^|\n)([^:\n]+):\s*', r'\1', text)
+    # 1) Remove any line that starts with one of these keywords + parentheses
+    keyword_pattern = (
+        r"(?:Evasive|Bodyguard|Rush|Ward|Vanish|Support|"
+        r"Challenger \+\d+|Resist \+\d+|Singer \d+|Shift \d+|Reckless|Universal Shift \d+|Sing Together \d+)"
+    )
+    text = re.sub(rf"(?mi)^[ \t]*{keyword_pattern}\s*\([^)]*\)\s*(?:\r?\n)?", "", text)
 
-    # Specific pattern for abilities followed by a dash
-    # Match a word or phrase at the start of a line or after a newline, followed by a dash and whitespace
-    text = re.sub(r'(^|\n)([^-\n]+)-\s*', r'\1', text)
+    # 2) Strip off any "Label: " at the start of a line
+    text = re.sub(r"(?m)^[ \t]*[^:\n]+:\s*", "", text)
 
-    # Replace patterns like "Trapped! " at the start of a line or after newline
-    text = re.sub(r'(^|\n)(\w+)!\s*', r'\1', text)
+    # 3) Strip off any ALL-CAPS prefix before a dash
+    text = re.sub(r"(?m)^[ \t]*(?:[A-Z0-9 ']+)[-–]\s*", "", text)
 
-    # Remove any redundant newlines that might have been created
-    text = re.sub(r'\n\s*\n', '\n', text)
+    # 4) Collapse multiple blank lines
+    text = re.sub(r"\n{2,}", "\n", text)
 
-    text = re.sub(r"\n", ' ', text)
-    text = re.sub(r'\n*', ' ', text)
+    # 5) Merge all remaining line-breaks into spaces
+    text = re.sub(r"\s*\r?\n\s*", " ", text)
 
-    text = re.sub(r'{i}', ' ink', text)
-    text = re.sub(r'{w}', ' willpower', text)
-    text = re.sub(r'{s}', ' strength', text)
-    text = re.sub(r'{l}', ' lore', text)
-    text = re.sub(r'{e}', ' exert', text)
+    # 6) Remove **all** parenthetical text
+    text = re.sub(r"\s*\([^)]*\)", "", text)
+
+    # 7) Remove any leading ALL-CAPS phrase (words/spaces/digits/apostrophes)
+    text = re.sub(r"^(?:\s*\b[A-Z0-9']+\b\s*)+", "", text)
+
+    # 8) Normalize Unicode punctuation → ASCII
+    text = unicodedata.normalize("NFKC", text)
+    text = re.sub(r"[‘’]", "'", text)
+    text = re.sub(r"[“”]", '"', text)
+    text = text.encode("ascii", "ignore").decode("ascii")
+
+    # 9) Your symbol replacements
+    text = re.sub(r"{i}", "ink", text)
+    text = re.sub(r"{w}", " willpower", text)
+    text = re.sub(r"{s}", " strength", text)
+    text = re.sub(r"{l}", " lore", text)
+    text = re.sub(r"{e}", " exert", text)
+    text = re.sub(r"^[?]+\s*", "", text)
 
     return text.strip()
-
 
 def create_smaller_json(input_file, output_file):
 	try:

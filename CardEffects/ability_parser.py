@@ -4,186 +4,215 @@ from typing import List, Optional, Dict, Any
 from CardEffects.ability import Ability, AbilityCost, Effect
 from CardEffects.effects_Definitions import EffectType, TargetType, TriggerCondition
 
-# --- Regex Patterns for parsing costs ---
-EXERT_COST_REGEX = re.compile(r"{e}", re.IGNORECASE)
-INK_COST_REGEX = re.compile(r"(?P<ink_cost>\d+)\s*{i}", re.IGNORECASE)
-
-# --- Optimized Trigger/Ability Structure Patterns ---
-OPTIMIZED_PATTERNS = [
+# --- Trigger Parsing Patterns ---
+PATTERNS = [
+    # 1. Activated (manual-cost) abilities
     # Activated Abilities with costs
     {
         "regex": re.compile(
-                r"^(?P<cost_text>.*?)-\s*(?P<effect_text>.*)", re.IGNORECASE | re.DOTALL
-                ),
+            r"^(?P<cost_text>.*?)-\s*(?P<effect_text>.*)", re.IGNORECASE | re.DOTALL
+        ),
         "trigger": TriggerCondition.ACTIVATED,
         "has_cost": True,
-        },
-    
-    # All "When/Whenever" triggered abilities
+    },
     {
         "regex": re.compile(
-                r"^(When|Whenever) (you play this character|this character (quests|challenges another character|is challenged|is banished|moves to a location|sings a song)|one of your (other )?characters (is banished|sings a song)|you ready this character|one or more of your characters sings a song|an opponent plays a song|a character with \d+ strength or more challenge another character),?\s*(?P<effect_text>.*)",
-                re.IGNORECASE | re.DOTALL,
-                ),
-        "trigger": TriggerCondition.DYNAMIC_TRIGGER,
+            r"^(?P<cost>(?:exert|shift|\d+ink|Banish[^-]+))(?:[, ]+-)\s*(?P<effect>.*)$",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ACTIVATED,
+        "has_cost": True,
+    },
+    # 2. On-Play effects
+    {
+        "regex": re.compile(
+            r"^When you play (?:this character|an action|an item|a location),?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ON_PLAY,
         "has_cost": False,
-        "dynamic_mapping": {
-            "you play this character": TriggerCondition.ON_PLAY,
-            "this character quests": TriggerCondition.ON_QUEST,
-            "this character challenges another character": TriggerCondition.ON_CHALLENGE,
-            "this character is challenged": TriggerCondition.ON_BEING_CHALLENGED,
-            "this character is banished": TriggerCondition.ON_BANISH,
-            "this character moves to a location": TriggerCondition.ON_MOVE_TO_LOCATION,
-            "this character sings a song": TriggerCondition.ON_SING,
-            "one of your other characters is banished": TriggerCondition.ON_CHARACTER_LEAVES_PLAY,
-            "you ready this character": TriggerCondition.ON_READY,
-            "one of your characters sings a song": TriggerCondition.GENERAL_WHENEVER,
-            "one or more of your characters sings a song": TriggerCondition.GENERAL_WHENEVER,
-            "an opponent plays a song": TriggerCondition.ON_OPPONENT_PLAYS_SONG,
-            "a character with": TriggerCondition.ON_CHALLENGE, # Location-specific challenge
-            },
-        },
-    
+    },
+    # 3a. Quest triggers
+    {
+        "regex": re.compile(
+            r"^Whenever this character quests,?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ON_QUEST,
+        "has_cost": False,
+    },
+    # 3b. Challenge triggers
+    {
+        "regex": re.compile(
+            r"^Whenever this character challenges another character,?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ON_CHALLENGE,
+        "has_cost": False,
+    },
+    # 3c. Being challenged
+    {
+        "regex": re.compile(
+            r"^Whenever this character is challenged,?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ON_BEING_CHALLENGED,
+        "has_cost": False,
+    },
+    # 3d. Banish triggers
+    {
+        "regex": re.compile(
+            r"^Whenever this character is banished,?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ON_BANISH,
+        "has_cost": False,
+    },
+    # 3e. Ready triggers
+    {
+        "regex": re.compile(
+            r"^Whenever you ready this character,?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.ON_READY,
+        "has_cost": False,
+    },
     # Time-based triggers (start/end of turn)
     {
         "regex": re.compile(
-                r"^At the (start|end) of your turn,?\s*(?P<effect_text>.*)",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^At the (start|end) of your turn,?\s*(?P<effect_text>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.DYNAMIC_TURN_TRIGGER,
         "has_cost": False,
         "dynamic_mapping": {
             "start": TriggerCondition.START_OF_TURN,
             "end": TriggerCondition.END_OF_TURN,
-            },
         },
-    
+    },
+    # 5. “Whenever a card event” (inkwell/draw/discard/damage)
+    {
+        "regex": re.compile(
+            r"^Whenever (?:a card is put into your inkwell|you draw a card|you remove \d+ damage|you discard).*?,?\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.GENERAL_WHENEVER,
+        "has_cost": False,
+    },
+    # 6a. “While” continuous conditions
+    {
+        "regex": re.compile(
+            r"^While (?:you have|you have more|this character has)[^,]+,\s*(?P<effect>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.DYNAMIC_CONDITION,
+        "has_cost": False,
+    },
     # Conditional phrases (During/While)
     {
         "regex": re.compile(
-                r"^(During|While) (your turn|an opponent's turn|this character is at a location|this character is exerted|this character (?P<condition>.*?)),?\s*(?P<effect_text>.*)",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^(During|While) (your turn|an opponent's turn|this character is at a location|this character is exerted|this character (?P<condition>.*?)),?\s*(?P<effect_text>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.DYNAMIC_CONDITION,
         "has_cost": False,
         "dynamic_mapping": {
             "your turn": TriggerCondition.ON_YOUR_TURN,
             "an opponent's turn": TriggerCondition.DURING_TURN,
             "this character is at a location": TriggerCondition.WHILE_AT_LOCATION,
-            },
         },
-    
+    },
+    # 6b. Static keyword grants / continuous buffs
+    {
+        "regex": re.compile(
+            r"^(Your [A-Za-z ]+ characters get [+-]\d+ [A-Za-z ]+)\.?$", re.IGNORECASE
+        ),
+        "trigger": TriggerCondition.STATIC_BONUS,
+        "has_cost": False,
+    },
     # "Once per/during" triggers
     {
         "regex": re.compile(
-                r"^Once (per|during) your turn,\s*(?P<effect_text>.*)",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^Once (per|during) your turn,\s*(?P<effect_text>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.ONCE_PER_TURN,
         "has_cost": False,
-        },
-    
-    # Single and multiple keywords
-    {
-        "regex": re.compile(
-                r"^(?P<keyword1>Evasive|Bodyguard|Rush|Ward|Vanish|Support|Challenger\s*\+\d+|Resist\s*\+\d+|Singer\s*\d+|Shift\s*\d+|Reckless|Sing Together\s*\d+)(?:\s+|\\n)?(?P<keyword2>Evasive|Bodyguard|Rush|Ward|Vanish|Support|Challenger\s*\+\d+|Resist\s*\+\d+|Singer\s*\d+|Shift\s*\d+|Reckless)?$",
-                re.IGNORECASE | re.DOTALL,
-                ),
-        "trigger": TriggerCondition.DYNAMIC_KEYWORD,
-        "has_cost": False,
-        "dynamic_handler": "handle_keywords",
-        },
-    
+    },
     # All character bonuses
     {
         "regex": re.compile(
-                r"^(Your other characters|This character|Your (?P<character_type>\w+) characters|Chosen character) (get|gets|gain|gains) (?P<bonus>\+\d+\s+(?P<stat>\w+)|(?P<keyword>Challenger \+\d+|Resist \+\d+|Rush|Evasive|Bodyguard|Ward|Vanish|Support|Reckless))(\s+(this turn|until the start of your next turn))?",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^(Your other characters|This character|Your (?P<character_type>\w+) characters|Chosen character) (get|gets|gain|gains) (?P<bonus>\+\d+\s+(?P<stat>\w+)|(?P<keyword>Challenger \+\d+|Resist \+\d+|Rush|Evasive|Bodyguard|Ward|Vanish|Support|Reckless))(\s+(this turn|until the start of your next turn))?",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.DYNAMIC_BONUS,
         "has_cost": False,
         "dynamic_handler": "handle_character_bonus",
-        },
-    
+    },
     # Conditional effects
     {
         "regex": re.compile(
-                r"^(If|While) (you have (?P<condition>.*?)|the challenging character has (?P<challenge_condition>.*?)),\s*(?P<effect_text>.*)",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^(If|While) (you have (?P<condition>.*?)|the challenging character has (?P<challenge_condition>.*?)),\s*(?P<effect_text>.*)",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.CONDITIONAL_EFFECT,
         "has_cost": False,
-        },
-    
+    },
     # Enters play and other similar effects
     {
         "regex": re.compile(
-                r"^This character (enters play|can't be challenged) (?P<effect_text>.*)?",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^This character (enters play|can't be challenged) (?P<effect_text>.*)?",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.DYNAMIC_CHARACTER_STATE,
         "has_cost": False,
         "dynamic_mapping": {
             "enters play": TriggerCondition.ENTERS_PLAY_EFFECT,
             "can't be challenged": TriggerCondition.PROTECTION_CHALLENGE,
-            },
         },
-    
-    # Cost reduction patterns
+    },
     {
         "regex": re.compile(
-                r"^(For each (?P<condition>.*?), you pay (?P<amount>\d+)\s*\{[a-z]} less to play this character|Sing Together (?P<sing_cost>\d+))",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^For each (?P<condition>.+?),\s*you pay\s*(?P<amount>\d+)\s*ink\s*less\s*(?P<effect>.+)$",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.STATIC_COST_MODIFIER,
         "has_cost": False,
-        "dynamic_mapping": {
-            "For each": TriggerCondition.COST_REDUCTION,
-            "Sing Together": TriggerCondition.SING_TOGETHER,
-            },
-        },
-    
+    },
     # Action card effects
     {
         "regex": re.compile(
-                r"^(Deal \d+ damage to chosen (character|location)|Remove up to \d+ damage from chosen (character|location)|Draw \d+ Cards|Banish chosen character|Chosen exerted character can't ready at the start of their next turn|Discard \d+ cards|Put all opposing characters with \d+ strength or less on the bottom of their player's decks)$",
-                re.IGNORECASE | re.DOTALL,
-                ),
+            r"^(Deal \d+ damage to chosen (character|location)|Remove up to \d+ damage from chosen (character|location)|Draw \d+ Cards|Banish chosen character|Chosen exerted character can't ready at the start of their next turn|Discard \d+ cards|Put all opposing characters with \d+ strength or less on the bottom of their player's decks)$",
+            re.IGNORECASE | re.DOTALL,
+        ),
         "trigger": TriggerCondition.SIMPLE_ACTION_EFFECT,
         "has_cost": False,
-        },
-    
-    # Named character effects
-    {
-        "regex": re.compile(
-                r"^Your characters named (?P<character_name>\w+) (gain|get) (?P<effect>.*?)$",
-                re.IGNORECASE | re.DOTALL,
-                ),
-        "trigger": TriggerCondition.NAMED_CHARACTER_EFFECT,
-        "has_cost": False,
-        },
-    
+    },
     # Win condition modifier
     {
         "regex": re.compile(
-                r"^Opponents (need \d+ lore to win the game|can't play actions)\.",
-                re.IGNORECASE | re.DOTALL
-                ),
-        "trigger": TriggerCondition.DYNAMIC_PREVENTION,
+            r"^Opponents (need \d+ lore to win the game)\.",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.WIN_CONDITION_MODIFIER,
         "has_cost": False,
-        "dynamic_mapping": {
-            "need": TriggerCondition.WIN_CONDITION_MODIFIER,
-            "can't play actions": TriggerCondition.PREVENT_PLAY,
-            },
-        },
-    
-    # Passive/Continuous (catch-all)
+    },
+    # Named character effects
     {
-        "regex": re.compile(r"^(?P<effect_text>.*)", re.IGNORECASE | re.DOTALL),
-        "trigger": TriggerCondition.CONTINUOUS,
+        "regex": re.compile(
+            r"^Your characters named (?P<character_name>\w+) (gain|get) (?P<effect>.*?)$",
+            re.IGNORECASE | re.DOTALL,
+        ),
+        "trigger": TriggerCondition.NAMED_CHARACTER_EFFECT,
         "has_cost": False,
-        },
-    ]
+    },
+    # 7. Catch-all
+    {
+        "regex": re.compile(r"^(?P<effect>.*)$", re.IGNORECASE | re.DOTALL),
+        "trigger": TriggerCondition.OTHER,
+        "has_cost": False,
+    },
+]
 
 # --- Effect Parsing Patterns ---
 EFFECT_PATTERNS = [
@@ -193,8 +222,7 @@ EFFECT_PATTERNS = [
         'effect_type': EffectType.DRAW_CARD,
         'target': TargetType.SELF_PLAYER,
         'params': {'amount': 1}
-        },
-    
+    },
     # Gain lore
     {
         'regex': re.compile(r"gain (?P<amount>\d+) lore", re.IGNORECASE),
@@ -399,42 +427,6 @@ def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
     
     return result
 
-def parse_cost(cost_text: str) -> Optional[AbilityCost]:
-    """Parses standard {e} and ink costs from a string segment."""
-    if not cost_text:
-        return None
-    
-    cost = AbilityCost()
-    cost_text = cost_text.strip()
-    
-    # Check for exert cost
-    if EXERT_COST_REGEX.search(cost_text):
-        cost.exert_self = True
-        # Remove {e} part for ink parsing
-        cost_text = EXERT_COST_REGEX.sub('', cost_text).strip(' ,')
-    
-    # Check for ink cost
-    ink_match = INK_COST_REGEX.search(cost_text)
-    if ink_match:
-        cost.ink_cost = int(ink_match.group('ink_cost'))
-    
-    # Basic check if any cost was actually found
-    if cost.ink_cost > 0 or cost.exert_self:
-        return cost
-    else:
-        # Check for non-standard costs mentioned
-        lower_text = cost_text.lower()
-        if "discard a card" in lower_text:
-            cost.discard_card = True
-        if "damage this character" in lower_text or "deal damage to this character" in lower_text:
-            cost.damage_card = True
-        if "banish a character" in lower_text or "banish this character" in lower_text:
-            cost.banish_card = True
-        
-        if cost.discard_card or cost.damage_card or cost.banish_card:
-            return cost
-    
-    return None # No parsable cost found
 
 def parse_effects(effect_text: str) -> List[Effect]:
     """
@@ -791,7 +783,8 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
 if __name__ == '__main__':
     # Test cases from the card examples
     print("=== Testing Card Parsing ===")
-
+    
+'''
     # Example 1: Tiana - Celebrating Princess
     tiana_body = "While this character is exerted and you have no cards in your hand, opponents can't play actions."
     tiana_abilities = "Resist +2"
@@ -831,3 +824,4 @@ if __name__ == '__main__':
     duckling_parsed = parse_abilities(duckling_body, duckling_abilities)
     for ability in duckling_parsed:
         print(ability)
+'''

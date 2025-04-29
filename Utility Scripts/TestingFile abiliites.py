@@ -3,7 +3,7 @@ import os
 from typing import Dict, List, Optional, Any
 
 from CardEffects.ability import Ability, AbilityCost, Effect
-from CardEffects.ability_parser import parse_abilities
+from CardEffects.ability_parser import parse_Keyword_ability
 
 
 def load_card_database(file_path: str) -> List[Dict[str, Any]]:
@@ -13,8 +13,7 @@ def load_card_database(file_path: str) -> List[Dict[str, Any]]:
 
 
 def find_card_by_id(
-    card_database: List[Dict[str, Any]], unique_id: str
-) -> Optional[Dict[str, Any]]:
+    card_database: List[Dict[str, Any]], unique_id: str) -> Optional[Dict[str, Any]]:
     """Find a specific card by its Unique ID."""
     for card in card_database:
         if card.get("Unique_ID") == unique_id:
@@ -26,7 +25,7 @@ def parse_card_abilities(card: Dict[str, Any]) -> List[Ability]:
     """Parse the abilities and effects for a specific card."""
     body_text = card.get("Body_Text")
     abilities_text = card.get("Abilities")
-    return parse_abilities(body_text, abilities_text)
+    return parse_Keyword_ability(body_text, abilities_text)
 
 
 def test_card_abilities(unique_id: str) -> None:
