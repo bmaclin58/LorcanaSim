@@ -427,7 +427,6 @@ def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
     
     return result
 
-
 def parse_effects(effect_text: str) -> List[Effect]:
     """
     Parses the effect description text into a list of Effect objects.
@@ -648,136 +647,11 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
                 continue
             
             # Match against pattern dictionary
-            for pattern in OPTIMIZED_PATTERNS:
-                match = pattern['regex'].match(chunk)
-                if match:
-                    # Get basic trigger type (might be dynamic)
-                    trigger = pattern['trigger']
-                    cost = None
-                    effect_text = ""
-                    
-                    # Extract effect text if present
-                    if 'effect_text' in match.groupdict() and match.group('effect_text'):
-                        effect_text = match.group('effect_text').strip()
-                    else:
-                        # Use the whole chunk if no specific effect text
-                        effect_text = chunk
-                    
-                    # Parse cost for activated abilities
-                    if pattern['has_cost']:
-                        cost_text = ""
-                        if 'cost_text' in match.groupdict() and match.group('cost_text'):
-                            cost_text = match.group('cost_text').strip()
-                        cost = parse_cost(cost_text)
-                    
-                    # Check for dynamic trigger mapping
-                    if trigger in [TriggerCondition.DYNAMIC_TRIGGER, TriggerCondition.DYNAMIC_TURN_TRIGGER,
-                                   TriggerCondition.DYNAMIC_CONDITION, TriggerCondition.DYNAMIC_CHARACTER_STATE,
-                                   TriggerCondition.DYNAMIC_PREVENTION, ]:
-                        if 'dynamic_mapping' in pattern:
-                            # Look for matches in the mapped patterns
-                            for key, mapped_trigger in pattern['dynamic_mapping'].items():
-                                if key in chunk.lower():
-                                    trigger = mapped_trigger
-                                    break
-                    
-                    # Special handlers
-                    params = {}
-                    if 'dynamic_handler' in pattern:
-                        handler_name = pattern['dynamic_handler']
-                        
-                        # Call the appropriate handler
-                        if handler_name == 'handle_keywords':
-                            result = handle_keywords({'parameters': {}}, match)
-                            # Update trigger and parameters
-                            trigger = result.get('trigger', trigger)
-                            params = result.get('parameters', {})
-                            
-                            # Special case: If multiple keywords, create separate abilities
-                            if trigger == TriggerCondition.MULTIPLE_KEYWORDS and 'keywords' in result:
-                                for keyword_info in result.get('keywords', []):
-                                    keyword_trigger = keyword_info.get('trigger', TriggerCondition.KEYWORD_ONLY)
-                                    keyword_value = keyword_info.get('value')
-                                    keyword_name = keyword_info.get('keyword', 'Unknown')
-                                    
-                                    keyword_params = {'keyword': keyword_name}
-                                    if keyword_value is not None:
-                                        keyword_params['value'] = keyword_value
-                                    
-                                    # Create the effect
-                                    keyword_effect = Effect(
-                                            effect_type=EffectType.GRANT_KEYWORD,
-                                            target=TargetType.SELF_CARD,
-                                            parameters=keyword_params
-                                            )
-                                    
-                                    # Add the keyword ability
-                                    parsed_abilities.append(Ability(
-                                            trigger=keyword_trigger,
-                                            effects=[keyword_effect],
-                                            cost=None,
-                                            source_text=chunk
-                                            ))
-                                
-                                # Skip main ability creation since we've created separate ones
-                                processed_text_segments.add(chunk)
-                                continue
-                        
-                        elif handler_name == 'handle_character_bonus':
-                            result = handle_character_bonus({
-                                'parameters': {},
-                                'effect_type': EffectType.OTHER,
-                                'target': TargetType.NONE
-                                }, match)
-                            
-                            # Create effect from handler result
-                            bonus_effect = Effect(
-                                    effect_type=result.get('effect_type', EffectType.MODIFY_STATS),
-                                    target=result.get('target', TargetType.SELF_CARD),
-                                    parameters=result.get('parameters', {})
-                                    )
-                            
-                            # Update the trigger
-                            trigger = result.get('trigger', trigger)
-                            
-                            # Create and add the ability
-                            parsed_abilities.append(Ability(
-                                    trigger=trigger,
-                                    effects=[bonus_effect],
-                                    cost=None,
-                                    source_text=chunk
-                                    ))
-                            
-                            processed_text_segments.add(chunk)
-                            continue
-                    
-                    # Parse effects
-                    effects = parse_effects(effect_text)
-                    
-                    # If no effects found but text exists, create a generic effect
-                    if not effects and effect_text:
-                        effects = [Effect(
-                                effect_type=EffectType.OTHER,
-                                target=TargetType.NONE,
-                                parameters={'raw_text': effect_text, **params}
-                                )]
-                    
-                    # Add parameters to effects if provided
-                    for effect in effects:
-                        effect.parameters.update(params)
-                    
-                    # Create the ability
-                    parsed_abilities.append(Ability(
-                            trigger=trigger,
-                            effects=effects,
-                            cost=cost,
-                            source_text=chunk
-                            ))
-                    
-                    processed_text_segments.add(chunk)
-                    break
     
     return parsed_abilities
+
+def parse_Keyword_ability ():
+
 
 # --- Example Usage ---
 if __name__ == '__main__':

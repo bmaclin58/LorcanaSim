@@ -1,6 +1,30 @@
 import json
-from typing import List, Optional
-from effects import EffectData
+
+
+def create_Card_Database ():
+    card_data_file = "lorcana_cards_simplified.json"
+    card_database = {}
+    with open(card_data_file, "r", encoding="utf-8") as f:
+        card_data = json.load(f)
+
+    for card in card_data:
+        cardID = card.get("Unique_ID")
+
+        card_database[cardID] = {
+            "Name":     card.get("Name"),
+            "Color":    card.get("Color"),
+            "Cost":     card.get("Cost"),
+            "Inkable":  card.get("Inkable"),
+            "Type":     card.get("Type"),
+            "Body_Text": card.get("Body_Text"),
+            "Abilities": card.get("Abilities"),
+            "Willpower": card.get("Willpower"),
+            "Move Cost": card.get("Move Cost"),
+            "Strength":  card.get("Strength"),
+            "Lore":      card.get("Lore"),
+        }
+
+    return card_database
 
 class Card:
     """Represents a single Lorcana card with relevant attributes for simulation."""
@@ -54,8 +78,6 @@ class Card:
             except (ValueError, TypeError):
                 # print(f"Warning: Could not convert Lore '{self.lore}' to int for card '{self.name}'. Setting to None.")
                 self.lore = None
-
-        self.parsed_effects: List[EffectData] = []
 
     def __str__(self) -> str:
         """Provides a user-friendly string representation."""
@@ -133,20 +155,10 @@ def parse_card_data(raw_data_list: list[dict]) -> tuple[dict[str, Card], dict[st
 
 # --- Example usage (demonstrates using fetcher and parser) ---
 if __name__ == "__main__":
-    try:
-        from dataFetcher import fetch_lorcana_data
-    except ImportError:
-        print("Error: dataFetcher.py not found or fetch_lorcana_data function missing.")
-        def fetch_lorcana_data(**kwargs):
-            print("Using dummy fetch_lorcana_data.")
-            # Example structure matching the user's provided data
-            return [
-                {"Unique_ID": "ARI-019", "Name": "Pascal - Garden Chameleon", "Cost": 4, "Inkable": False, "Type": "Character", "Color": "Amber, Amethyst", "Strength": 3, "Willpower": 3, "Lore": 3, "Abilities": "Evasive", "Classifications": "Storyborn, Ally", "Body_Text": "Evasive (...)"},
-                {"Unique_ID": "TFC-173", "Name": "Fire the Cannons!", "Cost": 1, "Inkable": True, "Type": "Action", "Color": "Ruby", "Body_Text": "Deal 2 damage...", "Strength": None, "Willpower": None, "Lore": None},
-            ]
 
-    raw_cards = fetch_lorcana_data()
-
+    raw_cards = create_Card_Database()
+    print(f"Raw Card Data: {raw_cards['ARI-019']}")
+    '''
     if raw_cards:
         all_cards_by_id, all_cards_by_name, all_cards_by_lowercase_name = parse_card_data(raw_cards)
 
@@ -161,7 +173,8 @@ if __name__ == "__main__":
         # Example: Accessing via Name
         pascal_name_key = "Pascal - Garden Chameleon"
         if pascal_name_key in all_cards_by_name:
-             print(f"Access via Name '{pascal_name_key}': {repr(all_cards_by_name[pascal_name_key])}")
+            print(f"Access via Name '{pascal_name_key}': {repr(all_cards_by_name[pascal_name_key])}")
 
     else:
         print("Could not retrieve card data to parse.")
+'''

@@ -17,8 +17,6 @@ def clean_body_text(text):
     if not text:
         return text
 
-    text = re.sub(r"(?mi)^[ \t]*Shift\s+\d+\s*(?:\r?\n)?", "", text)
-
     # 1) Remove any line that starts with one of these keywords + parentheses
     keyword_pattern = (
         r"(?:Evasive|Bodyguard|Rush|Ward|Vanish|Support|"
@@ -30,7 +28,15 @@ def clean_body_text(text):
     text = re.sub(r"(?m)^[ \t]*[^:\n]+:\s*", "", text)
 
     # 3) Strip off any ALL-CAPS prefix before a dash
-    text = re.sub(r"(?m)^[ \t]*(?:[A-Z0-9 ']+)[-–]\s*", "", text)
+    pattern = re.compile(
+        r"""(?mx)          # multi-line, verbose
+        ^[ \t]*            # start of line + optional indent
+        (?=[^a-z]*[-–])    # assert: from here to the dash there are NO lowercase letters
+        [^-–]+[-–]\s*      # consume everything up through the dash + any following space
+        """,
+    )
+
+    text = pattern.sub("", text)
 
     # 4) Collapse multiple blank lines
     text = re.sub(r"\n{2,}", "\n", text)
@@ -49,14 +55,6 @@ def clean_body_text(text):
     text = re.sub(r"[‘’]", "'", text)
     text = re.sub(r"[“”]", '"', text)
     text = text.encode("ascii", "ignore").decode("ascii")
-
-    # 9) Your symbol replacements
-    text = re.sub(r"{i}", "ink", text)
-    text = re.sub(r"{w}", " willpower", text)
-    text = re.sub(r"{s}", " strength", text)
-    text = re.sub(r"{l}", " lore", text)
-    text = re.sub(r"{e}", " exert", text)
-    text = re.sub(r"^[?]+\s*", "", text)
 
     return text.strip()
 
@@ -92,7 +90,7 @@ def create_smaller_json(input_file, output_file):
 					"Body_Text": cleaned_body_text,
 					"Abilities": card.get("Abilities"),
 					"Willpower": card.get("Willpower"),
-					"Move Cost": card.get("Move Cost"),
+					"Move_Cost": card.get("Move_Cost"),
 					"Strength":  card.get("Strength"),
 					"Lore":      card.get("Lore"),
 			}
