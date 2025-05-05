@@ -162,7 +162,7 @@ def clean_body_text(text, classifications):
         return text[first_position:].strip()
     else:
         # No keyword found, return the original text
-        return ""
+        return text
 
 
 def create_smaller_json(input_file, output_file):
