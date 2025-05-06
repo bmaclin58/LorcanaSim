@@ -13,11 +13,27 @@ input_file = os.path.join(parent_dir, "lorcana_cards.json")
 output_file = os.path.join(parent_dir, "lorcana_cards_simplified2.json")
 
 
-def clean_body_text(text, classifications):
+def clean_body_text (text, classifications):
     if not text:
         return text
     
+    # Split the text by newlines first
+    text_parts = text.split('\n')
+    cleaned_parts = []
     
+    # Process each part separately
+    for part in text_parts:
+        cleaned_part = process_text_part(part, classifications)
+        if cleaned_part:  # Only add non-empty parts
+            cleaned_parts.append(cleaned_part)
+    
+    # Join the cleaned parts back together with newlines
+    return ' '.join(cleaned_parts)
+
+
+def process_text_part (text, classifications):
+    if not text:
+        return text
     
     # List of keywords to look for (with space after each word)
     keywords = [
@@ -30,6 +46,7 @@ def clean_body_text(text, classifications):
         "Chosen ",
         "Count the number ",
         "Damaged characters ",
+        "Damage counters ",
         "Deal damage ",
         "During an ",
         "During your ",
@@ -52,6 +69,8 @@ def clean_body_text(text, classifications):
         "Opponents ",
         "Opposing ",
         "Play a ",
+        "Put the top",
+        "Put up to ",
         "Ready all ",
         "Ready chosen ",
         "Remove up to ",
@@ -81,16 +100,17 @@ def clean_body_text(text, classifications):
         "Your other characters ",
         "{e}",
         "{i}",
-    ]
+        ]
     for type in classifications:
         keywords.extend([f"Your {type} characters ",
+                         f"Your other {type} ",
                          f"{type} characters "])
-
+    
     keyword_pattern_numbers = r"\b\d+\s*{i}\b"
     if text:
         matches = re.findall(keyword_pattern_numbers, text)
         keywords.extend(matches)
-        
+    
     numbers_with_keywords = [
         "Deal", "Draw", "Move", "Put", "Gain"
         ]
@@ -101,7 +121,7 @@ def clean_body_text(text, classifications):
         keywords.extend(number_Matches)
     
     # Prep the text
-
+    
     # 1) Remove keywords from the start of a line
     keyword_pattern = (
         r"(?:Evasive|Bodyguard|Rush|Ward|Vanish|Support|Reckless|"  # single word keywords
@@ -110,59 +130,64 @@ def clean_body_text(text, classifications):
         r"Puppy Shift \d+:?|Shift \d+:?|Universal Shift \d+:?)"
     )
     text = re.sub(rf"(?mi)^[ \t]*{keyword_pattern}\s*\([^)]*\)\s*(?:\r?\n)?", "", text)
-
-    # 2) Strip off any "Label: " at the start of a line
-    # text = re.sub(r"(?m)^[ \t]*[^:\n]+:\s*", "", text)
-
+    
+    # Remove ability keywords that might be at the beginning
+    # This pattern will match comma-separated lists of ability keywords
+    ability_keywords = ["Bodyguard", "Support", "Evasive", "Rush", "Ward", "Vanish", "Reckless",
+                        "Challenger", "Resist", "Singer", "Sing Together", "Shift", "Universal Shift", "Puppy Shift"]
+    
+    # Create a pattern that matches one or more ability keywords separated by commas
+    ability_pattern = r"^(?:" + "|".join(ability_keywords) + r")(?:\s*,\s*(?:" + "|".join(ability_keywords) + r"))*\s*-?\s*"
+    text = re.sub(ability_pattern, "", text, flags = re.IGNORECASE)
+    
     # 3) Strip off any ALL-CAPS prefix before a dash
     pattern = re.compile(
-        r"""(?mx)          # multi-line, verbose
+            r"""(?mx)          # multi-line, verbose
            ^[ \t]*            # start of line + optional indent
            (?=[^a-z]*[-–])    # assert: from here to the dash there are NO lowercase letters
            [^-–]+[-–]\s*      # consume everything up through the dash + any following space
            """,
-    )
-
+            )
+    
     text = pattern.sub("", text)
-
+    
     # 4) Collapse multiple blank lines
     text = re.sub(r"\n{2,}", "\n", text)
-
+    
     # 5) Merge all remaining line-breaks into spaces
     text = re.sub(r"\s*\r?\n\s*", " ", text)
-
+    
     # 6) Remove **all** parenthetical text
     text = re.sub(r"\s*\([^)]*\)", "", text)
-
+    
     # 7) Remove any leading ALL-CAPS phrase (words/spaces/digits/apostrophes)
     text = re.sub(r"^(?:\s*\b[A-Z0-9']+\b\s*)+", "", text)
-
+    
     # 8) Normalize Unicode punctuation → ASCII
     text = unicodedata.normalize("NFKC", text)
-    text = re.sub(r"[‘’]", "'", text)
-    text = re.sub(r"[“”]", '"', text)
+
     text = text.replace("\r", "")
     text = text.replace("\n", "")
     text = text.encode("ascii", "ignore").decode("ascii")
-
+    
     # Find the earliest occurrence of any keyword
     first_position = len(text)  # Default to end of text
     found_keyword = None
     text_lower = text.lower()
-
+    
     for keyword in keywords:
         # Search in lowercase text
         position = text_lower.find(keyword.lower())
         if position != -1 and position < first_position:
             first_position = position
             found_keyword = keyword
-
+    
     # If a keyword was found, trim the text using the original position
     if found_keyword:
         return text[first_position:].strip()
     else:
         # No keyword found, return the original text
-        return text
+        return text.strip()
 
 
 def create_smaller_json(input_file, output_file):

@@ -8,7 +8,7 @@ parent_dir = os.path.dirname(
 )  # This goes up one level to the parent directory
 
 # Define the file paths using the parent directory
-input_file = os.path.join(parent_dir, "lorcana_cards_simplified.json")
+input_file = os.path.join(parent_dir, "lorcana_cards_simplified2.json")
 output_file = os.path.join(script_dir,"bodytext.json")
 
 def create_smaller_json(input_file, output_file):
@@ -40,7 +40,7 @@ def create_smaller_json(input_file, output_file):
 
         # Write the simplified data to a new file
         unique_cards = list({c["Body_Text"]: c for c in simplified_cards}.values())
-
+        unique_cards = sorted(unique_cards, key = lambda x: (x["Body_Text"] is None, x["Body_Text"] or ""))
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(unique_cards, f, indent=2)
 
