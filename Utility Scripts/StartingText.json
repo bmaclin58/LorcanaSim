@@ -69,9 +69,6 @@
     "Body_Text": "Choose one:"
   },
   {
-    "Body_Text": "Chosen Character"
-  },
-  {
     "Body_Text": "Chosen character"
   },
   {
@@ -154,6 +151,9 @@
   },
   {
     "Body_Text": "Gain 2"
+  },
+  {
+    "Body_Text": "If It Pleases The Lady:"
   },
   {
     "Body_Text": "If an"

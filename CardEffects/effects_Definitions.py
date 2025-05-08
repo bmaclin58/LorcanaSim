@@ -105,6 +105,7 @@ class EffectType(Enum):
     PLAY_CARD = auto()# Play a card (often from non-hand zone, potentially ignoring cost)
     BANISH_SELF = auto()  # Banish this card (for Vanish keyword)
     PUT_ON_BOTTOM = auto()  # Put cards on the bottom of a deck
+    BANISH_TARGET = auto() # Banish target(s)
 
     # --- In-Play Card State Changes ---
     DEAL_DAMAGE = auto()

@@ -90,7 +90,7 @@
     "Body_Text": "At the start of your turn, if this character is at a location, draw a card and gain 1 lore."
   },
   {
-    "Body_Text": "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} : Reveal the top card of your deck. you may put it into your hand. Otherwise, put it on the top of your deck."
+    "Body_Text": "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} : Reveal the top card of your deck. If it's a Princess or Queen character card, you may put it into your hand. Otherwise, put it on the top of your deck."
   },
   {
     "Body_Text": "At the start of your turn, if you have a character here gain 1 lore."
@@ -775,6 +775,9 @@
   },
   {
     "Body_Text": "Gain 2 lore."
+  },
+  {
+    "Body_Text": "If It Pleases The Lady: When you play this chosen opposing character gets -5{s} until the start of your next turn."
   },
   {
     "Body_Text": "If an effect would cause you to discard one or more cards, you don't discard."
@@ -1849,9 +1852,6 @@
   },
   {
     "Body_Text": "When you play this character, your other characters get +3{s} this turn."
-  },
-  {
-    "Body_Text": "When you play this chosen opposing character gets -5{s} until the start of your next turn."
   },
   {
     "Body_Text": "When you play this each opponent chooses one of their characters and returns that card to their hand."

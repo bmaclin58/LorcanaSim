@@ -15,6 +15,32 @@ PATTERNS = [
         "trigger": TriggerCondition.ACTIVATED,
         "has_cost": True,
     },
+    # All opposing
+    {
+        "regex"   : re.compile(
+                r"^All opposing ?\s*(?P<effect_text>.*)",
+                re.IGNORECASE | re.DOTALL,
+                ),
+        "trigger" : TriggerCondition.START_OF_TURN,
+        "has_cost": False,
+        },
+    # Time-based triggers (start/end of turn)
+    {
+        "regex"   : re.compile(
+                r"^At the start of your turn,?\s*(?P<effect_text>.*)",
+                re.IGNORECASE | re.DOTALL,
+                ),
+        "trigger" : TriggerCondition.START_OF_TURN,
+        "has_cost": False,
+    },
+    {
+        "regex"   : re.compile(
+                r"^At the end of your turn,?\s*(?P<effect_text>.*)",
+                re.IGNORECASE | re.DOTALL,
+                ),
+        "trigger" : TriggerCondition.END_OF_TURN,
+        "has_cost": False,
+    },
     {
         "regex": re.compile(
             r"^(?P<cost>(?:exert|shift|\d+ink|Banish[^-]+))(?:[, ]+-)\s*(?P<effect>.*)$",
@@ -23,6 +49,7 @@ PATTERNS = [
         "trigger": TriggerCondition.ACTIVATED,
         "has_cost": True,
     },
+   
     # 2. On-Play effects
     {
         "regex": re.compile(
@@ -77,19 +104,7 @@ PATTERNS = [
         "trigger": TriggerCondition.ON_READY,
         "has_cost": False,
     },
-    # Time-based triggers (start/end of turn)
-    {
-        "regex": re.compile(
-            r"^At the (start|end) of your turn,?\s*(?P<effect_text>.*)",
-            re.IGNORECASE | re.DOTALL,
-        ),
-        "trigger": TriggerCondition.DYNAMIC_TURN_TRIGGER,
-        "has_cost": False,
-        "dynamic_mapping": {
-            "start": TriggerCondition.START_OF_TURN,
-            "end": TriggerCondition.END_OF_TURN,
-        },
-    },
+    
     # 5. “Whenever a card event” (inkwell/draw/discard/damage)
     {
         "regex": re.compile(
@@ -285,6 +300,14 @@ EFFECT_PATTERNS = [
     {
         'regex': re.compile(r"put (all|the rest|the remaining cards|chosen character) (?P<filter>.*?) (on|in) (the bottom of|your discard|their player's decks)", re.IGNORECASE),
         'effect_type': EffectType.PUT_ON_BOTTOM
+        },
+    # Banish
+    {
+        "regex"   : re.compile(
+                r"^Banish (?:all |any |chosen |one )?\s*(?P<effect>.*)",
+                re.IGNORECASE | re.DOTALL,
+                ),
+        "effect_type" : EffectType.BANISH_TARGET,
         },
     ]
 

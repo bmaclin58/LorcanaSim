@@ -84,6 +84,7 @@ def process_text_part (text, classifications):
         "Exert ",
         "For each ",
         "If an ",
+        "If it",
         "If chosen ",
         "If you have ",
         "If you used ",
