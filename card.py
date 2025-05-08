@@ -2,7 +2,7 @@ import json
 
 
 def create_Card_Database ():
-    card_data_file = "lorcana_cards_simplified2.json"
+    card_data_file = "lorcana_cards_simplified.json"
     card_database = {}
     with open(card_data_file, "r", encoding="utf-8") as f:
         card_data = json.load(f)
