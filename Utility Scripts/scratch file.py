@@ -1,20 +1,20 @@
-text = "Shift: Discard 2 cards (You may discard 2 cards to play this on top of one of your characters named Flotsam or Jetsam.)\n(This character counts as being named both Flotsam and Jetsam.)"
-import re
+import os,re,json
 
-# Keyword pattern with ^ to match at the beginning of lines
-keyword_pattern = (
-	r"^(?:Evasive|Bodyguard|Rush|Ward|Vanish|Support|Reckless|Shift: |"  # single word keywords
-	r"Challenger \+\d+|Resist \+\d+|Challenger\+\d+|"  # + Keywords
-	r"Singer \d+|Sing Together \d+|"  # singing
-	r"Puppy Shift \d+:?|Shift \d+:?|Universal Shift \d+:? )"
-)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+input_file = os.path.join(parent_dir, "lorcana_cards.json")
+with open(input_file, "r", encoding = "utf-8") as f:
+	data = json.load(f)
 
-# Compile the pattern
-pattern = re.compile(keyword_pattern)
-
-# Split the text
-text_parts = text.split('\n')
-
-# Filter out lines that START WITH any of the keywords (notice the NOT operator)
-filtered_parts = [line for line in text_parts if not pattern.match(line)]
-print("Filtered parts:", filtered_parts)
+for card in data:
+	card_Abilities = card.get("Abilities")
+	body_Text = card.get("Body_Text")
+	# Check if "Shift" is present but NOT followed by a number
+	if card_Abilities and "Shift" in card_Abilities and not re.search(r"Shift \d", card_Abilities):
+		matches = re.findall(r":(.*?)\(", body_Text)
+		shift_Extract = f'Shift {matches[0].strip()}'
+		card_Abilities = card_Abilities.replace("Shift", shift_Extract)
+		
+		print(matches)
+		print(shift_Extract)
+		print(card_Abilities)

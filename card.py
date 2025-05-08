@@ -59,6 +59,11 @@ class Card:
         raw_abilities: str | None = card_data.get("Abilities")
         self.abilities: list[str] = [a.strip() for a in raw_abilities.split(',')] if raw_abilities else []
 
+        # --- Parsed Abilities ---
+        self.parsed_abilities = []
+        # We'll parse abilities later to avoid circular imports
+        self._abilities_parsed = False
+
         # --- Sanity check/conversion for numerical stats ---
         if self.strength is not None:
             try:
@@ -92,15 +97,48 @@ class Card:
         """Provides a developer-friendly string representation."""
         return f"<Card(Name='{self.name}', ID='{self.unique_id or 'N/A'}', Cost={self.cost}, Type='{self.type}')>"
 
+    def parse_abilities(self):
+        """
+        Parse the card's body_text and abilities into structured Ability objects.
+        This is done lazily to avoid circular imports.
+        """
+        if self._abilities_parsed:
+            return
+
+        try:
+            # Import here to avoid circular imports
+            from CardEffects.ability_parser import parse_abilities
+
+            # Parse abilities
+            self.parsed_abilities = parse_abilities(self.body_text, ','.join(self.abilities) if self.abilities else None)
+            self._abilities_parsed = True
+        except ImportError:
+            print(f"Warning: Could not import ability parser. Abilities for '{self.name}' will not be parsed.")
+            self._abilities_parsed = True  # Mark as parsed to avoid repeated import attempts
+
+    def get_abilities(self):
+        """
+        Get the card's parsed abilities.
+        Parses them first if they haven't been parsed yet.
+
+        Returns:
+            List of Ability objects
+        """
+        if not self._abilities_parsed:
+            self.parse_abilities()
+        return self.parsed_abilities
+
 # --- Updated Helper function to parse the full list ---
 
-def parse_card_data(raw_data_list: list[dict]) -> tuple[dict[str, Card], dict[str, Card], dict[str, Card]]:
+def parse_card_data(raw_data_list: list[dict], parse_abilities_now: bool = False) -> tuple[dict[str, Card], dict[str, Card], dict[str, Card]]:
     """
     Parses a list of raw card dictionaries into dictionaries of Card objects,
     mapped by Unique_ID, by Name, and by lowercase Name.
 
     Args:
         raw_data_list: A list of dictionaries, where each dict is raw card data.
+        parse_abilities_now: If True, parse abilities for all cards immediately.
+                            If False, abilities will be parsed lazily when needed.
 
     Returns:
         A tuple containing three dictionaries:
@@ -119,6 +157,10 @@ def parse_card_data(raw_data_list: list[dict]) -> tuple[dict[str, Card], dict[st
 
     for card_data in raw_data_list:
         card_obj = Card(card_data)
+
+        # Parse abilities now if requested
+        if parse_abilities_now:
+            card_obj.parse_abilities()
 
         # Map by Unique_ID if available
         if card_obj.unique_id:

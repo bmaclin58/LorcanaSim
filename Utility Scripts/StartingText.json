@@ -1,0 +1,476 @@
+[
+  {
+    "Body_Text": ""
+  },
+  {
+    "Body_Text": "1{i} :"
+  },
+  {
+    "Body_Text": "1{i}, Banish this item :"
+  },
+  {
+    "Body_Text": "2{i} :"
+  },
+  {
+    "Body_Text": "2{i}, Banish this item :"
+  },
+  {
+    "Body_Text": "3{i} :"
+  },
+  {
+    "Body_Text": "All opposing"
+  },
+  {
+    "Body_Text": "At the"
+  },
+  {
+    "Body_Text": "At the start of your turn, choose one:"
+  },
+  {
+    "Body_Text": "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} :"
+  },
+  {
+    "Body_Text": "At the start of your turn, you may choose one:"
+  },
+  {
+    "Body_Text": "Banish all"
+  },
+  {
+    "Body_Text": "Banish any"
+  },
+  {
+    "Body_Text": "Banish chosen"
+  },
+  {
+    "Body_Text": "Banish one"
+  },
+  {
+    "Body_Text": "Banish this item :"
+  },
+  {
+    "Body_Text": "Banish this item:"
+  },
+  {
+    "Body_Text": "Characters can't"
+  },
+  {
+    "Body_Text": "Characters count"
+  },
+  {
+    "Body_Text": "Characters gain"
+  },
+  {
+    "Body_Text": "Characters get"
+  },
+  {
+    "Body_Text": "Characters with"
+  },
+  {
+    "Body_Text": "Choose one:"
+  },
+  {
+    "Body_Text": "Chosen Character"
+  },
+  {
+    "Body_Text": "Chosen character"
+  },
+  {
+    "Body_Text": "Chosen damaged"
+  },
+  {
+    "Body_Text": "Chosen exerted"
+  },
+  {
+    "Body_Text": "Chosen opponent"
+  },
+  {
+    "Body_Text": "Chosen opposing"
+  },
+  {
+    "Body_Text": "Chosen player"
+  },
+  {
+    "Body_Text": "Count the"
+  },
+  {
+    "Body_Text": "Damaged characters"
+  },
+  {
+    "Body_Text": "Deal 1"
+  },
+  {
+    "Body_Text": "Deal 2"
+  },
+  {
+    "Body_Text": "Deal 3"
+  },
+  {
+    "Body_Text": "Deal 5"
+  },
+  {
+    "Body_Text": "Deal damage"
+  },
+  {
+    "Body_Text": "Draw 2"
+  },
+  {
+    "Body_Text": "Draw 3"
+  },
+  {
+    "Body_Text": "Draw a"
+  },
+  {
+    "Body_Text": "During an"
+  },
+  {
+    "Body_Text": "During each"
+  },
+  {
+    "Body_Text": "During opponents'"
+  },
+  {
+    "Body_Text": "During your"
+  },
+  {
+    "Body_Text": "Each Opponent"
+  },
+  {
+    "Body_Text": "Each opponent"
+  },
+  {
+    "Body_Text": "Each player"
+  },
+  {
+    "Body_Text": "Exert all"
+  },
+  {
+    "Body_Text": "Exert chosen"
+  },
+  {
+    "Body_Text": "For each"
+  },
+  {
+    "Body_Text": "Gain 1"
+  },
+  {
+    "Body_Text": "Gain 2"
+  },
+  {
+    "Body_Text": "If an"
+  },
+  {
+    "Body_Text": "If chosen"
+  },
+  {
+    "Body_Text": "If you"
+  },
+  {
+    "Body_Text": "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i}:"
+  },
+  {
+    "Body_Text": "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i}:"
+  },
+  {
+    "Body_Text": "Inventor characters"
+  },
+  {
+    "Body_Text": "Look at"
+  },
+  {
+    "Body_Text": "Move 1"
+  },
+  {
+    "Body_Text": "Move up"
+  },
+  {
+    "Body_Text": "Name a"
+  },
+  {
+    "Body_Text": "Once during"
+  },
+  {
+    "Body_Text": "Once per"
+  },
+  {
+    "Body_Text": "Opponents can't choose your items for abilities or effects. {e} one of your items :"
+  },
+  {
+    "Body_Text": "Opponents need"
+  },
+  {
+    "Body_Text": "Opposing characters"
+  },
+  {
+    "Body_Text": "Opposing damaged"
+  },
+  {
+    "Body_Text": "Play a"
+  },
+  {
+    "Body_Text": "Put 1"
+  },
+  {
+    "Body_Text": "Put all"
+  },
+  {
+    "Body_Text": "Put chosen"
+  },
+  {
+    "Body_Text": "Put the"
+  },
+  {
+    "Body_Text": "Put up"
+  },
+  {
+    "Body_Text": "Queen characters"
+  },
+  {
+    "Body_Text": "Ready all"
+  },
+  {
+    "Body_Text": "Ready chosen"
+  },
+  {
+    "Body_Text": "Remove up"
+  },
+  {
+    "Body_Text": "Return a"
+  },
+  {
+    "Body_Text": "Return an"
+  },
+  {
+    "Body_Text": "Return chosen"
+  },
+  {
+    "Body_Text": "Return up"
+  },
+  {
+    "Body_Text": "Reveal the"
+  },
+  {
+    "Body_Text": "Search your"
+  },
+  {
+    "Body_Text": "Shuffle chosen"
+  },
+  {
+    "Body_Text": "This character"
+  },
+  {
+    "Body_Text": "This character can't challenge. {e} :"
+  },
+  {
+    "Body_Text": "This character can't ready at the start of your turn. 2{i}:"
+  },
+  {
+    "Body_Text": "This item"
+  },
+  {
+    "Body_Text": "This item enters play exerted. {e} :"
+  },
+  {
+    "Body_Text": "This item enters play exerted. {e}, 2{i}, Banish one of your items :"
+  },
+  {
+    "Body_Text": "This turn,"
+  },
+  {
+    "Body_Text": "Up to"
+  },
+  {
+    "Body_Text": "Villain characters gain \"{e}, 3{i} :"
+  },
+  {
+    "Body_Text": "When play"
+  },
+  {
+    "Body_Text": "When this"
+  },
+  {
+    "Body_Text": "When you"
+  },
+  {
+    "Body_Text": "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one:"
+  },
+  {
+    "Body_Text": "When you play this character, choose one:"
+  },
+  {
+    "Body_Text": "When you play this character, if you used Shift to play him, each opponent loses 2 lore. Raging Duck:"
+  },
+  {
+    "Body_Text": "When you play this character, you may pay 2{i} to choose one:"
+  },
+  {
+    "Body_Text": "When you play this character, you may put chosen item or location into its player's inkwell facedown and exerted. 4{i} :"
+  },
+  {
+    "Body_Text": "When you play this item, you may draw a card. 1{i}, Banish this item :"
+  },
+  {
+    "Body_Text": "When you play this item, you may draw a card. Banish this item :"
+  },
+  {
+    "Body_Text": "Whenever a"
+  },
+  {
+    "Body_Text": "Whenever an"
+  },
+  {
+    "Body_Text": "Whenever another"
+  },
+  {
+    "Body_Text": "Whenever he"
+  },
+  {
+    "Body_Text": "Whenever one"
+  },
+  {
+    "Body_Text": "Whenever this"
+  },
+  {
+    "Body_Text": "Whenever you"
+  },
+  {
+    "Body_Text": "Whenever your"
+  },
+  {
+    "Body_Text": "While a"
+  },
+  {
+    "Body_Text": "While an"
+  },
+  {
+    "Body_Text": "While being"
+  },
+  {
+    "Body_Text": "While challenging"
+  },
+  {
+    "Body_Text": "While one"
+  },
+  {
+    "Body_Text": "While this"
+  },
+  {
+    "Body_Text": "While you"
+  },
+  {
+    "Body_Text": "You can't"
+  },
+  {
+    "Body_Text": "You characters"
+  },
+  {
+    "Body_Text": "You may"
+  },
+  {
+    "Body_Text": "You may have up to 99 copies of Dalmatian Puppy :"
+  },
+  {
+    "Body_Text": "You may only have 2 copies of The Glass Slipper in your deck. Banish this item, {e} one of your Prince characters :"
+  },
+  {
+    "Body_Text": "You other"
+  },
+  {
+    "Body_Text": "You pay"
+  },
+  {
+    "Body_Text": "Your Floodborn"
+  },
+  {
+    "Body_Text": "Your Hero"
+  },
+  {
+    "Body_Text": "Your Inventor"
+  },
+  {
+    "Body_Text": "Your Prince"
+  },
+  {
+    "Body_Text": "Your Puppy"
+  },
+  {
+    "Body_Text": "Your Queen"
+  },
+  {
+    "Body_Text": "Your characters"
+  },
+  {
+    "Body_Text": "Your characters gain \"{e}, 1{i} :"
+  },
+  {
+    "Body_Text": "Your characters named Robin Hood may move here for free. Characters gain Ward and \"{e}, 1{i} :"
+  },
+  {
+    "Body_Text": "Your characters with Reckless gain \"{e} :"
+  },
+  {
+    "Body_Text": "Your damaged"
+  },
+  {
+    "Body_Text": "Your exerted"
+  },
+  {
+    "Body_Text": "Your locations"
+  },
+  {
+    "Body_Text": "Your other"
+  },
+  {
+    "Body_Text": "{e} :"
+  },
+  {
+    "Body_Text": "{e} one"
+  },
+  {
+    "Body_Text": "{e}, 1{i} :"
+  },
+  {
+    "Body_Text": "{e}, 1{i}:"
+  },
+  {
+    "Body_Text": "{e}, 2{i} :"
+  },
+  {
+    "Body_Text": "{e}, 2{i}, Banish 2 of your items :"
+  },
+  {
+    "Body_Text": "{e}, 2{i}, Banish this item :"
+  },
+  {
+    "Body_Text": "{e}, 2{i}, Discard a card :"
+  },
+  {
+    "Body_Text": "{e}, 2{i}:"
+  },
+  {
+    "Body_Text": "{e}, 3{i} :"
+  },
+  {
+    "Body_Text": "{e}, 4{i} :"
+  },
+  {
+    "Body_Text": "{e}, Banish one of your items :"
+  },
+  {
+    "Body_Text": "{e}, Banish one of your other characters:"
+  },
+  {
+    "Body_Text": "{e}, Banish this character :"
+  },
+  {
+    "Body_Text": "{e}, Choose and discard a character card :"
+  },
+  {
+    "Body_Text": "{e}, {e} one of you character :"
+  },
+  {
+    "Body_Text": "{e},1{i} :"
+  },
+  {
+    "Body_Text": "{e}:"
+  }
+]

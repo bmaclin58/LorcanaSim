@@ -229,58 +229,58 @@ EFFECT_PATTERNS = [
         'effect_type': EffectType.GAIN_LORE,
         'target': TargetType.SELF_PLAYER
         },
-    
+
     # Lose lore
     {
         'regex': re.compile(r"(each opponent |opponents )?(loses|lose) (?P<amount>\d+) lore", re.IGNORECASE),
         'effect_type': EffectType.LOSE_LORE,
         'target': TargetType.OPPONENT_PLAYER
         },
-    
+
     # Deal damage
     {
         'regex': re.compile(r"deal (?P<amount>\d+) damage to chosen (?P<target_type>character|location)", re.IGNORECASE),
         'effect_type': EffectType.DEAL_DAMAGE
         },
-    
+
     # Heal damage
     {
         'regex': re.compile(r"remove( up to)? (?P<amount>\d+) damage from chosen (?P<target_type>character|location)", re.IGNORECASE),
         'effect_type': EffectType.HEAL_DAMAGE
         },
-    
+
     # Stat modification
     {
         'regex': re.compile(r"(gets|get|gains|gain) (?P<mod>[+\-]\d+) ((\{(?P<stat>[swl])})|((?P<stat_text>strength|willpower|lore)))", re.IGNORECASE),
         'effect_type': EffectType.MODIFY_STATS,
         'target': TargetType.SELF_CARD
         },
-    
+
     # Add keyword
     {
         'regex': re.compile(r"(gains|gain) (?P<keyword>Challenger \+\d+|Resist \+\d+|Rush|Evasive|Bodyguard|Ward|Vanish|Support|Reckless)", re.IGNORECASE),
         'effect_type': EffectType.GRANT_KEYWORD
         },
-    
+
     # Prevent actions
     {
         'regex': re.compile(r"(opponents|chosen character) can't (?P<action>play actions|ready|challenge|be challenged|quest)", re.IGNORECASE),
         'effect_type': EffectType.PREVENT_ACTION
         },
-    
+
     # Look at top cards
     {
         'regex': re.compile(r"look at the top (?P<amount>\d+) cards of (your|an opponent's) deck", re.IGNORECASE),
         'effect_type': EffectType.LOOK_AT_TOP_CARDS
         },
-    
+
     # Play card from zone
     {
         'regex': re.compile(r"(you may )?(reveal|play) (an? )?(?P<card_type>\w+) card( with (?P<condition>.*?))?( and play it( for free)?)?", re.IGNORECASE),
         'effect_type': EffectType.PLAY_CARD,
         'target': TargetType.LOOKED_AT_CARDS
         },
-    
+
     # Bottom of deck effect
     {
         'regex': re.compile(r"put (all|the rest|the remaining cards|chosen character) (?P<filter>.*?) (on|in) (the bottom of|your discard|their player's decks)", re.IGNORECASE),
@@ -313,14 +313,14 @@ def handle_keywords(result: Dict[str, Any], match) -> Dict[str, Any]:
     """
     keyword1 = match.group('keyword1')
     keyword2 = match.group('keyword2') if 'keyword2' in match.groupdict() and match.group('keyword2') else None
-    
+
     # Store all detected keywords
     result["keywords"] = []
-    
+
     # Process first keyword
     keyword_info = process_single_keyword(keyword1)
     result["keywords"].append(keyword_info)
-    
+
     # If there's a second keyword, process it too
     if keyword2:
         result["trigger"] = TriggerCondition.MULTIPLE_KEYWORDS
@@ -332,7 +332,7 @@ def handle_keywords(result: Dict[str, Any], match) -> Dict[str, Any]:
         # Copy any value to the main result
         if "value" in keyword_info:
             result["value"] = keyword_info["value"]
-    
+
     return result
 
 def process_single_keyword(keyword_text: str) -> Dict[str, Any]:
@@ -342,14 +342,14 @@ def process_single_keyword(keyword_text: str) -> Dict[str, Any]:
         "trigger": TriggerCondition.KEYWORD_ONLY,
         "value": None
         }
-    
+
     # Match against known keyword patterns
     for pattern in KEYWORD_PATTERNS:
         match = pattern["regex"].match(keyword_text)
         if match:
             result["keyword"] = pattern["keyword"]
             result["trigger"] = pattern["trigger"]
-            
+
             # Extract value if present
             if pattern["has_value"] and "amount" in match.groupdict():
                 try:
@@ -357,13 +357,13 @@ def process_single_keyword(keyword_text: str) -> Dict[str, Any]:
                 except (ValueError, TypeError):
                     # Couldn't parse value, leave as None
                     pass
-            
+
             break
-    
+
     # If no pattern matched, store the raw text
     if not result["keyword"]:
         result["keyword"] = keyword_text
-    
+
     return result
 
 def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
@@ -371,7 +371,7 @@ def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
     Process character bonus patterns (stat boosts, keyword grants, etc.)
     """
     target_text = match.group(0).lower()
-    
+
     # Determine target
     if "your other characters" in target_text:
         result["trigger"] = TriggerCondition.STATIC_BONUS
@@ -387,17 +387,17 @@ def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
         result["trigger"] = TriggerCondition.CHARACTER_TYPE_EFFECT
         result["target"] = TargetType.ALL_OWN_CHARACTERS
         result["parameters"]["character_type"] = match.group('character_type')
-    
+
     # Extract stat and bonus value if present
     if 'bonus' in match.groupdict() and match.group('bonus'):
         bonus = match.group('bonus')
-        
+
         # Check if it's a keyword grant
         if 'keyword' in match.groupdict() and match.group('keyword'):
             keyword = match.group('keyword')
             result["effect_type"] = EffectType.GRANT_KEYWORD
             result["parameters"]["keyword"] = keyword
-            
+
             # Extract value if the keyword has one (e.g., Challenger +2)
             value_match = re.search(r"\+(\d+)", keyword)
             if value_match:
@@ -405,12 +405,12 @@ def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
         else:
             # It's a stat bonus
             result["effect_type"] = EffectType.MODIFY_STATS
-            
+
             # Extract value
             value_match = re.search(r"\+(\d+)", bonus)
             if value_match:
                 result["parameters"]["modifier"] = int(value_match.group(1))
-            
+
             # Extract stat
             if 'stat' in match.groupdict() and match.group('stat'):
                 stat_map = {'s': 'strength', 'w': 'willpower', 'l': 'lore'}
@@ -418,13 +418,13 @@ def handle_character_bonus(result: Dict[str, Any], match) -> Dict[str, Any]:
                 result["parameters"]["stat"] = stat_map.get(stat, stat)
             elif 'stat_text' in match.groupdict() and match.group('stat_text'):
                 result["parameters"]["stat"] = match.group('stat_text').lower()
-    
+
     # Check for duration
     if "this turn" in target_text:
         result["parameters"]["duration"] = "this_turn"
     elif "until the start of your next turn" in target_text:
         result["parameters"]["duration"] = "until_next_turn"
-    
+
     return result
 
 def parse_effects(effect_text: str) -> List[Effect]:
@@ -433,31 +433,31 @@ def parse_effects(effect_text: str) -> List[Effect]:
     Supports multiple effects in sequence and conditional effects.
     """
     effects: List[Effect] = []
-    
+
     # Skip empty text
     if not effect_text or effect_text.strip() == "":
         return effects
-    
+
     # Clean up the text for parsing
     effect_text = effect_text.strip().rstrip('.')
-    
+
     # Split by periods and semicolons to separate multiple effects
     effect_segments = []
     for sentence in effect_text.split('.'):
         sentence = sentence.strip()
         if not sentence:
             continue
-        
+
         # Further split by semicolons
         for segment in sentence.split(';'):
             segment = segment.strip()
             if segment:
                 effect_segments.append(segment)
-    
+
     # Process each effect segment
     for segment in effect_segments:
         matched = False
-        
+
         # Process conditional effects (If X, then Y)
         if segment.lower().startswith(('if ', 'when ')):
             # Find the condition/effect split
@@ -465,7 +465,7 @@ def parse_effects(effect_text: str) -> List[Effect]:
             if len(parts) > 1:
                 condition_text = parts[0]
                 conditional_effect_text = parts[1]
-                
+
                 # Create a conditional effect wrapper
                 conditional_effect = Effect(
                         effect_type=EffectType.CONDITIONAL,
@@ -475,17 +475,17 @@ def parse_effects(effect_text: str) -> List[Effect]:
                             'nested_effects': parse_effects(conditional_effect_text)
                             }
                         )
-                
+
                 effects.append(conditional_effect)
                 matched = True
-        
+
         # Try to match standard effect patterns
         if not matched:
             for pattern in EFFECT_PATTERNS:
                 match = pattern['regex'].search(segment)
                 if match:
                     effect_type = pattern['effect_type']
-                    
+
                     # Determine target
                     if 'target' in pattern:
                         target_type = pattern['target']
@@ -502,10 +502,10 @@ def parse_effects(effect_text: str) -> List[Effect]:
                         else:
                             # Default target based on effect type
                             target_type = TargetType.SELF_CARD
-                    
+
                     # Build parameters from match groups
                     params = pattern.get('params', {}).copy()
-                    
+
                     for key, value in match.groupdict().items():
                         if value is not None:
                             if key == 'amount':
@@ -534,17 +534,17 @@ def parse_effects(effect_text: str) -> List[Effect]:
                                 params[key] = value.lower()
                             else:
                                 params[key] = value
-                    
+
                     # Create the effect
                     effects.append(Effect(
                             effect_type=effect_type,
                             target=target_type,
                             parameters=params
                             ))
-                    
+
                     matched = True
                     break
-        
+
         # If no pattern matched, create a generic effect
         if not matched and segment:
             effects.append(Effect(
@@ -552,7 +552,7 @@ def parse_effects(effect_text: str) -> List[Effect]:
                     target=TargetType.NONE,
                     parameters={'raw_text': segment}
                     ))
-    
+
     return effects
 
 def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> List[Ability]:
@@ -568,23 +568,23 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
     """
     parsed_abilities: List[Ability] = []
     processed_text_segments = set()  # Avoid processing the same text twice
-    
+
     # Process keywords from abilities_text
     if abilities_text:
         # Split keywords (typically comma-separated)
         keyword_texts = [kw.strip() for kw in abilities_text.split(',') if kw.strip()]
-        
+
         for keyword in keyword_texts:
             if keyword in processed_text_segments:
                 continue
-            
+
             # Try to match against known keyword patterns
             for pattern in KEYWORD_PATTERNS:
                 match = pattern['regex'].fullmatch(keyword)
                 if match:
                     # Get the trigger type
                     trigger = pattern['trigger']
-                    
+
                     # Build parameters
                     params = {}
                     if pattern['has_value'] and 'amount' in match.groupdict():
@@ -592,7 +592,7 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
                             params['amount'] = int(match.group('amount'))
                         except (ValueError, TypeError):
                             pass
-                    
+
                     # Create the keyword effect
                     effects = [Effect(
                             effect_type=EffectType.GRANT_KEYWORD,
@@ -602,7 +602,7 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
                                 **params
                                 }
                             )]
-                    
+
                     # Add the ability
                     parsed_abilities.append(Ability(
                             trigger=trigger,
@@ -610,21 +610,21 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
                             cost=None,
                             source_text=keyword
                             ))
-                    
+
                     processed_text_segments.add(keyword)
                     break
-    
+
     # Process body_text for abilities
     if body_text:
         # First check if body_text is just keywords already processed
         if abilities_text and ''.join(filter(str.isalnum, body_text.lower())) == ''.join(filter(str.isalnum, abilities_text.lower())):
             # Skip body_text processing as it's identical to abilities_text
             return parsed_abilities
-        
+
         # Split body text into potential ability chunks
         # This could be improved with proper sentence parsing
         ability_chunks = []
-        
+
         # Handle possible line breaks
         if '\r\n' in body_text:
             lines = body_text.split('\r\n')
@@ -637,27 +637,186 @@ def parse_abilities(body_text: Optional[str], abilities_text: Optional[str]) -> 
         else:
             # Simple split by period
             ability_chunks = [chunk.strip() for chunk in body_text.split('.') if chunk.strip()]
-        
+
         for chunk in ability_chunks:
             if chunk in processed_text_segments:
                 continue
-            
+
             chunk = chunk.strip()
             if not chunk:
                 continue
-            
+
             # Match against pattern dictionary
-    
+            matched = False
+            for pattern in PATTERNS:
+                match = pattern["regex"].search(chunk)
+                if match:
+                    # Determine the trigger condition
+                    trigger = pattern["trigger"]
+
+                    # Handle dynamic triggers that map to specific conditions
+                    if "dynamic_mapping" in pattern and trigger in [
+                        TriggerCondition.DYNAMIC_TURN_TRIGGER,
+                        TriggerCondition.DYNAMIC_CONDITION,
+                        TriggerCondition.DYNAMIC_CHARACTER_STATE
+                    ]:
+                        # Extract the key from the match
+                        for key, value in pattern["dynamic_mapping"].items():
+                            if key.lower() in chunk.lower():
+                                trigger = value
+                                break
+
+                    # Parse cost if applicable
+                    cost = None
+                    if pattern["has_cost"]:
+                        cost_text = match.group("cost_text") if "cost_text" in match.groupdict() else ""
+                        if not cost_text and "cost" in match.groupdict():
+                            cost_text = match.group("cost")
+
+                        if cost_text:
+                            # Parse the cost text
+                            ink_cost = 0
+                            exert_self = False
+                            discard_card = False
+                            damage_card = False
+                            banish_card = False
+
+                            # Check for ink cost
+                            ink_match = re.search(r"(\d+)\s*\{i\}", cost_text)
+                            if ink_match:
+                                ink_cost = int(ink_match.group(1))
+
+                            # Check for exert
+                            if re.search(r"\{e\}", cost_text) or "exert" in cost_text.lower():
+                                exert_self = True
+
+                            # Check for discard
+                            if "discard" in cost_text.lower():
+                                discard_card = True
+
+                            # Check for damage
+                            if "damage" in cost_text.lower() and "this character" in cost_text.lower():
+                                damage_card = True
+
+                            # Check for banish
+                            if "banish" in cost_text.lower() and "this" in cost_text.lower():
+                                banish_card = True
+
+                            cost = AbilityCost(
+                                ink_cost=ink_cost,
+                                exert_self=exert_self,
+                                discard_card=discard_card,
+                                damage_card=damage_card,
+                                banish_card=banish_card
+                            )
+
+                    # Parse effects
+                    effect_text = ""
+                    if "effect_text" in match.groupdict():
+                        effect_text = match.group("effect_text")
+                    elif "effect" in match.groupdict():
+                        effect_text = match.group("effect")
+                    else:
+                        # Use the whole chunk as the effect text
+                        effect_text = chunk
+
+                    effects = parse_effects(effect_text)
+
+                    # If no effects were parsed but we have text, create a generic effect
+                    if not effects and effect_text:
+                        effects = [Effect(
+                            effect_type=EffectType.OTHER,
+                            target=TargetType.NONE,
+                            parameters={"raw_text": effect_text}
+                        )]
+
+                    # Create the ability
+                    ability = Ability(
+                        trigger=trigger,
+                        effects=effects,
+                        cost=cost,
+                        source_text=chunk
+                    )
+
+                    parsed_abilities.append(ability)
+                    processed_text_segments.add(chunk)
+                    matched = True
+                    break
+
+            # If no pattern matched, create a generic ability
+            if not matched:
+                effects = parse_effects(chunk)
+
+                # If no effects were parsed, create a generic effect
+                if not effects:
+                    effects = [Effect(
+                        effect_type=EffectType.OTHER,
+                        target=TargetType.NONE,
+                        parameters={"raw_text": chunk}
+                    )]
+
+                ability = Ability(
+                    trigger=TriggerCondition.OTHER,
+                    effects=effects,
+                    cost=None,
+                    source_text=chunk
+                )
+
+                parsed_abilities.append(ability)
+                processed_text_segments.add(chunk)
+
     return parsed_abilities
 
-def parse_Keyword_ability ():
+def parse_Keyword_ability(keyword_text: str) -> Optional[Ability]:
+    """
+    Parse a single keyword ability string into an Ability object.
+
+    Args:
+        keyword_text: The keyword text to parse (e.g., "Rush", "Challenger +2")
+
+    Returns:
+        An Ability object if the keyword is recognized, None otherwise
+    """
+    for pattern in KEYWORD_PATTERNS:
+        match = pattern['regex'].fullmatch(keyword_text)
+        if match:
+            # Get the trigger type
+            trigger = pattern['trigger']
+
+            # Build parameters
+            params = {}
+            if pattern['has_value'] and 'amount' in match.groupdict():
+                try:
+                    params['amount'] = int(match.group('amount'))
+                except (ValueError, TypeError):
+                    pass
+
+            # Create the keyword effect
+            effects = [Effect(
+                    effect_type=EffectType.GRANT_KEYWORD,
+                    target=TargetType.SELF_CARD,
+                    parameters={
+                        'keyword': pattern['keyword'],
+                        **params
+                        }
+                    )]
+
+            # Add the ability
+            return Ability(
+                    trigger=trigger,
+                    effects=effects,
+                    cost=None,
+                    source_text=keyword_text
+                    )
+
+    return None
 
 
 # --- Example Usage ---
 if __name__ == '__main__':
     # Test cases from the card examples
     print("=== Testing Card Parsing ===")
-    
+
 '''
     # Example 1: Tiana - Celebrating Princess
     tiana_body = "While this character is exerted and you have no cards in your hand, opponents can't play actions."
