@@ -225,12 +225,12 @@ def process_text_part (text, classifications):
         return text.strip()
 
 
-def create_smaller_json(input_file, output_file):
+def create_smaller_json (input_file, output_file):
     try:
         print(f"Attempting to open file at: {input_file}")
-        with open(input_file, "r", encoding="utf-8") as f:
+        with open(input_file, "r", encoding = "utf-8") as f:
             data = json.load(f)
-
+        
         # Check if the data is an array directly or nested under a key
         if isinstance(data, list):
             cards = data
@@ -239,50 +239,73 @@ def create_smaller_json(input_file, output_file):
         else:
             print(f"Unexpected JSON structure in {input_file}")
             return False
-
+        
         # Create new list with only the specified fields
         simplified_cards = []
-        classifications = set()
-
-        for card in cards:
-            cardType = card.get("Classifications")
-            if cardType:
-                # Split the classifications by "," and strip any whitespace from each item
-                classifications.update(item.strip() for item in cardType.split(","))
-                
-        classifications = list(classifications)
-        # print (classifications)
+        classifications = set()  # Initialize as a set
         
         for card in cards:
-            # Clean the Body_Text field
-            body_text = card.get("Body_Text")
+            card_Type = card.get("Classifications")
+            body_Text = card.get("Body_Text")
+            card_Abilities = card.get("Abilities")
             
-            cleaned_body_text = clean_body_text(body_text, classifications)
-
+            if card_Abilities and "Shift" in card_Abilities and not re.search(r"Shift \d", card_Abilities):
+                matches = re.findall(r":(.*?)\(", body_Text)
+                if matches:  # Add check to make sure matches is not empty
+                    shift_Extract = f'Shift {matches[0].strip()}'
+                    card_Abilities = card_Abilities.replace("Shift", shift_Extract)
+            
+            if card_Type:
+                # Check if card_Type is a string before splitting
+                if isinstance(card_Type, str):
+                    # Split the classifications by "," and strip any whitespace from each item
+                    classifications.update(item.strip() for item in card_Type.split(","))
+                elif isinstance(card_Type, list):
+                    # If card_Type is already a list, add each item to the set
+                    classifications.update(item.strip() if isinstance(item, str) else item for item in card_Type)
+        
+        # Convert to list only after all updates are done
+        classifications_list = list(classifications)
+        
+        # You also need to define clean_body_text function or pass it to your function
+        for card in cards:
+            card_Type = card.get("Classifications")
+            body_Text = card.get("Body_Text")
+            card_Abilities = card.get("Abilities")
+            
+            if card_Abilities and "Shift" in card_Abilities and not re.search(r"Shift \d", card_Abilities):
+                matches = re.findall(r":(.*?)\(", body_Text)
+                if matches:
+                    shift_Extract = f'Shift {matches[0].strip()}'
+                    card_Abilities = card_Abilities.replace("Shift", shift_Extract)
+            
+            # Assuming clean_body_text is defined elsewhere
+            cleaned_body_text = clean_body_text(body_Text, classifications_list)
+            
             simplified_card = {
-                "Name": card.get("Name"),
+                "Name"           : card.get("Name"),
                 "Classifications": card.get("Classifications"),
-                "Color": card.get("Color"),
-                "Cost": card.get("Cost"),
-                "Inkable": card.get("Inkable"),
-                "Type": card.get("Type"),
-                "Unique_ID": card.get("Unique_ID"),
-                "Body_Text": cleaned_body_text,
-                "Abilities": card.get("Abilities"),
-                "Willpower": card.get("Willpower"),
-                "Move_Cost": card.get("Move_Cost"),
-                "Strength": card.get("Strength"),
-                "Lore": card.get("Lore"),
-            }
+                "Color"          : card.get("Color"),
+                "Cost"           : card.get("Cost"),
+                "Inkable"        : card.get("Inkable"),
+                "Type"           : card.get("Type"),
+                "Unique_ID"      : card.get("Unique_ID"),
+                "Body_Text"      : cleaned_body_text,
+                "Abilities"      : card_Abilities,
+                "Willpower"      : card.get("Willpower"),
+                "Move_Cost"      : card.get("Move_Cost"),
+                "Strength"       : card.get("Strength"),
+                "Lore"           : card.get("Lore"),
+                }
             simplified_cards.append(simplified_card)
-
+        
         # Write the simplified data to a new file
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(simplified_cards, f, indent=2)
-
+        with open(output_file, 'w', encoding = 'utf-8') as f:
+            json.dump(simplified_cards, f, indent = 2)
+        
         print(f"Successfully created {output_file} with {len(simplified_cards)} cards")
         return True
-
+    
     except Exception as e:
         print(f"Error processing JSON file: {e}")
         # Print more detailed information for debugging
@@ -345,11 +368,11 @@ if __name__ == "__main__":
             input_file = user_input
             # Update output file to be in the same directory
             output_dir = os.path.dirname(input_file)
-            output_file = os.path.join(output_dir, "lorcana_cards_simplified2.json")
+            output_file = os.path.join(output_dir, "lorcana_cards_simplified.json")
 
     create_smaller_json(input_file, output_file)
     
-    input_file = os.path.join(parent_dir, "lorcana_cards_simplified2.json")
+    input_file = os.path.join(parent_dir, "lorcana_cards_simplified.json")
     output_file = os.path.join(script_dir, "bodytext.json")
     
     find_Unique_BodyTexts(input_file, output_file)
