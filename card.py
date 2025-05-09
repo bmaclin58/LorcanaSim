@@ -37,13 +37,13 @@ class Card:
             card_data (dict): A dictionary containing the raw data for one card.
         """
         # --- Core Identification & Cost ---
-        self.name: str = card_data.get("Name", "Unknown Name")
+        self.name: str = card_data.get("Name")
         self.unique_id: str | None = card_data.get("Unique_ID") # Keep Unique_ID if available
         self.cost: int = card_data.get("Cost", 0)
-        self.inkable: bool = card_data.get("Inkable", False)
+        self.inkable: bool = card_data.get("Inkable")
 
         # --- Card Type & Colors ---
-        self.type: str = card_data.get("Type", "Unknown Type")
+        self.type: str = card_data.get("Type")
         raw_color: str | None = card_data.get("Color")
         self.colors: list[str] = [c.strip() for c in raw_color.split(',')] if raw_color else []
 
@@ -200,23 +200,3 @@ if __name__ == "__main__":
 
     raw_cards = create_Card_Database()
     print(f"Raw Card Data: {raw_cards['ARI-019']}")
-    '''
-    if raw_cards:
-        all_cards_by_id, all_cards_by_name, all_cards_by_lowercase_name = parse_card_data(raw_cards)
-
-        print(f"\nTotal distinct cards parsed (by ID): {len(all_cards_by_id)}")
-        print(f"Total distinct cards parsed (by Name): {len(all_cards_by_name)}")
-
-        # Example: Accessing via ID
-        pascal_id_key = "ARI-019"
-        if pascal_id_key in all_cards_by_id:
-            print(f"\nAccess via ID '{pascal_id_key}': {repr(all_cards_by_id[pascal_id_key])}")
-
-        # Example: Accessing via Name
-        pascal_name_key = "Pascal - Garden Chameleon"
-        if pascal_name_key in all_cards_by_name:
-            print(f"Access via Name '{pascal_name_key}': {repr(all_cards_by_name[pascal_name_key])}")
-
-    else:
-        print("Could not retrieve card data to parse.")
-'''

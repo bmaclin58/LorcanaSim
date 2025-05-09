@@ -5,25 +5,25 @@
   "1{i}, Banish this item :": [
     "1{i}, Banish this item : Chosen character gains Challenger +3 this turn.",
     "1{i}, Banish this item : Chosen character gains Rush and gets +2{s} this turn.",
-    "1{i}, Banish this item : Chosen character gets +3{s} this turn. If a Villain character is chosen, they get +4{s} instead.",
-    "1{i}, Banish this item : Exert chosen character. If a princess character is chosen, banish her instead."
+    "1{i}, Banish this item : Chosen character gets +3{s} this turn.",
+    "1{i}, Banish this item : Exert chosen character. banish her instead."
   ],
   "2{i} :": [
     "2{i} : Chosen character gets -1{s} until the start of your next turn.",
     "2{i} : Draw a card, then choose and discard a card."
   ],
   "2{i}, Banish this item :": [
-    "2{i}, Banish this item : Choose one: Banish chosen Hero character. Ready chosen Villain character. They can't quest for the rest of this turn.",
+    "2{i}, Banish this item : Choose one :  Banish chosen Hero character. Ready chosen Villain character.",
     "2{i}, Banish this item : Return chosen character, item, or location with cost 3 or less to their player's hand.",
     "2{i}, Banish this item : Your characters gain Ward until the start of your next turn."
   ],
   "3{i} :": [
     "3{i} : Deal 1 damage to chosen damaged character."
   ],
-  "All": [
+  "All opposing": [
     "All opposing characters get -2{s} until the start of your next turn."
   ],
-  "At": [
+  "At the": [
     "At the end of your turn, if chosen opponent has more cards in their hand than you, you may draw cards until you have the same number.",
     "At the end of your turn, if this character is exerted and you don't have a Captain character in play, deal 1 damage to this character.",
     "At the end of your turn, if this character is exerted, you may ready another chosen character of yours and remove all damage from them.",
@@ -38,7 +38,7 @@
     "At the start of your turn, for each character you have here, you may draw a card.",
     "At the start of your turn, if an opposing character has damage, gain 1 lore. Damage counters can't be removed.",
     "At the start of your turn, if this card is in your discard, you may play her and she enters play exerted.",
-    "At the start of your turn, if this character has no damage, draw a card. Otherwise, he gets +4{s} this turn.",
+    "At the start of your turn, if this character has no damage, draw a card.",
     "At the start of your turn, if this character is at a location, draw a card and gain 1 lore.",
     "At the start of your turn, if you have a character here gain 1 lore.",
     "At the start of your turn, if you have a character here, all opponents lose 1 lore and you gain lore equal to the lore lost this way.",
@@ -51,19 +51,23 @@
     "At the start of your turn, you may move 1 damage counter from chosen character here to chosen opposing character.",
     "At the start of your turn, you may move a character of yours to a location for free."
   ],
-  "At the start of your turn, choose one:": [
-    "At the start of your turn, choose one: Each player draws a card. Each player chooses and discards a card."
+  "At the start of your turn, choose one :": [
+    "At the start of your turn, choose one : - Each player draws a card. Each player chooses and discards a card."
   ],
   "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} :": [
-    "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} : Reveal the top card of your deck. If it's a Princess or Queen character card, you may put it into your hand. Otherwise, put it on the top of your deck."
+    "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} : Reveal the top card of your deck. If it's a Princess or Queen character card, you may put it into your hand."
   ],
-  "At the start of your turn, you may choose one:": [
-    "At the start of your turn, you may choose one: This character gets +1{l} this turn. This character gains Challenger +2 this turn."
+  "At the start of your turn, you may choose one :": [
+    "At the start of your turn, you may choose one : - This character gets +1{l} this turn. This character gains Challenger +2 this turn."
   ],
-  "Banish": [
+  "Banish all": [
     "Banish all Characters.",
-    "Banish all items.",
-    "Banish any number of your items, then draw a card for each item banished this way.",
+    "Banish all items."
+  ],
+  "Banish any": [
+    "Banish any number of your items, then draw a card for each item banished this way."
+  ],
+  "Banish chosen": [
     "Banish chosen Villain of your to banish chosen character.",
     "Banish chosen character",
     "Banish chosen character of yours to banish chosen character.",
@@ -75,135 +79,170 @@
     "Banish chosen damaged character.",
     "Banish chosen item of yours to deal 5 damage to chosen character.",
     "Banish chosen item.",
-    "Banish chosen item. Its player gains 2 lore.",
-    "Banish chosen location or item.",
+    "Banish chosen location or item."
+  ],
+  "Banish one": [
     "Banish one of your characters with Reckless to banish chosen character with less {s} than that character."
   ],
   "Banish this item :": [
     "Banish this item : Banish chosen villain character.",
     "Banish this item : Chosen character can't challenge during their next turn.",
     "Banish this item : Chosen character gains Resist +1 until the start of your next turn.",
+    "Banish this item : Chosen character gains Resist +2 until the start of your next turn.",
     "Banish this item : Chosen character gains Rush this turn.",
+    "Banish this item : Chosen character gets +1{s} this turn for each card in your hand.",
+    "Banish this item : Chosen character named Beast gets +2{l} this turn. If you have a character named Belle in play, Move up to 3 damage counters from chosen character to chosen opposing character.",
     "Banish this item : Each opponent loses 2 lore.",
+    "Banish this item : If you have 3 or more characters in play, gain 2 lore and remove up to 2 damage from chosen location.",
+    "Banish this item : If you have a character named Jafar in play, draw 2 cards. If you have a character named Genie in play, return chosen character with cost 4 or less to their players hand.",
+    "Banish this item : Remove up to 2 damage from each of your characters.",
     "Banish this item : Remove up to 3 damage from chosen character.",
     "Banish this item : Return chosen character of yours to your hand."
   ],
-  "Banish this item:": [
-    "Banish this item: Chosen character gains Resist +2 until the start of your next turn.",
-    "Banish this item: Chosen character gets +1{s} this turn for each card in your hand.",
-    "Banish this item: Chosen character named Beast gets +2{l} this turn. If you have a character named Belle in play, Move up to 3 damage counters from chosen character to chosen opposing character.",
-    "Banish this item: If you have 3 or more characters in play, gain 2 lore and remove up to 2 damage from chosen location.",
-    "Banish this item: If you have a character named Jafar in play, draw 2 cards. If you have a character named Genie in play, return chosen character with cost 4 or less to their players hand.",
-    "Banish this item: Remove up to 2 damage from each of your characters."
+  "Characters can't": [
+    "Characters can't be challenged while here."
   ],
-  "Characters": [
-    "Characters can't be challenged while here.",
-    "Characters count as having +2 cost to sing songs while here.",
+  "Characters count": [
+    "Characters count as having +2 cost to sing songs while here."
+  ],
+  "Characters gain": [
     "Characters gain Evasive while here. If you have a character here, you pay 2{i} less to move a character of yours here.",
     "Characters gain Resist +1 while here.",
     "Characters gain Rush while here. Your Pirate characters may move here for free.",
-    "Characters gain Ward and Evasive while here.",
+    "Characters gain Ward and Evasive while here."
+  ],
+  "Characters get": [
     "Characters get +1{s} and +1{w} while here.",
     "Characters get +1{s} while here.",
     "Characters get +2{w} while here. If you have a Prince or King character here, you pay 1{i} less to play characters.",
-    "Characters get +3{w} while here.",
+    "Characters get +3{w} while here."
+  ],
+  "Characters with": [
     "Characters with Support get +1{l} and +2{w} while here.",
-    "Characters with cost 2 or less can't challenge your characters.",
-    "Characters with cost 3 or less can't challenge this character."
+    "Characters with cost 2 or less can't challenge your characters."
   ],
-  "Choose one:": [
-    "Choose one:  Remove up to 1 damage from chosen character.  If you have a Robot character in play, remove up to 3 damage from chosen character.",
-    "Choose one: Banish chosen item. Deal 2 damage to chosen damaged character",
-    "Choose one: Deal 1 damage to each opposing character without Evasive. Deal 3 damage to each opposing character with Evasive.",
-    "Choose one: Deal 2 damage to chosen character. Banish chosen item.",
-    "Choose one: Ready chosen item. Ready chosen Robot character. They cant quest for the rest of this turn."
+  "Choose one :": [
+    "Choose one :  Remove up to 1 damage from chosen character. If you have a Robot character in play, remove up to 3 damage from chosen character.",
+    "Choose one : - Banish chosen item. Deal 2 damage to chosen damaged character",
+    "Choose one : - Deal 1 damage to each opposing character without Evasive. Deal 3 damage to each opposing character with Evasive.",
+    "Choose one : - Deal 2 damage to chosen character. Banish chosen item.",
+    "Choose one : - Ready chosen item. Ready chosen Robot character."
   ],
-  "Chosen": [
+  "Chosen Character": [
     "Chosen Character gains Support this turn.",
     "Chosen Character gets +1{s} this turn. Draw a card.",
-    "Chosen Character gets +2{s} this turn.",
+    "Chosen Character gets +2{s} this turn."
+  ],
+  "Chosen character": [
     "Chosen character can challenge ready characters this turn.",
     "Chosen character can't challenge during their next turn. Draw a card.",
     "Chosen character counts as having +3 cost to sing songs this turn.",
     "Chosen character gains Bodyguard until the start of your next turn.",
     "Chosen character gains Challenger +2 and Evasive until the start of your next turn.",
     "Chosen character gains Challenger +2 and Resist +2 this turn.",
-    "Chosen character gains Challenger +3 and \"When this return this card to your hand\" this turn.",
+    "Chosen character gains Challenger +3 and \"When this character is banished in a challenge, return this card to your hand\" this turn.",
     "Chosen character gains Challenger +3 this turn.",
     "Chosen character gains Evasive until the start of your next turn.",
     "Chosen character gains Reckless during their next turn.",
     "Chosen character gains Resist +1 and Evasive this turn.",
-    "Chosen character gains Resist +2 until the start of your next turn. If a Hero character is chosen, they may also challenge ready character this turn.",
+    "Chosen character gains Resist +2 until the start of your next turn.",
     "Chosen character gains Rush this turn.",
     "Chosen character gains Support this turn.",
     "Chosen character gains Support this turn. Draw a card.",
     "Chosen character gains Ward and Evasive until the start of your next turn.",
     "Chosen character gets +1{l} this turn.",
     "Chosen character gets +1{s} this turn for each character you have in play.",
-    "Chosen character gets +2{s} this turn. If a Pirate character is chosen, they get +3{s} instead.",
-    "Chosen character gets +2{s} this turn. If a villain character is chosen, they get +3{s} instead.",
+    "Chosen character gets +2{s} this turn.",
     "Chosen character gets -2{s} this turn.",
     "Chosen character gets -2{s} this turn. Draw a card.",
     "Chosen character gets -2{s} until the start of your next turn.",
     "Chosen character gets -3{s} this turn.",
     "Chosen character of yours cant be challenged until the start of your next turn.",
     "Chosen character of yours gains Evasive until the start of your next turn.",
-    "Chosen character of yours gets +2{s} this turn. They may move to a location for free.",
-    "Chosen damaged character gets +3{s} this turn.",
-    "Chosen exerted character can't ready at the start of their next turn",
+    "Chosen character of yours gets +2{s} this turn."
+  ],
+  "Chosen damaged": [
+    "Chosen damaged character gets +3{s} this turn."
+  ],
+  "Chosen exerted": [
+    "Chosen exerted character can't ready at the start of their next turn"
+  ],
+  "Chosen opponent": [
     "Chosen opponent loses 1 lore. Gain 1 lore.",
-    "Chosen opponent reveals their hand and discards a non-character card of your choice.",
-    "Chosen opposing character can't quest during their next turn. Draw a card.",
+    "Chosen opponent reveals their hand and discards a non-character card of your choice."
+  ],
+  "Chosen opposing": [
+    "Chosen opposing character can't quest during their next turn. Draw a card."
+  ],
+  "Chosen player": [
     "Chosen player draws 5 cards."
   ],
-  "Count": [
+  "Count the": [
     "Count the number of characters you have in play. Chosen character loses {s} equal to that number until the start of your next turn.",
     "Count the number of characters you have in play. You pay that amount of {i} less for the next character you play this turn."
   ],
-  "Damaged": [
+  "Damaged characters": [
     "Damaged characters can't challenge this character.",
     "Damaged characters can't challenge your characters."
   ],
-  "Deal": [
+  "Deal 1": [
     "Deal 1 damage each to up to 2 chosen characters.",
-    "Deal 1 damage to chosen character of yours. They gain Rush and get +1{s} this turn.",
-    "Deal 1 damage to each opposing character. You may banish chosen location.",
+    "Deal 1 damage to chosen character of yours.",
+    "Deal 1 damage to each opposing character. You may banish chosen location."
+  ],
+  "Deal 2": [
     "Deal 2 damage to chosen character of yours to deal 2 damaged to another chosen character.",
     "Deal 2 damage to chosen character or location",
     "Deal 2 damage to chosen character.",
-    "Deal 2 damage to chosen character. Then, you may choose and discard a card to deal 2 damage to another chosen character.",
+    "Deal 2 damage to chosen character. you may choose and discard a card to deal 2 damage to another chosen character.",
     "Deal 2 damage to chosen damaged character.",
     "Deal 2 damage to each opposing character.",
-    "Deal 2 damaged to chosen character. Draw a card.",
+    "Deal 2 damaged to chosen character. Draw a card."
+  ],
+  "Deal 3": [
     "Deal 3 damage to chosen character.",
-    "Deal 3 damage to up to 3 chosen characters and/or locations.",
-    "Deal 5 damage to chosen character or location.",
+    "Deal 3 damage to up to 3 chosen characters and/or locations."
+  ],
+  "Deal 5": [
+    "Deal 5 damage to chosen character or location."
+  ],
+  "Deal damage": [
     "Deal damage to chosen character equal to the number of characters you have in play."
   ],
-  "Draw": [
+  "Draw 2": [
     "Draw 2 Cards",
     "Draw 2 cards, then choose and discard 2 cards.",
-    "Draw 2 cards, then choose and discard a card.",
+    "Draw 2 cards, then choose and discard a card."
+  ],
+  "Draw 3": [
     "Draw 3 cards, then put 2 cards from your hand on the top of your deck in any order.",
-    "Draw 3 cards.",
+    "Draw 3 cards."
+  ],
+  "Draw a": [
     "Draw a card. Chosen character gains Bodyguard until the start of your next turn.",
     "Draw a card. Chosen character gains Challenger +2 this turn.",
     "Draw a card. Chosen character gains Reckless during their next turn.",
-    "Draw a card. Then, choose up to 3 cards from chosen opponent's discard and shuffle them into their deck."
+    "Draw a card. choose up to 3 cards from chosen opponent's discard and shuffle them into their deck."
   ],
-  "During": [
+  "During an": [
     "During an opponent's turn, when this character is banished, deal 2 damage to each opposing character.",
-    "During an opponent's turn, when this character is banished, you may put the top card of your deck into your inkwell facedown. Then, put this card into your inkwell facedown.",
+    "During an opponent's turn, when this character is banished, you may put the top card of your deck into your inkwell facedown.",
     "During an opponent's turn, whenever a character is banished while here, gain 1 lore.",
     "During an opponent's turn, whenever one of your Ally characters is damaged, deal 1 damage to chosen opposing character. Your characters named Lady Kluck gain Resist +1.",
     "During an opponent's turn, whenever one of your Illusion characters is banished, you may return that card to your hand.",
-    "During an opponent's turn, whenever one of your other characters is banished, gain 2 lore.",
-    "During each opponent's turn, whenever they draw a card while this character is exerted, you may draw a card.",
+    "During an opponent's turn, whenever one of your other characters is banished, gain 2 lore."
+  ],
+  "During each": [
+    "During each opponent's turn, whenever they draw a card while this character is exerted, you may draw a card."
+  ],
+  "During opponents'": [
     "During opponents' turns, if an effect would cause you to discard one or more cards from your hand, you don't discard.",
-    "During opponents' turns, whenever your characters is banished, you may return chosen character to their player's hand.",
-    "During opponents' turns, you can't lose lore.",
+    "During opponents' turns, whenever one of your characters is banished, you may return chosen character to their player's hand.",
+    "During opponents' turns, you can't lose lore."
+  ],
+  "During your": [
     "During your turn, if no other character has quested this turn, this character gets +3{l}. Whenever this character quests, your other characters can't quest for the rest of this turn.",
-    "During your turn, the first time you move a character here, you may deal 1 damage to chosen character. If the moved character is a Knight, deal 2 damage instead.",
+    "During your turn, the first time you move a character here, you may deal 1 damage to chosen character.",
     "During your turn, this character gains Evasive while a Pirate character is in play.",
     "During your turn, this character gains Evasive.",
     "During your turn, this character gains Evasive. During your turn, whenever this character banishes another character in a challenge, you may play an item for free.",
@@ -226,7 +265,7 @@
     "During your turn, whenever a card is put into your inkwell, you may pay 1{i} to have chosen opponent choose and discard a card.",
     "During your turn, whenever a card is put into your inkwell, you may remove up to 2 damage from chosen character.",
     "During your turn, whenever a card is put into your inkwell, you may return a character from your discard to your hand.",
-    "During your turn, whenever a card is put into your inkwell, you may reveal the top card of your deck. If it's an item card, you may play that item for free and it enters play exerted. Otherwise, put it on the bottom of your deck.",
+    "During your turn, whenever a card is put into your inkwell, you may reveal the top card of your deck. If it's an item card, you may play that item for free and it enters play exerted.",
     "During your turn, whenever a character banishes another character in a challenge while here, gain 2 lore.",
     "During your turn, whenever an opposing character is exerted, banish them.",
     "During your turn, whenever one of your characters banishes a character in a challenge, you may deal 1 damage to chosen character.",
@@ -237,16 +276,16 @@
     "During your turn, whenever this character banishes another character in a challenge, chosen opposing character can't challenge during their next turn.",
     "During your turn, whenever this character banishes another character in a challenge, gain 2 lore.",
     "During your turn, whenever this character banishes another character in a challenge, gain 2 lore. When this character is banished in a challenge, you may draw a card.",
-    "During your turn, whenever this character banishes another character in a challenge, ready this character. He can't quest for the rest of this turn. Characters named Peter Pan lose Evasive and can't gain Evasive.",
+    "During your turn, whenever this character banishes another character in a challenge, ready this character. Characters named Peter Pan lose Evasive and can't gain Evasive.",
     "During your turn, whenever this character banishes another character in a challenge, you gain 1 lore.",
     "During your turn, whenever this character banishes another character in a challenge, you gain 2 lore and each opponent loses 2 lore.",
     "During your turn, whenever this character banishes another character in a challenge, you gain 2 lore.",
+    "During your turn, whenever this character banishes another character in a challenge, you may deal 2 damage to chosen character.",
     "During your turn, whenever this character banishes another character in a challenge, you may draw a card.",
     "During your turn, whenever this character banishes another character in a challenge, you may play a character for free.",
     "During your turn, whenever this character banishes another character in a challenge, you may play a character with cost 5 or less for free.",
     "During your turn, whenever this character banishes another character in a challenge, you may ready chosen character.",
-    "During your turn, whenever this character banishes another character in a challenge, you may ready this character. He can't quest for the rest of this turn.",
-    "During your turn, whenever this character banishes another character in a challenge, you may ready this character. She can't quest for the rest of this turn.",
+    "During your turn, whenever this character banishes another character in a challenge, you may ready this character.",
     "During your turn, whenever this character banishes another character in a challenge, your other characters get +1{l} this turn.",
     "During your turn, whenever this character deals damage to another  character in a challenge, you may deal the same amount of damage to another chosen character.",
     "During your turn, while this character is exerted, whenever you draw a card, gain 1 lore.",
@@ -256,37 +295,43 @@
     "During your turn, you may put an additional card from your hand into your inkwell facedown. While you have 10 or more cards in your inkwell, this character gets +4{l}.",
     "During your turn, your Musketeer characters gain Evasive."
   ],
-  "Each": [
+  "Each Opponent": [
     "Each Opponent chooses and discards a card. Draw a card.",
-    "Each Opponent reveals their hand. Draw a card.",
+    "Each Opponent reveals their hand. Draw a card."
+  ],
+  "Each opponent": [
     "Each opponent chooses and banishes one of their characters.",
     "Each opponent chooses and discards 2 cards.",
     "Each opponent chooses and discards a card.",
-    "Each opponent chooses and exerts one of their characters. Those characters can't ready at the start of their next turn.",
+    "Each opponent chooses and exerts one of their characters. characters can't ready at the start of their next turn.",
     "Each opponent chooses one of their characters and deals 2 damage to them.",
     "Each opponent chooses one of their characters and deals 4 damage to them.",
     "Each opponent discards all cards in their hand.",
     "Each opponent loses 1 lore.",
-    "Each opponent loses 2 lore. You gain 2 lore.",
+    "Each opponent loses 2 lore.",
     "Each opponent may choose and discard a card. For each opponent who doesn't, you draw a card.",
     "Each opponent may choose and discard a card. For each opponent who doesn't, you gain 2 lore.",
     "Each opponent puts the top 2 cards of their deck into their discard",
-    "Each opponent puts the top card of their deck into their discard.",
+    "Each opponent puts the top card of their deck into their discard."
+  ],
+  "Each player": [
     "Each player chooses one of their characters and puts them into their inkwell facedown and excreted.",
     "Each player discards their hand and draws 7 cards.",
     "Each player draws 3 cards.",
-    "Each player exerts all the cards in their inkwell. Then each player with more than 3 cards in their inkwell returns cards at random from their inkwell to their hand until they have 3 cards in their inkwell.",
+    "Each player exerts all the cards in their inkwell. each player with more than 3 cards in their inkwell returns cards at random from their inkwell to their hand until they have 3 cards in their inkwell.",
     "Each player may reveal a character card from their hand and play it for free.",
     "Each player plays with the top card of their deck face up.",
     "Each player puts the top 3 cards of their deck into their inkwell facedown and exerted."
   ],
-  "Exert": [
-    "Exert all opposing characters. Whenever one of your characters banishes another character in a challenge this turn, gain 2 lore.",
-    "Exert chosen character. Then, you may choose and discard a card. If you do, the exerted character cant ready at the start of their next turn.",
-    "Exert chosen opposing character.",
-    "Exert chosen opposing character. Then chosen character of yours gains Challenger +2 this turn."
+  "Exert all": [
+    "Exert all opposing characters. Whenever one of your characters banishes another character in a challenge this turn, gain 2 lore."
   ],
-  "For": [
+  "Exert chosen": [
+    "Exert chosen character. you may choose and discard a card. at the start of their next turn.",
+    "Exert chosen opposing character.",
+    "Exert chosen opposing character. chosen character of yours gains Challenger +2 this turn."
+  ],
+  "For each": [
     "For each 1 damage on opposing characters, you pay 1{i} less to play this character.",
     "For each Sorcerer character you have in play, you pay 1{i} less to play this action. Draw 2 cards",
     "For each character card in your discard, you pay 1{i} less to play this character. When you play this character, shuffle all character cards from your discard into your deck.",
@@ -299,120 +344,132 @@
     "For each location you have in play, this character gains Resist +1 and gets +1{l}.",
     "For each opposing character banished in a challenge this turn, you pay 2{i} less to play this character.",
     "For each other character named The Queen you have in play, this character gets +1{l}.",
-    "For each song card in your discard, you pay 1{i} less to play this character."
+    "For each song card in your  discard, you pay 1{i} less to play this character."
   ],
-  "Gain": [
+  "Gain 1": [
     "Gain 1 lore for each damaged character opponents have in play.",
     "Gain 1 lore.",
-    "Gain 1 lore. Draw a card.",
+    "Gain 1 lore. Draw a card."
+  ],
+  "Gain 2": [
     "Gain 2 lore."
   ],
-  "If": [
+  "If an": [
     "If an effect would cause you to discard one or more cards, you don't discard.",
-    "If an opposing character was damaged this turn, you pay 2{i} less to play this character. Whenever you play an action that isn't a song, you may deal 1 damage to chosen character.",
-    "If chosen opponent has more cards in their hand than you, draw cards until you have the same number.",
+    "If an opposing character was damaged this turn, you pay 2{i} less to play this character. Whenever you play an action that isn't a song, you may deal 1 damage to chosen character."
+  ],
+  "If you": [
     "If you have a character here, you pay 1{i} less to play items.",
     "If you have a character named Ariel in play, you may pay 1{i} less to play this character.",
     "If you have a character named Gaston in play, you pay 1{i} less to play this character.",
     "If you have a character named Lady in play, you pay 1{i} less to play this character. When you play this character, chosen character of yours gets +1{s} this turn for each other character you have in play.",
     "If you have a character named Peter Pan in play, you pay 1{i} less to play this character.",
     "If you have a character named Prince Eric in play, you play 1{i} less to play this character.",
-    "If you have a character named Prince you pay 1{i} less to play this item. At the end of each opponent's turn, if they have more than 3 cards in their hand, they discard until they have 3 cards in their hand.",
+    "If you have a character named Prince John in play, you pay 1{i} less to play this item. At the end of each opponent's turn, if they have more than 3 cards in their hand, they discard until they have 3 cards in their hand.",
     "If you have an Ally character in play, you pay 2{i} less to play this character.",
     "If you have another Hero character in play, this character gets +1{l}.",
     "If you have fewer than 3 cards in your hand, draw until you have 3 cards in your hand.",
     "If you used Shift to play this character, you may draw 2 cards when he enters play."
   ],
-  "If It Pleases The Lady:": [
-    "If It Pleases The Lady: When you play this chosen opposing character gets -5{s} until the start of your next turn."
+  "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i} :": [
+    "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i} : Choose one :  - Chosen character gains Evasive until the start of your next turn. Chosen character gets +3{s} this turn."
   ],
-  "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i}:": [
-    "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i}: Choose one: : Chosen character gains Evasive until the start of your next turn. Chosen character gets +3{s} this turn."
+  "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i} :": [
+    "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i} : Remove up to 1 damage from another chosen character."
   ],
-  "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i}:": [
-    "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i}: Remove up to 1 damage from another chosen character."
-  ],
-  "Inventor": [
+  "Inventor characters": [
     "Inventor characters get +1{w} while here."
   ],
-  "Look": [
-    "Look at the top 2 cards of your deck. Put one into your hand and the other into your inkwell facedown and exerted.",
-    "Look at the top 2 cards of your deck. Put one into your hand and the other on the bottom of the deck.",
-    "Look at the top 3 cards of your deck. Put them back on the top of your deck in any order.",
-    "Look at the top 4 cards of chosen player's deck. Put one on the top of their deck and the rest on the bottom of their deck in any order.",
-    "Look at the top 4 cards of your deck. You may reveal a character card and put it into your hand. Put the rest on the bottom of your deck in any order.",
-    "Look at the top 5 cards of your deck. Put any number of them on the top of the bottom of your deck in any order. Gain 1 lore.",
-    "Look at the top 5 cards of your deck. Put one into your hand and the rest on the bottom of your deck in any order.",
-    "Look at the top 5 cards of your deck. You may reveal up to 1 Madrigal character card and up to 1 song card and put them into your hand. Put the rest on the top of your deck in any order.",
-    "Look at the top 5 cards of your deck. You may reveal up to 2 character cards and put them into your hand. Put the rest on the bottom of your deck in any order.",
-    "Look at the top 7 cards of your deck. Put 2 into your hand. Put the rest on the bottom of your deck in any order."
+  "Look at": [
+    "Look at the top 2 cards of your deck.",
+    "Look at the top 3 cards of your deck.",
+    "Look at the top 4 cards of chosen player's deck.",
+    "Look at the top 4 cards of your deck. You may reveal a character card and put it into your hand.",
+    "Look at the top 5 cards of your deck.",
+    "Look at the top 5 cards of your deck. Gain 1 lore.",
+    "Look at the top 5 cards of your deck. You may reveal up to 1 Madrigal character card and up to 1 song card and put them into your hand.",
+    "Look at the top 5 cards of your deck. You may reveal up to 2 character cards and put them into your hand.",
+    "Look at the top 7 cards of your deck. Put 2 into your hand."
   ],
-  "Move": [
+  "Move 1": [
     "Move 1 damage counter from chosen character to chosen opposing character.",
-    "Move 1 damage counter from chosen character to chosen opposing character. Draw a card.",
+    "Move 1 damage counter from chosen character to chosen opposing character. Draw a card."
+  ],
+  "Move up": [
     "Move up to 2 characters of yours to the same location for free."
   ],
-  "Name": [
+  "Name a": [
     "Name a card. Return all character cards with that name from your discard to your hand."
   ],
-  "Once": [
+  "Once during": [
     "Once during your turn, whenever a card is put into your inkwell, chosen opponent chooses one of their characters and returns that card to their hand.",
     "Once during your turn, whenever a card is put into your inkwell, deal 2 damage to each character in play.",
     "Once during your turn, whenever a card is put into your inkwell, look at the top card of your deck. You may put it on either the top or the bottom of your deck.",
-    "Once during your turn, whenever a card is put into your inkwell, you may ready another chosen character of yours. They can't quest for the rest of this turn.",
+    "Once during your turn, whenever a card is put into your inkwell, you may ready another chosen character of yours.",
     "Once during your turn, whenever a card is put into your inkwell, you may return a location card from your discard to your hand.",
     "Once during your turn, whenever a card is put into your inkwell, your other characters with Bodyguard get +1{l} this turn.",
-    "Once during your turn, whenever you play another character, you may ready this character. He can't quest or challenge for the rest of this turn.",
+    "Once during your turn, whenever you play another character, you may ready this character."
+  ],
+  "Once per": [
     "Once per turn, when this character moves to a location, each opponent loses 1 lore.",
     "Once per turn, when this character moves to a location, gain 2 lore.",
     "Once per turn, when this character moves to a location, gain lore equal to that location's {l}.",
-    "Once per turn, you may pay 2{i} to reveal the top card of your deck. If it's a character card, put it into your hand. Otherwise, Put it on the bottom of your deck.",
+    "Once per turn, you may pay 2{i} to reveal the top card of your deck. If it's a character card, put it into your hand.",
     "Once per turn, you may {e} chosen character here and deal them 1 damage to move them to another location for free."
-  ],
-  "Opponents": [
-    "Opponents need 25 lore to win the game."
   ],
   "Opponents can't choose your items for abilities or effects. {e} one of your items :": [
     "Opponents can't choose your items for abilities or effects. {e} one of your items : Look at the top card of your deck and put it on either the top or the bottom of your deck."
   ],
-  "Opposing": [
+  "Opponents need": [
+    "Opponents need 25 lore to win the game."
+  ],
+  "Opposing characters": [
     "Opposing characters get -1{s} for each location you have in play.",
-    "Opposing characters with cost 4 or less can't challenge.",
+    "Opposing characters with cost 4 or less can't challenge."
+  ],
+  "Opposing damaged": [
     "Opposing damaged characters gain Reckless."
   ],
-  "Play": [
-    "Play a character with cost 4 or less for free. They gain Rush. At the end of the turn, banish them.",
+  "Play a": [
+    "Play a character with cost 4 or less for free. At the end of the turn, banish them.",
     "Play a character with cost 5 or less from your discard for free."
   ],
-  "Put": [
-    "Put 1 damage counter on chosen character.",
-    "Put all opposing characters with 2{s} or less on the bottom of their player's decks in any order.",
+  "Put 1": [
+    "Put 1 damage counter on chosen character."
+  ],
+  "Put all": [
+    "Put all opposing characters with 2{s} or less on the bottom of their player's decks in any order."
+  ],
+  "Put chosen": [
     "Put chosen character into their player's inkwell facedown and exerted.",
     "Put chosen character of yours into your inkwell facedown and exerted.",
-    "Put chosen item or location into its player's inkwell facedown and exerted.",
-    "Put the top card of your deck into your inkwell facedown and exerted.",
+    "Put chosen item or location into its player's inkwell facedown and exerted."
+  ],
+  "Put the": [
+    "Put the top card of your deck into your inkwell facedown and exerted."
+  ],
+  "Put up": [
     "Put up to 2 cards from your discard into your inkwell facedown and exerted."
   ],
-  "Queen": [
+  "Queen characters": [
     "Queen characters get +1{s}."
   ],
-  "Ready": [
-    "Ready all your characters and deal 1 damage to each of them. They can't quest for the rest of this turn.",
-    "Ready all your characters. They can't quest for the rest of this turn.",
-    "Ready all your characters. They gain Reckless this turn.",
-    "Ready chosen character of yours at a location. They can't quest for the rest of this turn. Gain lore equal to that location's {l}.",
-    "Ready chosen character of yours. They can't quest for the rest of this turn.",
-    "Ready chosen character of yours. They can't quest for the rest of this turn. If a Villain character is chosen, gain 1 lore.",
-    "Ready chosen character.",
-    "Ready chosen character. They can't quest for the rest of this turn.",
-    "Ready chosen damaged character of yours. They can't quest for the rest of this turn. Draw a card."
+  "Ready all": [
+    "Ready all your characters and deal 1 damage to each of them.",
+    "Ready all your characters."
   ],
-  "Remove": [
+  "Ready chosen": [
+    "Ready chosen character of yours at a location.",
+    "Ready chosen character of yours.",
+    "Ready chosen character.",
+    "Ready chosen damaged character of yours. Draw a card."
+  ],
+  "Remove up": [
     "Remove up to 1 damage from each of your characters.",
     "Remove up to 2 damage from any number of chosen characters.",
     "Remove up to 2 damage from chosen character.",
     "Remove up to 2 damage from each of your characters. Draw a card.",
-    "Remove up to 3 damage from chosen character and ready them. They can't quest or challenge for the rest of this turn.",
+    "Remove up to 3 damage from chosen character and ready them.",
     "Remove up to 3 damage from chosen character or location. Draw a card.",
     "Remove up to 3 damage from chosen character. Draw a card.",
     "Remove up to 3 damage from chosen location",
@@ -421,14 +478,18 @@
     "Remove up to 4 damage from chosen character.",
     "Remove up to 4 damage from chosen character. Draw a card."
   ],
-  "Return": [
+  "Return a": [
     "Return a Pirate character card from your discard to your hand.",
     "Return a character card from your discard to your hand.",
-    "Return a character card from your discard to your hand. Then remove up to 2 damage from chosen character.",
+    "Return a character card from your discard to your hand. remove up to 2 damage from chosen character.",
     "Return a character card with cost 2 or less from your discard to your hand.",
-    "Return a character or item with cost 2 or less to their player's hand.",
+    "Return a character or item with cost 2 or less to their player's hand."
+  ],
+  "Return an": [
     "Return an action card from your discard to your hand.",
-    "Return an item card from your discard to your hand.",
+    "Return an item card from your discard to your hand."
+  ],
+  "Return chosen": [
     "Return chosen character of your to your hand to play another character with the same cost or less for free.",
     "Return chosen character of yours to your hand to return another chosen character to their player's hand.",
     "Return chosen character of yours to your hand. Exert chosen character.",
@@ -436,22 +497,25 @@
     "Return chosen character to their player's hand.",
     "Return chosen character with 2{s} or less to their player's hand.",
     "Return chosen character, Item, or location with cost 2 or less to their player's hand.",
-    "Return chosen damaged character to their player's hand.",
+    "Return chosen damaged character to their player's hand."
+  ],
+  "Return up": [
     "Return up to 2 item cards from your discard into your hand."
   ],
-  "Reveal": [
-    "Reveal the top 2 cards of your deck. Put revealed character cards into your hand. Put the rest on the bottom of your deck in any order."
+  "Reveal the": [
+    "Reveal the top 2 cards of your deck."
   ],
-  "Search": [
-    "Search your deck for a location card, reveal that card to all players, and put it into your hand. Then, shuffle your deck.",
+  "Search your": [
+    "Search your deck for a location card, reveal that card to all players, and put it into your hand. shuffle your deck.",
     "Search your deck for an item card or a Robot character card and reveal it to all players. Shuffle your deck and put that card on top of it."
   ],
-  "Shuffle": [
-    "Shuffle chosen card from your discard into your deck. Reveal the top card of your deck. If it has the same name chosen card, you may play the revealed card for free. Otherwise, put it into your hand.",
-    "Shuffle chosen character, item, or location into their player's deck. That player draws 2 cards."
+  "Shuffle chosen": [
+    "Shuffle chosen card from your discard into your deck. Reveal the top card of your deck. chosen card, you may play the revealed card for free.",
+    "Shuffle chosen character, item, or location into their player's deck."
   ],
-  "This": [
+  "This character": [
     "This character also counts as being named King Candy for Shift.",
+    "This character can challenge ready characters.",
     "This character can challenge ready characters. While this character has damage, he gets +2{s}.",
     "This character can challenge ready damaged characters.",
     "This character can't be challenged by Pirate characters.",
@@ -479,15 +543,16 @@
     "This character gets +1{s} for each other character you have in play.",
     "This character gets +1{s} this turn.",
     "This character gets +2{s} for each other character named Magic Broom you have in play",
-    "This character gets -1{l} for each card in your opponents' hands.",
-    "This item enters play exerted.",
-    "This turn, you may put an additional card from your hand into your inkwell facedown. Draw a card."
+    "This character gets -1{l} for each card in your opponents' hands."
   ],
   "This character can't challenge. {e} :": [
-    "This character can't challenge. {e} : Ready chosen character named Mulan. She can't quest for the rest of this turn."
+    "This character can't challenge. {e} : Ready chosen character named Mulan."
   ],
-  "This character can't ready at the start of your turn. 2{i}:": [
-    "This character can't ready at the start of your turn. 2{i}: Ready this character. He can't quest for the rest of the turn."
+  "This character can't ready at the start of your turn. 2{i} :": [
+    "This character can't ready at the start of your turn. 2{i} : Ready this character."
+  ],
+  "This item": [
+    "This item enters play exerted."
   ],
   "This item enters play exerted. {e} :": [
     "This item enters play exerted. {e} : Put a character card from your discard into your inkwell facedown and exerted."
@@ -495,17 +560,22 @@
   "This item enters play exerted. {e}, 2{i}, Banish one of your items :": [
     "This item enters play exerted. {e}, 2{i}, Banish one of your items : Gain 2 lore."
   ],
-  "Up": [
+  "This turn,": [
+    "This turn, you may put an additional card from your hand into your inkwell facedown. Draw a card."
+  ],
+  "Up to": [
     "Up to 2 chosen characters get -1{s} this turn. Draw a card."
   ],
   "Villain characters gain \"{e}, 3{i} :": [
     "Villain characters gain \"{e}, 3{i} : Play a character with the same name as this character for free\" while here."
   ],
-  "When": [
-    "When play this character, you may return an item card name Pawpsicle from your discard to your hand.",
+  "When play": [
+    "When play this character, you may return an item card name Pawpsicle from your discard to your hand."
+  ],
+  "When this": [
     "When this character challenges and is banished, you may banish the challenged character.",
     "When this character is banished in a challenge, return this card to your hand.",
-    "When this character is banished in a challenge, return this card to your hand. Your characters named Jetsam gain \"When this character is banished in a challenge, return this card to your hand.\"",
+    "When this character is banished in a challenge, return this card to your hand. Your characters named Jetsam gain \"When this character is banished in a challenge, return this card to your hand.",
     "When this character is banished in a challenge, you may draw a card.",
     "When this character is banished in a challenge, you may return this card to your hand.",
     "When this character is banished, gain 2 lore.",
@@ -517,23 +587,24 @@
     "When this character is banished, you may exert chosen character.",
     "When this character is banished, you may put this card into your inkwell facedown and exerted.",
     "When this character is banished, you may remove up to 2 damage from chosen character.",
-    "When this character is banished, you may reveal the top card of your deck. If it's a character card, you may play that character for free and they enter play exerted. Otherwise, put it on the top of your deck.",
+    "When this character is banished, you may reveal the top card of your deck. If it's a character card, you may play that character for free and they enter play exerted.",
     "When this character is banished, you may shuffle this card into your deck.",
     "When this character is banished, your other Seven Dwarfs characters get +2{s} until the start of your next turn.",
     "When this character is challenged and banished, banish the challenging character.",
     "When this character is challenged and banished, each opponent chooses one of their characters and returns that card to their hand.",
     "When this character is challenged and banished, you may banish the challenging character.",
     "When this character is challenged and banished, you may return chosen character to their player's hand.",
-    "When this character is return this card to your hand.",
     "When this item is banished, you may return an item card with cost 2 or less from your discard to your hand.",
-    "When this item is banished, you pay 2{i} less for the next item you play this turn.",
+    "When this item is banished, you pay 2{i} less for the next item you play this turn."
+  ],
+  "When you": [
     "When you move a character here from a location, you may banish this location to gain 3 lore and draw 3 cards.",
-    "When you play  this character, return a character card from your discard to your hand. If that card is a Princess character card, gain 2 lore.",
+    "When you play   this character, return a character card from your  discard to your hand.",
     "When you play a Floodborn character on this card, draw a card.",
     "When you play this character and when he leaves play, chosen characters gain Challenger +3 this turn.",
     "When you play this character and when he leaves play, gain 1 lore.",
-    "When you play this character and when he leaves play, look at the top 2 cards of your deck. Put one on the top of your deck and the other on the bottom.",
-    "When you play this character and when he leaves play, look at the top card of your deck. Put it on either the top or the bottom of your deck.",
+    "When you play this character and when he leaves play, look at the top 2 cards of your deck.",
+    "When you play this character and when he leaves play, look at the top card of your deck.",
     "When you play this character and when he leaves play, you may draw a card.",
     "When you play this character and whenever he quests, chosen opposing character gains Reckless during their next turn.",
     "When you play this character and whenever he quests, you may banish one of your items to draw 2 cards.",
@@ -542,18 +613,19 @@
     "When you play this character and whenever she quests, you may play a character with cost 2 or less from your discard for free.",
     "When you play this character and whenever she quests, you may remove up to 2 damage from each of your characters.",
     "When you play this character and whenever she's challenged, each opponent chooses and discards a card.",
+    "When you play this character,  you may ready chosen character.",
     "When you play this character, Exert all cards in your inkwell, then return 2 cards at random from your inkwell to your hand. Whenever this character quests, ready all cards in your inkwell.",
     "When you play this character, all characters get -3{s} until the start of your next turn.",
     "When you play this character, banish all opposing characters with 2{s} or less.",
     "When you play this character, banish all opposing damaged characters.",
-    "When you play this character, banish chosen opposing Dragon character. Whenever he challenges this character after the challenge.",
+    "When you play this character, banish chosen opposing Dragon character. Whenever he challenges a damaged character, ready this character after the challenge.",
     "When you play this character, banish chosen opposing character with 1{s} or less.",
     "When you play this character, banish chosen opposing character with 3{s} or less.",
     "When you play this character, banish chosen opposing character with 5{s} or more.",
     "When you play this character, banish her or return another 2 chosen characters of yours to your hand.",
     "When you play this character, banish her or return another chosen character of yours to your hand.",
-    "When you play this character, banish return another chosen character of yours to your hand. At the start of your turn, you may move up to 2 damage counters from this character to chosen opposing character.",
-    "When you play this character, characters can't exert to sing songs until the start of your next turn. Each player pays 2{i} more to play actions or items. This doesn't apply to singing songs.",
+    "When you play this character, banish her or return another chosen character of yours to your hand. At the start of your turn, you may move up to 2 damage counters from this character to chosen opposing character.",
+    "When you play this character, characters can't exert to sing songs until the start of your next turn. Each player pays 2{i} more to play actions or items.",
     "When you play this character, choose and discard a card or banish this character.",
     "When you play this character, chosen Pirate character gains Evasive until the start of your next turn.",
     "When you play this character, chosen character can't challenge during their next turn.",
@@ -567,7 +639,7 @@
     "When you play this character, chosen character gains Support this turn.",
     "When you play this character, chosen character gets +1{l} this turn.",
     "When you play this character, chosen character gets +2{s} this turn.",
-    "When you play this character, chosen character gets +2{s} this turn. If the chosen character is named Pain, he gets +4{s} instead.",
+    "When you play this character, chosen character gets +2{s} this turn. chosen character is named Pain, he gets +4{s} instead.",
     "When you play this character, chosen character gets -2{s} this turn.",
     "When you play this character, chosen character gets -3{s} this turn.",
     "When you play this character, chosen knight character gains Challenger +2 this turn.",
@@ -579,45 +651,49 @@
     "When you play this character, chosen opposing character gets -1{s} this turn.",
     "When you play this character, chosen opposing character gets -2{s} this turn.",
     "When you play this character, chosen opposing character gets -5{s} this turn.",
+    "When you play this character, chosen opposing character gets -5{s} until the start of your next turn.",
     "When you play this character, deal 1 damage to chosen damaged opposing character.",
     "When you play this character, deal 1 damage to each opposing character. During your turn, whenever this character banishes another character in a challenge, you may deal 2 damage to chosen opposing character.",
     "When you play this character, deal 2 damage to chosen character of yours to deal 2 damage to another chosen character.",
     "When you play this character, deal damage to chosen character equal to the number of Broom characters you have in play.",
     "When you play this character, discard your hand.",
     "When you play this character, draw a card.",
-    "When you play this character, each  opponent chooses and exerts one of their ready characters. They can't ready at the start of their next turn.",
+    "When you play this character, each  opponent chooses and exerts one of their ready characters. at the start of their next turn.",
     "When you play this character, each opponent chooses and banishes one of their characters.",
     "When you play this character, each opponent chooses and discards a card.",
     "When you play this character, each opponent chooses and discards either 2 cards or 1 action card.",
     "When you play this character, each opponent chooses and exerts one of their ready characters.",
+    "When you play this character, each opponent chooses one of their characters and returns that card to their hand.",
     "When you play this character, each opponent draws a card.",
     "When you play this character, each opponent loses 1 lore.",
     "When you play this character, each opponent loses 1 lore. You may draw a card for each 1 lore lost this way.",
     "When you play this character, each opponent with more lore than you loses 1 lore.",
+    "When you play this character, exert all opposing characters.",
     "When you play this character, exert all opposing damaged characters.",
-    "When you play this character, exert chosen opposing character with 3{s} or less. Choose one of your characters and read them. They can't quest for the rest of this turn.",
+    "When you play this character, exert chosen opposing character with 3{s} or less. Choose one of your characters and read them.",
     "When you play this character, exert chosen opposing character.",
-    "When you play this character, exert chosen opposing item. It can't ready at the start of its next turn.",
-    "When you play this character, exert up to 2 chosen characters. They can't ready at the start of their next turn.",
+    "When you play this character, exert chosen opposing item. at the start of its next turn.",
+    "When you play this character, exert up to 2 chosen characters. at the start of their next turn.",
     "When you play this character, for each of your characters named Maleficent in play, return a chosen opposing character, item, or location with cost 3 or less to their player's hand.",
     "When you play this character, gain 1 lore.",
     "When you play this character, he gains Challenger +4 this turn.",
+    "When you play this character, if  you have a location in play, draw a card.",
     "When you play this character, if a Princess or Queen character is in play, gain 1 lore.",
     "When you play this character, if an opponent has a damaged character in play, gain 1 lore.",
     "When you play this character, if an opponent has an exerted character in play, gain 1 lore.",
     "When you play this character, if an opponent has an exerted character in play, you may draw a card.",
     "When you play this character, if an opponent has an item in play, gain 1 lore.",
-    "When you play this character, if an opponent has more cards in their hand than you may draw a card.",
     "When you play this character, if an opponent has more cards in their hand than you, draw a card. During your turn, this character gains Evasive.",
+    "When you play this character, if an opponent has more cards in their hand than you, you may draw a card.",
     "When you play this character, if an opponent has more cards in their inkwell than you, you may put the top card of your deck into your inkwell facedown and exerted.",
+    "When you play this character, if you  used Shift to play her, you may search your deck for  a character card and reveal that card to all players. Shuffle your deck and put that card on top of it.",
     "When you play this character, if you have 2 or more other characters in play, you may draw 2 cards.",
-    "When you play this character, if you have a Sorcerer character in play, you may exert chosen opposing character. They can't ready at the start of their next turn.",
-    "When you play this character, if you have a character named Elsa in play, choose an opposing character. The chosen character doesn't ready at the start of their next turn.",
+    "When you play this character, if you have a Sorcerer character in play, you may exert chosen opposing character. at the start of their next turn.",
+    "When you play this character, if you have a character named Elsa in play, choose an opposing character. chosen character doesn't ready at the start of their next turn.",
     "When you play this character, if you have a character named Jafar in play, you may banish chosen item.",
     "When you play this character, if you have a character named Lumiere or Cogsworth in play, you may draw a card.",
     "When you play this character, if you have a character named Magic Broom in play, you may draw a card. While you have 2 or more Broom characters in play, this character gets +2{l}.",
     "When you play this character, if you have a character named Pinocchio in play, you may draw a card.",
-    "When you play this character, if you have a location in play, draw a card.",
     "When you play this character, if you have a location in play, each opponent loses 1 lore.",
     "When you play this character, if you have an Illusion character in play, you may draw a card.",
     "When you play this character, if you have another Knight character in play, you may deal 1 damage to chosen character or location.",
@@ -625,22 +701,22 @@
     "When you play this character, if you have another character named Pete in play, you may banish chosen opposing character.",
     "When you play this character, if you used Shift to play her, return all other exerted characters to their players hands.",
     "When you play this character, if you used Shift to play her, she gets +3{s} this turn. During your turn, whenever this character deals damage to another character in a challenge, deal the same amount of damage to up to 2 other chosen characters.",
-    "When you play this character, if you used Shift to play her, you may search your deck for a character card and reveal that card to all players. Shuffle your deck and put that card on top of it.",
+    "When you play this character, if you used Shift to play him, each opponent loses 2 lore. While an opponent has 10 or more lore, this character gets +6{s}",
     "When you play this character, if you used Shift to play him, remove all damage from him.",
     "When you play this character, if you used Shift to play him, you may draw a card for each character with Bodyguard you have in play.",
     "When you play this character, if you used Shift to play him, you may put an action card from your discard on the top of your deck.",
     "When you play this character, if you used Shift to play him, you may search your deck for any card, put that card into your hand, then shuffle your deck.",
     "When you play this character, if you used Shift to play him, your characters gain Evasive until the start of your next turn.",
-    "When you play this character, look at the top 2 cards of your deck. Put one on the top of your deck and the other on the bottom.",
-    "When you play this character, look at the top 2 cards of your deck. You may put one into your hand. Put the rest on the bottom of your deck in any order.",
+    "When you play this character, look at the top 2 cards of your deck.",
+    "When you play this character, look at the top 2 cards of your deck. You may put one into your hand.",
     "When you play this character, look at the top 3 cards of your deck and put them back in any order.",
-    "When you play this character, look at the top 3 cards of your deck. You may put one into your hand. Put the rest on the bottom of your deck in any order.",
-    "When you play this character, look at the top 3 cards of your deck. You may reveal any number of character cards named The Queen and put them into your hand. Put the rest on the bottom of your deck in any order.",
-    "When you play this character, look at the top 4 cards of your deck. You may reveal a Floodborn character card and put it into your hand. Put the rest on the bottom of your deck in any order.",
-    "When you play this character, look at the top 4 cards of your deck. You may reveal a character card and put it into your hand. Put the rest on the bottom of our deck in any order.",
-    "When you play this character, look at the top 4 cards of your deck. You may reveal a song card and put it into your hand. Put the rest on the bottom of your deck in any order.",
-    "When you play this character, look at the top 4 cards of your deck. You may reveal an item card and put it into your hand. Put the rest on the bottom of your deck in any order.",
-    "When you play this character, look at the top 4 cards of your deck. You may reveal any number of Pirate character cards and put them into your hand. Put the rest on the bottom of your deck in any order.",
+    "When you play this character, look at the top 3 cards of your deck. You may put one into your hand.",
+    "When you play this character, look at the top 3 cards of your deck. You may reveal any number of character cards named The Queen and put them into your hand.",
+    "When you play this character, look at the top 4 cards of your deck. You may reveal a Floodborn character card and put it into your hand.",
+    "When you play this character, look at the top 4 cards of your deck. You may reveal a character card and put it into your hand.",
+    "When you play this character, look at the top 4 cards of your deck. You may reveal a song card and put it into your hand.",
+    "When you play this character, look at the top 4 cards of your deck. You may reveal an item card and put it into your hand.",
+    "When you play this character, look at the top 4 cards of your deck. You may reveal any number of Pirate character cards and put them into your hand.",
     "When you play this character, look at the top card of each opponent's deck.",
     "When you play this character, move 1 damage counter from chosen character to chosen opposing character.",
     "When you play this character, move up to 1 damage counter from chosen character to chosen opposing character.",
@@ -648,26 +724,23 @@
     "When you play this character, opponents can't play actions until the start of your next turn.",
     "When you play this character, put all cards from your hand into your inkwell facedown and exerted.",
     "When you play this character, put chosen character of yours into your inkwell facedown and exerted.",
-    "When you play this character, ready chosen character of yours at a  location. They can't quest for the rest of this turn.",
-    "When you play this character, ready chosen character. They can't quest for the rest of this turn.",
-    "When you play this character, ready your characters with cost 3 or less. They can't quest for the rest of this turn.",
+    "When you play this character, ready chosen character of yours at a  location.",
+    "When you play this character, ready chosen character.",
+    "When you play this character, ready your characters with cost 3 or less.",
     "When you play this character, remove up to 1 damage from chosen character of yours.",
     "When you play this character, remove up to 2 damage from chosen character.",
     "When you play this character, remove up to 3 damage from one of your characters. Draw a card for each 1 damage removed this way.",
     "When you play this character, return a character card from your discard to your hand.",
     "When you play this character, return up to 2 item cards from your discard to your hand. Whenever this character quests, you may play an item for free.",
     "When you play this character, she gains Evasive until the start of your next turn.",
-    "When you play this character, shuffle another chosen character card into their player's deck. That player draws 2 cards.",
+    "When you play this character, shuffle another chosen character card into their player's deck.",
     "When you play this character, the player or players with the most cards in their hand chooses and discards a card.",
-    "When you play this character, you 1{i} to give chosen character +2{s} this turn.",
     "When you play this character, you may banish chosen character named Mufasa.",
     "When you play this character, you may banish chosen character named Te Ka.",
     "When you play this character, you may banish chosen character.",
-    "When you play this character, you may banish chosen item of yours to draw a card. If the banished item is named Maurice's Machine, you may also banish chosen character with 2{s} or less.",
+    "When you play this character, you may banish chosen item of yours to draw a card. you may also banish chosen character with 2{s} or less.",
     "When you play this character, you may banish chosen item or location.",
     "When you play this character, you may banish chosen item.",
-    "When you play this character, you may banish chosen item. Its player draws a card.",
-    "When you play this character, you may banish chosen item. Its player gains 1 lore.",
     "When you play this character, you may choose and discard a card to gain 2 lore.",
     "When you play this character, you may choose and discard a card to give chosen opposing character -3{s} until the start of your next turn.",
     "When you play this character, you may deal 1 damage to chosen character or location.",
@@ -680,30 +753,32 @@
     "When you play this character, you may draw 2 cards, then put a card from your hand on the bottom of your deck.",
     "When you play this character, you may draw a card, then choose and discard a card.",
     "When you play this character, you may draw a card.",
+    "When you play this character, you may exert chosen damaged character.",
     "When you play this character, you may exert chosen opposing character.",
-    "When you play this character, you may exert chosen opposing character. That character can't ready at the start of their next turn unless they're at a location.",
+    "When you play this character, you may exert chosen opposing character. at the start of their next turn unless they're at a location.",
     "When you play this character, you may give chosen character -2{s} until the start of your next turn.",
     "When you play this character, you may look at each opponent's hand.",
     "When you play this character, you may move any number of your characters to the same location for free. Gain 1 lore for each character you moved.",
-    "When you play this character, you may move him and one of your other characters to the same location for free. The other characters get +2{s} this turn.",
+    "When you play this character, you may move him and one of your other characters to the same location for free. characters get +2{s} this turn.",
     "When you play this character, you may move up to 2 damage counters from chosen character to chosen opposing character.",
+    "When you play this character, you may pay 1{i} to give chosen character +2{s} this turn.",
     "When you play this character, you may pay 2{i}  to banish chosen item.",
     "When you play this character, you may pay 2{i} to gain lore equal to the damage on chosen opposing character.",
     "When you play this character, you may pay 2{i} to have each opponent choose and discard a card.",
     "When you play this character, you may pay 3{i} to banish chosen damaged character.",
+    "When you play this character, you may pay 3{i} to return chosen character to their player's hand.",
     "When you play this character, you may play a location with cost 4 or less for free. Whenever you play a location, this character may move there for free.",
-    "When you play this character, you may play a song with cost 6 or less for free.",
+    "When you play this character, you may play a song with cost 6 or  less for free.",
     "When you play this character, you may put a card from your hand into your inkwell facedown and exerted.",
     "When you play this character, you may put an item card named The Glass Slipper from your discard on the bottom of your deck to gain 3 lore.",
     "When you play this character, you may put chosen opposing character into their player's inkwell facedown.",
     "When you play this character, you may put the top 3 cards of your deck into your discard to give chosen character -3{s} until the start of your next turn.",
     "When you play this character, you may put the top card of your deck into your inkwell facedown and exerted.",
-    "When you play this character, you may ready chosen character. They can't quest or challenge for the rest of this turn.",
     "When you play this character, you may remove up to 1 damage from chosen character or location.",
     "When you play this character, you may remove up to 1 damage from chosen character.",
     "When you play this character, you may remove up to 2 damage from chosen character and they gain Resist +1 until the start of your next turn.",
     "When you play this character, you may remove up to 2 damage from chosen character.",
-    "When you play this character, you may remove up to 2 damage from chosen character. If you removed damage this way, you may draw a card.",
+    "When you play this character, you may remove up to 2 damage from chosen character. you may draw a card.",
     "When you play this character, you may remove up to 2 damage from each of your Musketeer characters.",
     "When you play this character, you may remove up to 3 damage from one of your characters.",
     "When you play this character, you may return an action card from your discard to your hand.",
@@ -718,24 +793,17 @@
     "When you play this character, your characters get +2{s} this turn.",
     "When you play this character, your other characters gain Ward until the start of your next turn.",
     "When you play this character, your other characters get +3{s} this turn.",
-    "When you play this each opponent chooses one of their characters and returns that card to their hand.",
-    "When you play this exert all opposing characters.",
     "When you play this item, draw a card. All cards in your hand count as having {n}.",
-    "When you play this location, choose an exerted While this location is in play, that character can't ready at the start of their turn.",
-    "When you play this you may exert chosen damaged character.",
-    "When you play this you may pay 3{i} to return chosen character to their player's hand."
+    "When you play this location, choose an exerted character. While this location is in play, that character can't ready at the start of their turn."
   ],
-  "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one:": [
-    "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one: : Draw 2 cards, then choose and discard 2 cards. : Deal 2 damage to chosen character."
+  "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one :": [
+    "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one :  - Draw 2 cards, then choose and discard 2 cards. Deal 2 damage to chosen character."
   ],
-  "When you play this character, choose one:": [
-    "When you play this character, choose one:  Exert chosen damaged character.  Chosen opposing character gains Reckless during their next turn."
+  "When you play this character, choose one :": [
+    "When you play this character, choose one :  Exert chosen damaged character. Chosen opposing character gains Reckless during their next turn."
   ],
-  "When you play this character, if you used Shift to play him, each opponent loses 2 lore. Raging Duck:": [
-    "When you play this character, if you used Shift to play him, each opponent loses 2 lore. Raging Duck: While an opponent has 10 or more lore, this character gets +6{s}"
-  ],
-  "When you play this character, you may pay 2{i} to choose one:": [
-    "When you play this character, you may pay 2{i} to choose one: Each opponent chooses and discards a card. Chosen character gets +2{s} this turn. Banish chosen damaged character."
+  "When you play this character, you may pay 2{i} to choose one :": [
+    "When you play this character, you may pay 2{i} to choose one :  Each opponent chooses and discards a card. Chosen character gets +2{s} this turn. Banish chosen damaged character."
   ],
   "When you play this character, you may put chosen item or location into its player's inkwell facedown and exerted. 4{i} :": [
     "When you play this character, you may put chosen item or location into its player's inkwell facedown and exerted. 4{i} : Your other characters gain Resist +1 until the start of your next turn."
@@ -746,7 +814,7 @@
   "When you play this item, you may draw a card. Banish this item :": [
     "When you play this item, you may draw a card. Banish this item : Remove up to 2 damage from chosen character."
   ],
-  "Whenever": [
+  "Whenever a": [
     "Whenever a card is put into your inkwell, gain 1 lore.",
     "Whenever a character is banished in a challenge while here, you may return them to your hand. Characters named Ursula get +1{l} while here.",
     "Whenever a character is banished while here, you may draw a card.",
@@ -755,26 +823,34 @@
     "Whenever a character is challenged while here, each opponent chooses and discards a card.",
     "Whenever a character of yours is challenged while this character is exerted, the challenging character gets -3{s} this turn unless their player pays 3{i}.",
     "Whenever a character of yours named HeiHei quests, this character gets +1{l} and loses Reckless this turn.",
-    "Whenever a character quests while here, remove up to 2 damage from them. If they're a Hero character, remove up to 4 damage instead.",
+    "Whenever a character quests while here, remove up to 2 damage from them. remove up to 4 damage instead.",
     "Whenever a character quests while here, you may draw a card, then choose and discard a card.",
     "Whenever a character quests while here, you may pay 3{i} to return a character card from your discard to your hand.",
-    "Whenever a character with 3{s} or more challenge another character while here, gain 1 lore. If the challenging character has 6{s} or more, gain 3 lore instead.",
+    "Whenever a character with 3{s} or more challenge another character while here, gain 1 lore.",
     "Whenever a damaged character challenges another character, you may draw a card.",
-    "Whenever a this character challenges another character, he gets +{s} equal to the {s} of chosen character this turn.",
+    "Whenever a this character challenges another character, he gets +{s} equal to the {s} of chosen character this turn."
+  ],
+  "Whenever an": [
     "Whenever an opponent chooses this character for an action or ability, you may draw a card.",
     "Whenever an opponent plays a song, you may draw a card.",
     "Whenever an opposing character is banished, you may ready this character.",
-    "Whenever an opposing character is damaged, you may ready this character.",
+    "Whenever an opposing character is damaged, you may ready this character."
+  ],
+  "Whenever another": [
     "Whenever another character is banished in a challenge, return that card to its player's hand, then that player discards a card at random.",
     "Whenever another character is banished, you may remove up to 2 damage from this character.",
-    "Whenever another character is played, put a damage counter on them.",
+    "Whenever another character is played, put a damage counter on them."
+  ],
+  "Whenever he": [
     "Whenever he challenges a Hyena character, this character takes no damage from the challenge.",
     "Whenever he challenges a Pirate character, this character takes no damage from the challenge.",
-    "Whenever he quests, each of your other characters gets +{s} equal to this character's {s} this turn.",
+    "Whenever he quests, each of your other characters gets +{s} equal to this character's {s} this turn."
+  ],
+  "Whenever one": [
     "Whenever one of your Pirate characters quests while at a location, draw a card.",
     "Whenever one of your Puppy characters is banished, you may put that card into your inkwell facedown and exerted.",
     "Whenever one of your characters challenge another character, you may pay 1{i} less for the next character you play this turn.",
-    "Whenever one of your characters challenges a damaged character, you draw a card.",
+    "Whenever one of your characters challenges a damaged character, you may draw a card.",
     "Whenever one of your characters challenges another character, gain 1 lore.",
     "Whenever one of your characters challenges another character, if it's the second challenge this turn, gain 3 lore.",
     "Whenever one of your characters challenges another character, you may draw a card.",
@@ -783,7 +859,7 @@
     "Whenever one of your characters is chosen for Support, they gain Resist +1 this turn.",
     "Whenever one of your characters quests this turn, each opponent loses 1 lore.",
     "Whenever one of your characters quests this turn, gain 1 lore.",
-    "Whenever one of your characters quests, you may look at the top card of your deck. Put it on either the top or the bottom of your deck.",
+    "Whenever one of your characters quests, you may look at the top card of your deck.",
     "Whenever one of your characters sings a song, chosen opponent reveals their hand.",
     "Whenever one of your characters sings a song, this character can't be challenged until the start of your next turn.",
     "Whenever one of your characters with Bodyguard is banished, you may draw a card.",
@@ -792,9 +868,11 @@
     "Whenever one of your other Racer characters is banished, each opponent chooses and banishes one of their characters.",
     "Whenever one of your other character would be dealt damage, put that many damage counters on this character instead.",
     "Whenever one of your other characters is banished in a challenge, you may return that card to your hand.",
-    "Whenever one of your other characters is banished, you may remove all chosen character.",
+    "Whenever one of your other characters is banished, you may remove all damage from chosen character.",
     "Whenever one of your other characters is returned to your hand from play, this characters get +1{l} this turn.",
-    "Whenever one or more of your characters sings a song, gain 1 lore.",
+    "Whenever one or more of your characters sings a song, gain 1 lore."
+  ],
+  "Whenever this": [
     "Whenever this character challenges a damaged character, she takes no damage from the challenge.",
     "Whenever this character challenges another character, another chosen character of yours gets +3{s} this turn.",
     "Whenever this character challenges another character, each opponent loses 1 lore.",
@@ -829,9 +907,9 @@
     "Whenever this character quests, chosen opposing character gets -1{s} until the start of your next turn.",
     "Whenever this character quests, chosen opposing character gets -2{s} this turn.",
     "Whenever this character quests, chosen opposing character gets -4{s} this turn and chosen character gets +4{s} this turn.",
+    "Whenever this character quests, each  opponent reveals the top card of their deck. If it's  a character card, they may put it into their hand.",
     "Whenever this character quests, each opponent chooses and discards a card.",
     "Whenever this character quests, each opponent loses 1 lore.",
-    "Whenever this character quests, each opponent reveals the top card of their deck. If it's a character card, they may put it into their hand. Otherwise, they put it on the bottom of their deck.",
     "Whenever this character quests, each opponent with more lore than you loses 2 lore.",
     "Whenever this character quests, exert chosen character. characters can't exert to sing songs.",
     "Whenever this character quests, exert chosen opposing character.",
@@ -840,38 +918,39 @@
     "Whenever this character quests, if you have a character named Anna in play, gain 1 lore.",
     "Whenever this character quests, if you have characters named Dewey and Louie in play, you may draw 3 cards.",
     "Whenever this character quests, if you have no cards in your hand, draw a card for each Ally character you have in play.",
-    "Whenever this character quests, look at the top 2 cards of your deck. You may put one into your hand. Put the rest on the bottom of your deck in any order.",
-    "Whenever this character quests, look at the top 2 cards of your deck. You may reveal any number of Puppy character cards and put them in your hand. Put the rest on the bottom of your deck in any order.",
-    "Whenever this character quests, look at the top 4 cards of your deck. You my reveal an action card with cost 6 or less and play it for free. Put the rest in your discard.",
-    "Whenever this character quests, look at the top card of your deck. Put it on either the top or the bottom of your deck",
-    "Whenever this character quests, name a card, then reveal the top card of your deck. If it's the named card, put it into your inkwell facedown and exerted. Otherwise, put it on the top of your deck.",
+    "Whenever this character quests, look at the top 2 cards of your deck. You may put one into your hand.",
+    "Whenever this character quests, look at the top 2 cards of your deck. You may reveal any number of Puppy character cards and put them in your hand.",
+    "Whenever this character quests, look at the top 4 cards of your deck.",
+    "Whenever this character quests, look at the top card of your deck.",
+    "Whenever this character quests, name a card, then reveal the top card of your deck. If it's the named card, put it into your inkwell facedown and exerted.",
     "Whenever this character quests, opposing damaged characters gain Reckless during their next turn.",
     "Whenever this character quests, ready one of your items.",
-    "Whenever this character quests, reveal the top card of your deck. If it's a Dragon character card, put it into your hand and repeat this effect. Otherwise, put it on either the top or the bottom of your deck.",
-    "Whenever this character quests, you chosen other Return that character to your hand.",
+    "Whenever this character quests, reveal the top card of your deck. If it's a Dragon character card, put it into your hand and repeat this effect.",
     "Whenever this character quests, you may banish chosen item of yours to draw a card.",
     "Whenever this character quests, you may banish chosen item or location to gain 2 lore.",
     "Whenever this character quests, you may banish chosen item.",
     "Whenever this character quests, you may banish them to draw a card.",
-    "Whenever this character quests, you may deal 1 damage to another chosen character of yours. If you do, ready that character. They can't quest for the rest of this turn.",
+    "Whenever this character quests, you may choose and discard a card to return chosen character, item, or location with cost 3 or less to their player's hand.",
+    "Whenever this character quests, you may deal 1 damage to another chosen character of yours.",
     "Whenever this character quests, you may deal 1 damage to chosen character.",
     "Whenever this character quests, you may deal 2 damage to another chosen character of yours to put the top 3 cards of chosen player's deck into their discard.",
     "Whenever this character quests, you may deal 3 damage to chosen damaged character.",
-    "Whenever this character quests, you may draw a card, then choose and discard a card to deal 1 damage to chosen character or location. If you discarded a Pirate character card, deal 3 damage instead.",
+    "Whenever this character quests, you may draw a card, then choose and discard a card to deal 1 damage to chosen character or location.",
     "Whenever this character quests, you may draw a card, then choose and discard a card.",
     "Whenever this character quests, you may draw a card. During your turn, whenever you draw a card, you may move 1 damage counter from chosen character to chosen opposing character.",
-    "Whenever this character quests, you may exert chosen character. If you do and you have a character named Anna in play, the chosen character can't ready at the start of their next turn.",
+    "Whenever this character quests, you may exert chosen character. chosen character can't ready at the start of their next turn.",
+    "Whenever this character quests, you may gain lore equal to the {l} of chosen other character of yours. Return that character to your hand.",
     "Whenever this character quests, you may give chosen character -2{s} this turn.",
     "Whenever this character quests, you may give chosen character -2{s} until the start of your next turn.",
     "Whenever this character quests, you may give chosen character of yours +2{s} this turn.",
     "Whenever this character quests, you may look at the top 3 cards of your deck and put them back in any order.",
-    "Whenever this character quests, you may look at the top card of chosen player's deck. Put it on top of their deck or into their discard.",
+    "Whenever this character quests, you may look at the top card of chosen player's deck.",
     "Whenever this character quests, you may move up to 2 damage counters from chosen character to chosen opposing character.",
     "Whenever this character quests, you may pay 1{i} less for the next Pirate character you play this turn.",
     "Whenever this character quests, you may play an Ally character with cost 3 or less for free. While this character is exerted, your Ally characters get +1{s}.",
     "Whenever this character quests, you may play an action with cost 5 or less for free.",
     "Whenever this character quests, you may put a card from your hand into your inkwell facedown.",
-    "Whenever this character quests, you may ready your other Princess Characters. They can't quest for the rest of this turn.",
+    "Whenever this character quests, you may ready your other Princess Characters.",
     "Whenever this character quests, you may remove up to 1 damage from each of your Puppy characters.",
     "Whenever this character quests, you may remove up to 2 damage from chosen character.",
     "Whenever this character quests, you may return a character card from your discard to your hand.",
@@ -879,7 +958,7 @@
     "Whenever this character quests, you may return another chosen character of yours to your hand to gain 2 lore.",
     "Whenever this character quests, you may return chosen damaged character to their player's hand.",
     "Whenever this character quests, you may return one of your items to your hand to pay 2{i} less for the next item you play this turn.",
-    "Whenever this character quests, you may reveal the top card of your deck. If it's a song card, you may play it for free. Otherwise, put it on the top of your deck.",
+    "Whenever this character quests, you may reveal the top card of your deck. If it's a song card, you may play it for free.",
     "Whenever this character quests, you may shuffle this card into your deck to draw 3 cards.",
     "Whenever this character quests, you pay 1{i} less for the next action you play this turn.",
     "Whenever this character quests, you pay 1{i} less for the next character you play this turn.",
@@ -896,8 +975,9 @@
     "Whenever this character quests, your other Madrigal characters ger +1{l} this turn.",
     "Whenever this character quests, your other Villain characters get +1{l} this turn.",
     "Whenever this character sings a song, you may play that song again from your discard for free, then put it on the bottom of your deck.",
-    "Whenever this character sings a song, your other Princess characters get +1{l} this turn.",
-    "Whenever this you may choose and discard a return chosen character, item, or location with cost 3 or less to their player's hand.",
+    "Whenever this character sings a song, your other Princess characters get +1{l} this turn."
+  ],
+  "Whenever you": [
     "Whenever you discard a card, you may deal 1 damage to chosen opposing character.",
     "Whenever you play a Floodborn character, deal 1 damage to each opposing character.",
     "Whenever you play a Floodborn character, each opponent chooses and discards a card.",
@@ -911,9 +991,9 @@
     "Whenever you play a character named Anna, ready this character. This character can't quest for the rest of this turn.",
     "Whenever you play a character named Cinderella, you may exert chosen character.",
     "Whenever you play a character named Hercules, You may ready this character.",
-    "Whenever you play a character named Maleficent, you may look at the top card of your deck. Put it on the top or the bottom of your deck.",
+    "Whenever you play a character named Maleficent, you may look at the top card of your deck.",
     "Whenever you play a character with 4{s} or more, you may pay 1{i} to draw a card.",
-    "Whenever you play a character with Bodyguard, ready this character. He can't quest for the rest of this turn.",
+    "Whenever you play a character with Bodyguard, ready this character.",
     "Whenever you play a character with Bodyguard, you may remove up to 2 damage from chosen character.",
     "Whenever you play a character with cost 2 or less, you may exert them to draw a card.",
     "Whenever you play a character, this character gets +1{l} this turn. Whenever this character quests, chosen opposing character loses {s} equal to this character's {l} until the start of your next turn.",
@@ -924,7 +1004,7 @@
     "Whenever you play a song, gain 1 lore.",
     "Whenever you play a song, this character may challenge ready characters this turn.",
     "Whenever you play a song, you may draw a card, then choose and discard a card.",
-    "Whenever you play a song, you may look at the top 2 cards of your deck. Put one on the top of your deck and the other on the bottom.",
+    "Whenever you play a song, you may look at the top 2 cards of your deck.",
     "Whenever you play a song, you may move up to 2 damage counters from chosen character to chosen opposing character.",
     "Whenever you play a song, you may pay 1{i} to draw a card.",
     "Whenever you play a song, you may pay 2{i} to deal 3 damage to chosen character.",
@@ -942,26 +1022,41 @@
     "Whenever you play an item, this character gets +1{l} this turn.",
     "Whenever you play an item, this character gets +2{s} this turn.",
     "Whenever you play an item, you may ready this character.",
-    "Whenever you play another all opposing characters get -1{s} until the start of your next turn.",
+    "Whenever you play another Princess character, all opposing characters get -1{s} until the start of your next turn.",
     "Whenever you play another character, you may banish this character to draw a card.",
     "Whenever you play another item, you may pay 1{i} to draw a card.",
     "Whenever you play this character or another Seven Dwarfs character, you may give chosen character -1{s} this turn.",
     "Whenever you ready this character, gain 1 lore for each 1 damage on him.",
     "Whenever you ready this character, if you have 2 or more other characters in play, gain 2 lore.",
-    "Whenever you remove 1 or more damage from a character, ready this character. She can't quest or challenge for the rest of this turn.",
+    "Whenever you remove 1 or more damage from a character, ready this character.",
     "Whenever you remove 1 or more damage from one of your characters, gain 2 lore.",
     "Whenever you remove 1 or more damage from one of your characters, you may draw a card.",
-    "Whenever you return a Racer character card from your discard to your hand, you may ready chosen Racer character. They can't quest for the rest of this turn.",
+    "Whenever you return a Racer character card from your discard to your hand, you may ready chosen Racer character."
+  ],
+  "Whenever you ready this character, gain 1 lore for each other undamaged character you have in play. {e} :": [
+    "Whenever you ready this character, gain 1 lore for each other undamaged character you have in play. {e} : Banish chosen Illusion character."
+  ],
+  "Whenever your": [
     "Whenever your opponents discards 1 or more cards, you may draw a card for each card discarded.",
     "Whenever your play a character, they gain Resist +1 until the start of your next turn."
   ],
-  "While": [
-    "While a damaged character is in play, this character gets +2{s}.",
-    "While an opponent has no cards in their hand, this character gets +2{l}.",
-    "While being challenged, this character gets +2{s}.",
-    "While challenging a damaged character, this character gets +2{s}.",
+  "While a": [
+    "While a damaged character is in play, this character gets +2{s}."
+  ],
+  "While an": [
+    "While an opponent has no cards in their hand, this character gets +2{l}."
+  ],
+  "While being": [
+    "While being challenged, this character gets +2{s}."
+  ],
+  "While challenging": [
+    "While challenging a damaged character, this character gets +2{s}."
+  ],
+  "While one": [
     "While one of your Knight characters is at a location, that character gains Resist +2. During your turn, this character gains Evasive.",
-    "While one or more opponents have no cards in their hands, this character gets +3{s}.",
+    "While one or more opponents have no cards in their hands, this character gets +3{s}."
+  ],
+  "While this": [
     "While this character has 5{s} or more, he gets +2{l}.",
     "While this character has damage, he gets +2{s}.",
     "While this character has damage, he gets +3{s}.",
@@ -977,14 +1072,17 @@
     "While this character is at a location, it gets +2{s}.",
     "While this character is at a location, she gets +2{s}.",
     "While this character is at a location, she gets +3{s}. While this character is at a location, whenever she challenges another character, you may draw a card.",
+    "While this character is exerted and you have no cards in your hand, opponents can't play actions.",
+    "While this character is exerted,  your characters named Koda can't be challenged.",
     "While this character is exerted, if you have a character named pain in play, your Villain characters can't be challenged.",
     "While this character is exerted, opposing Pirate characters can't quest.",
     "While this character is exerted, opposing characters can't exert to sing songs and your Pirate characters gain Resist +1.",
     "While this character is exerted, opposing characters can't quest.",
+    "While this character is exerted, opposing characters can't ready at the start of their turn.",
     "While this character is exerted, opposing characters with Evasive gain Reckless.",
-    "While this character is exerted, your characters named Koda can't be challenged.",
-    "While this character is exerted, your characters with Bodyguard gain Resist +1 and get +1{l}.",
-    "While this character is opposing characters can't ready at the start of their turn.",
+    "While this character is exerted, your characters with Bodyguard gain Resist +1 and get +1{l}."
+  ],
+  "While you": [
     "While you have 2 or more other characters in play, this character gets +2{l}.",
     "While you have 3 or more characters here, you may banish this location to play a character from your discard for free.",
     "While you have 3 or more items in play, this location gets +2{l}.",
@@ -992,17 +1090,17 @@
     "While you have a Captain character in play, this character gets +1{l}.",
     "While you have a Captain character in play, this character gets +2{l}.",
     "While you have a Hero character in play, this character gains Ward.",
+    "While you have a character named  Smee in play, this character gains Resist +1.",
     "While you have a character named Dale in play, this character gains Support.",
+    "While you have a character named Dolores Madrigal in play, this character gets +1{l}.",
     "While you have a character named Gazelle in play, this character gains Singer 6.",
     "While you have a character named Minnie Mouse in play, this character gets +2{s}.",
-    "While you have a character named Mr. Smee in play, this character gains Resist +1.",
     "While you have a character named Nani in play, this character gets +2{l}.",
     "While you have a character named Pascal in play, this character gains Ward.",
     "While you have a character named Snow White in play, this character gains Bodyguard.",
     "While you have a character named Tinker Bell in play, this character gets +2{s}.",
     "While you have a character named Tramp in play, this character gets +1{l}.",
     "While you have a character named Ursula in play, this character gains Bodyguard and gets +2{w}.",
-    "While you have a character named this character gets +1{l}.",
     "While you have a damaged character here, this location gets +2{l}.",
     "While you have an Alien or Robot character here, this location can't be challenged.",
     "While you have an exerted character here, opposing characters get -1{l}.",
@@ -1020,34 +1118,54 @@
     "While you have no cards in your hand, characters with cost 4 or less can't  challenge this character.",
     "While you have no cards in your hand, this character can challenge ready characters."
   ],
-  "You": [
-    "You can't play this character unless you have 5 or more characters in play.",
-    "You characters with Evasive get +1{s}.",
-    "You may exert 4 items of yours to play this character for free. When you play this character, look at the top 4 cards of your deck. You may reveal an item card and put it into your hand. Put the rest on the bottom of your deck in any order.",
+  "You can't": [
+    "You can't play this  character unless you have 5 or more characters in  play."
+  ],
+  "You characters": [
+    "You characters with Evasive get +1{s}."
+  ],
+  "You may": [
+    "You may exert 4 items of yours to play this character for free. When you play this character, look at the top 4 cards of your deck. You may reveal an item card and put it into your hand.",
     "You may have any number of cards named Microbots in your deck.",
+    "You may have up to 99 copies of Dalmatian Puppy - Tail Wagger in your deck.",
     "You may play a character with cost 5 or less for free.",
     "You may play any character with Shift on this character as if this character had any name.",
-    "You may play items named Microbots for free. Whenever this character quests, draw a card for each opposing character with 0{s}.",
+    "You may play items named Microbots for free. Whenever this character quests, draw a card for each opposing character with 0{s}."
+  ],
+  "You may only have 2 copies of The Glass Slipper in your deck. Banish this item, {e} one of your Prince characters :": [
+    "You may only have 2 copies of The Glass Slipper in your deck. Banish this item, {e} one of your Prince characters : Search your deck for a Princess character card and reveal it to all players. shuffle your deck."
+  ],
+  "You other": [
     "You other Hero characters gain Ward.",
-    "You other characters with Evasive gain Rush.",
+    "You other characters with Evasive gain Rush."
+  ],
+  "You pay": [
     "You pay 1{i} less to play Broom characters. Whenever one of your Broom characters is banished in a challenge, you may return that card to your hand.",
     "You pay 1{i} less to play Seven Dwarfs Characters.",
     "You pay 1{i} less to play characters using their Shift ability."
   ],
-  "You may have up to 99 copies of Dalmatian Puppy :": [
-    "You may have up to 99 copies of Dalmatian Puppy : Tail Wagger in your deck."
+  "Your Floodborn": [
+    "Your Floodborn characters that have a card under them gain Evasive and Ward."
   ],
-  "You may only have 2 copies of The Glass Slipper in your deck. Banish this item, {e} one of your Prince characters :": [
-    "You may only have 2 copies of The Glass Slipper in your deck. Banish this item, {e} one of your Prince characters : Search your deck for a Princess character card and reveal it to all players. Put that card into your hand and shuffle your deck."
+  "Your Hero": [
+    "Your Hero characters get +1{s}."
   ],
-  "Your": [
-    "Your Floodborn characters that have a card under them gain Evasive and Ward.",
-    "Your Hero characters gain Challenger +1 Whenever you play a Hero character, gain 1 lore.",
-    "Your Hero characters get +1{s}.",
-    "Your Inventor Characters Gain Resist +6 this turn. Then, put this card into your inkewll facedown and exerted",
-    "Your Prince and King characters gain Resist +1.",
-    "Your Puppy characters get +1{w}",
-    "Your Queen characters gain Ward.",
+  "Your Hero characters gain Challenger +1  Shameless Promoter :": [
+    "Your Hero characters gain Challenger +1  Shameless Promoter : Whenever you play a Hero character, gain 1 lore."
+  ],
+  "Your Inventor": [
+    "Your Inventor Characters Gain Resist +6 this turn."
+  ],
+  "Your Prince": [
+    "Your Prince and King characters gain Resist +1."
+  ],
+  "Your Puppy": [
+    "Your Puppy characters get +1{w}"
+  ],
+  "Your Queen": [
+    "Your Queen characters gain Ward."
+  ],
+  "Your characters": [
     "Your characters can't be challenged until the start of your next turn.",
     "Your characters gain Resist +2 until the start of your next turn.",
     "Your characters get +2{s} this turn.",
@@ -1065,12 +1183,29 @@
     "Your characters named Pluto gain Resist +1.",
     "Your characters named Zeus gain Ward. Your characters named Hercules gain Evasive.",
     "Your characters with 4{s} or more get +1{l}.",
-    "Your characters with 7{s} or more can't be dealt damage.",
+    "Your characters with 7{s} or more can't be dealt damage."
+  ],
+  "Your characters gain \"{e}, 1{i} :": [
+    "Your characters gain \"{e}, 1{i} : Deal 1 damage to chosen character\" this turn."
+  ],
+  "Your characters named Robin Hood may move here for free. Characters gain Ward and \"{e}, 1{i} :": [
+    "Your characters named Robin Hood may move here for free. Characters gain Ward and \"{e}, 1{i} : Deal 2 damage to chosen damaged character\" while here."
+  ],
+  "Your characters with Reckless gain \"{e} :": [
+    "Your characters with Reckless gain \"{e} : Gain 1 lore."
+  ],
+  "Your damaged": [
     "Your damaged characters get +1{s}.",
-    "Your damaged characters get +2{s}.",
-    "Your exerted characters gain Ward.",
+    "Your damaged characters get +2{s}."
+  ],
+  "Your exerted": [
+    "Your exerted characters gain Ward."
+  ],
+  "Your locations": [
     "Your locations and characters at locations gain Resist +1.",
-    "Your locations get +2{w}.",
+    "Your locations get +2{w}."
+  ],
+  "Your other": [
     "Your other Inventor characters gain Resist +1.",
     "Your other Seven Dwarfs characters get +1{s}.",
     "Your other Villain characters gain Support.",
@@ -1085,137 +1220,122 @@
     "Your other characters with Support get +1{s}",
     "Your other musketeer character get +1{s}."
   ],
-  "Your characters gain \"{e}, 1{i} :": [
-    "Your characters gain \"{e}, 1{i} : Deal 1 damage to chosen character\" this turn."
+  "chosen opponent": [
+    "chosen opponent has more cards in their hand than you, draw cards until you have the same number."
   ],
-  "Your characters named Robin Hood may move here for free. Characters gain Ward and \"{e}, 1{i} :": [
-    "Your characters named Robin Hood may move here for free. Characters gain Ward and \"{e}, 1{i} : Deal 2 damage to chosen while here."
-  ],
-  "Your characters with Reckless gain \"{e} :": [
-    "Your characters with Reckless gain \"{e} : Gain 1 lore.\""
-  ],
-  "{e}": [
-    "{e} one of your characters to deal damage equal to their {s} to chosen character."
+  "this character": [
+    "this character get +3{s}. Characters with cost 3 or less can't challenge this character."
   ],
   "{e} :": [
-    "{e} : Banish chosen Illusion character.",
     "{e} : Banish chosen damaged character.",
-    "{e} : Choose 3 cards from chosen opponent's discard and put them on the bottom of their deck to gain 3 lore. If any Princess cards were moved this way, gain 4 lore instead.",
+    "{e} : Banish chosen item.",
+    "{e} : Choose 3 cards from chosen opponent's discard and put them on the bottom of their deck to gain 3 lore.",
+    "{e} : Chosen character gains Challenger +2 and Rush this turn.",
     "{e} : Chosen character gains Reckless during their next turn.",
+    "{e} : Chosen character gains Resist +1 until the start of your next turn.",
+    "{e} : Chosen character gains Resist +2 this turn.",
     "{e} : Chosen character gains Resist +2 until the start of your next turn.",
     "{e} : Chosen character gains Support this turn.",
     "{e} : Chosen character gets +1{l} this turn.",
     "{e} : Chosen character gets +1{s} this turn.",
-    "{e} : Chosen character gets +1{s} this turn. If a character named Aladdin is chosen, he get +2{s} instead.",
     "{e} : Chosen character gets -1{s} this turn.",
-    "{e} : Chosen exerted at the start of their next turn.",
+    "{e} : Chosen character gets -2{s} until the start of your next turn.",
+    "{e} : Chosen exerted character can't ready at the start of their next turn.",
     "{e} : Deal 1 damage to chosen character.",
+    "{e} : Deal 1 damage to chosen damaged character or location. Whenever a character of yours named Robin Hood quests, you may ready this item.",
     "{e} : Draw a card, then choose and discard a card.",
     "{e} : Draw a card.",
     "{e} : Each player may draw a card.",
+    "{e} : Exert chosen character.",
+    "{e} : Exert chosen opposing character and all other opposing characters with the same name.",
     "{e} : Exert chosen opposing character.",
+    "{e} : Gain lore equal to the number of Titan characters you have in play.",
     "{e} : If one of your characters was damaged this turn, gain 1 lore.",
     "{e} : If you have 3 or more other characters in play, draw a card.",
-    "{e} : Look at the top 2 cards of your deck. Put one into your inkwell facedown and exerted and the other on the top of your deck.",
-    "{e} : Look at the top 2 cards of your deck. Put one on the top of your deck and the other on the bottom.",
-    "{e} : Look at the top 4 cards of your deck. You may reveal an item card and put it into your hand. If that item costs 3 or less, you may play it for free instead and it enters play exerted. Put the rest on the bottom of your deck in any order.",
-    "{e} : Play a character with cost 4 or less for free. They gain Rush. At the end of the turn, banish them.",
+    "{e} : If you played a song this turn, gain 1 lore.",
+    "{e} : If you've played 2 or more actions this turn, draw a card.",
+    "{e} : Look at the top 2 cards of your deck.",
+    "{e} : Look at the top 4 cards of your deck. You may reveal an item card and put it into your hand. you may play it for free instead and it enters play exerted.",
+    "{e} : Move a character of yours to a location for free.",
+    "{e} : Name a card, then reveal the top card of your deck. If it's the named card, put that card into your hand and gain 3 lore.",
+    "{e} : Play a character with cost 4 or less for free. At the end of the turn, banish them.",
     "{e} : Play an item from your hand or discard with cost 5 or less for free, exerted.",
+    "{e} : Put an item card from your discard on the top of your deck.",
     "{e} : Put any card from your hand into your inkwell facedown.",
+    "{e} : Ready your Titan characters.",
     "{e} : Remove 1 damage each from up to 2 chosen characters.",
     "{e} : Remove up to 1 damage from chosen character.",
     "{e} : Remove up to 1 damage from each of your characters.",
-    "{e} : Remove up to 2 damage chosen character.",
+    "{e} : Remove up to 2 damage from chosen character.",
+    "{e} : Remove up to 2 damage from chosen location.",
     "{e} : Remove up to 3 damage from chosen Princess character.",
-    "{e} : Return chosen damaged character to their player's hand. Then, each opponent discards a card at random.",
+    "{e} : Return chosen damaged character to their player's hand. each opponent discards a card at random.",
+    "{e} : Return chosen item with cost equal to or less than this character's {s} to its player's hand.",
+    "{e} : Reveal the top 3 cards of your deck. You may put each character card with cost 2 or less into your hand. Whenever this character quests, if you have 4 or more other characters in play, your other characters get +1{l} this turn.",
     "{e} : Reveal the top card of your deck. If it's a character card named Pete, you may play it for free.",
     "{e} : You pay 1{i} less for the next action you play this turn.",
+    "{e} : You pay 1{i} less for the next character you play this turn.",
+    "{e} : You pay 1{i} less for the next item you play this turn.",
+    "{e} : You pay 1{i} less for the next location you play this turn. You pay 1{i} less to move your characters to a location.",
+    "{e} : You pay 2{i} less for the next action you play this turn. 2{i}, Banish this item : Draw 2 cards, then choose and discard a card.",
+    "{e} : You pay 2{i} less for the next character you play this turn.",
     "{e} : You play 1{i} less for the next character you play this turn."
+  ],
+  "{e} one": [
+    "{e} one of your characters to deal damage equal to their {s} to chosen character."
   ],
   "{e}, 1{i} :": [
     "{e}, 1{i} : Chosen Hero character gains Challenger +2 and Evasive this turn.",
     "{e}, 1{i} : Chosen character gains Rush this turn.",
     "{e}, 1{i} : Gain 1 lore.",
+    "{e}, 1{i} : Name a card, then reveal the top card of your deck. If it's the named card, put that card into your hand.",
     "{e}, 1{i} : Return an item card from your discard to your hand."
   ],
-  "{e}, 1{i}:": [
-    "{e}, 1{i}: Name a card, then reveal the top card of your deck. If it's the named card, put that card into your hand. Otherwise, put it on the top of your deck."
-  ],
   "{e}, 2{i} :": [
+    "{e}, 2{i} : Choose a character of yours and gain lore equal to their {l}.",
     "{e}, 2{i} : Chosen character get -2{s} this turn. {e}, Banish this item : Banish chosen Dragon character.",
     "{e}, 2{i} : Chosen character gets +1{s} this turn for each 1 damage on them.",
     "{e}, 2{i} : Chosen character gets +2{s} this turn. Whenever they challenge another character this turn, you may draw a card.",
-    "{e}, 2{i} : Draw a card. {e}, 2{i}, Discard a card : Exert chosen character.",
+    "{e}, 2{i} : Deal 1 damage to chosen character.",
+    "{e}, 2{i} : Draw a card. {e}, 2{i}, Discard a card - Exert chosen character.",
     "{e}, 2{i} : Draw cards equal to the damage on chosen character of yours, then banish them.",
-    "{e}, 2{i} : Look at the top 3 cards of your deck. You may reveal an item card and put it into your hand. Put the rest on the bottom of your deck in any order."
+    "{e}, 2{i} : Look at the top 3 cards of your deck. You may reveal an item card and put it into your hand.",
+    "{e}, 2{i} : Move 1 damage counter from chosen character to chosen opposing character.",
+    "{e}, 2{i} : Play a character for free.",
+    "{e}, 2{i} : Put the top card of your deck into your inkwell facedown and exerted."
   ],
-  "{e}, 2{i}, Banish 2 of your items :": [
-    "{e}, 2{i}, Banish 2 of your items : Deal 5 damage to chosen character."
+  "{e}, 2{i},": [
+    "{e}, 2{i}, Banish 2 of your items - Deal 5 damage to chosen character.",
+    "{e}, 2{i}, Discard a card - Deal 2 damage to chosen character or location."
   ],
   "{e}, 2{i}, Banish this item :": [
     "{e}, 2{i}, Banish this item : Chosen character of yours gets +2{l} this turn."
   ],
-  "{e}, 2{i}, Discard a card :": [
-    "{e}, 2{i}, Discard a card : Deal 2 damage to chosen character or location."
-  ],
-  "{e}, 2{i}:": [
-    "{e}, 2{i}: Choose a character of yours and gain lore equal to their {l}.",
-    "{e}, 2{i}: Deal 1 damage to chosen character.",
-    "{e}, 2{i}: Move 1 damage counter from chosen character to chosen opposing character.",
-    "{e}, 2{i}: Play a character for free.",
-    "{e}, 2{i}: Put the top card of your deck into your inkwell facedown and exerted."
-  ],
   "{e}, 3{i} :": [
     "{e}, 3{i} : If you have no cards in your hand, draw a card.",
-    "{e}, 3{i} : Ready chosen character. They can't quest for the rest of this turn.",
+    "{e}, 3{i} : Ready chosen character.",
     "{e}, 3{i} : Return a character card with Support from your discard to your hand."
   ],
   "{e}, 4{i} :": [
     "{e}, 4{i} : Draw a card."
   ],
+  "{e}, Banish": [
+    "{e}, Banish this character - Banish chosen character."
+  ],
   "{e}, Banish one of your items :": [
     "{e}, Banish one of your items : Gain 3 lore."
   ],
-  "{e}, Banish one of your other characters:": [
-    "{e}, Banish one of your other characters: Play a character with the same name as the banished character for free."
+  "{e}, Banish one of your other characters :": [
+    "{e}, Banish one of your other characters : Play a character with the same name as the banished character for free."
   ],
-  "{e}, Banish this character :": [
-    "{e}, Banish this character : Banish chosen character."
+  "{e}, Choose": [
+    "{e}, Choose and discard a character card - Gain lore equal to the discarded character's {l}."
   ],
-  "{e}, Choose and discard a character card :": [
-    "{e}, Choose and discard a character card : Gain lore equal to the discarded character's {l}."
-  ],
-  "{e}, {e} one of you character :": [
-    "{e}, {e} one of you character : Exert chosen character."
+  "{e}, {e}": [
+    "{e}, {e} one of you character - Exert chosen character."
   ],
   "{e},1{i} :": [
-    "{e},1{i} : Chosen character gains Challenger +2 this turn. They get +2{s} while challenging.)",
+    "{e},1{i} : Chosen character gains Challenger +2 this turn. while challenging.",
     "{e},1{i} : If you have 2 or more characters in play, gain 1 lore."
-  ],
-  "{e}:": [
-    "{e}: Banish chosen item.",
-    "{e}: Chosen character gains Challenger +2 and Rush this turn.",
-    "{e}: Chosen character gains Resist +1 until the start of your next turn.",
-    "{e}: Chosen character gains Resist +2 this turn.",
-    "{e}: Chosen character gets -2{s} until the start of your next turn.",
-    "{e}: Deal 1 damage to chosen damaged character or location. Whenever a character of yours named Robin Hood quests, you may ready this item.",
-    "{e}: Exert chosen character.",
-    "{e}: Exert chosen opposing character and all other opposing characters with the same name.",
-    "{e}: Gain lore equal to the number of Titan characters you have in play.",
-    "{e}: If you played a song this turn, gain 1 lore.",
-    "{e}: If you've played 2 or more actions this turn, draw a card.",
-    "{e}: Move a character of yours to a location for free.",
-    "{e}: Name a card, then reveal the top card of your deck. If it's the named card, put that card into your hand and gain 3 lore. Otherwise, put it on the top of your deck.",
-    "{e}: Put an item card from your discard on the top of your deck.",
-    "{e}: Ready your Titan characters.",
-    "{e}: Remove up to 2 damage from chosen character.",
-    "{e}: Remove up to 2 damage from chosen location.",
-    "{e}: Return chosen item with cost equal to or less than this character's {s} to its player's hand.",
-    "{e}: Reveal the top 3 cards of your deck. You may put each character card with cost 2 or less into your hand. Put the rest on the bottom of your deck in any order. Whenever this character quests, if you have 4 or more other characters in play, your other characters get +1{l} this turn.",
-    "{e}: You pay 1{i} less for the next character you play this turn.",
-    "{e}: You pay 1{i} less for the next item you play this turn.",
-    "{e}: You pay 1{i} less for the next location you play this turn. You pay 1{i} less to move your characters to a location.",
-    "{e}: You pay 2{i} less for the next action you play this turn. 2{i}, Banish this item: Draw 2 cards, then choose and discard a card.",
-    "{e}: You pay 2{i} less for the next character you play this turn."
   ]
 }

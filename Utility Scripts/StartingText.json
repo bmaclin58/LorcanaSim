@@ -24,13 +24,13 @@
     "Body_Text": "At the"
   },
   {
-    "Body_Text": "At the start of your turn, choose one:"
+    "Body_Text": "At the start of your turn, choose one :"
   },
   {
     "Body_Text": "At the start of your turn, if you have a Princess or Queen character in play, gain 1 lore. {e}, 2{i} :"
   },
   {
-    "Body_Text": "At the start of your turn, you may choose one:"
+    "Body_Text": "At the start of your turn, you may choose one :"
   },
   {
     "Body_Text": "Banish all"
@@ -48,9 +48,6 @@
     "Body_Text": "Banish this item :"
   },
   {
-    "Body_Text": "Banish this item:"
-  },
-  {
     "Body_Text": "Characters can't"
   },
   {
@@ -66,7 +63,10 @@
     "Body_Text": "Characters with"
   },
   {
-    "Body_Text": "Choose one:"
+    "Body_Text": "Choose one :"
+  },
+  {
+    "Body_Text": "Chosen Character"
   },
   {
     "Body_Text": "Chosen character"
@@ -153,22 +153,16 @@
     "Body_Text": "Gain 2"
   },
   {
-    "Body_Text": "If It Pleases The Lady:"
-  },
-  {
     "Body_Text": "If an"
-  },
-  {
-    "Body_Text": "If chosen"
   },
   {
     "Body_Text": "If you"
   },
   {
-    "Body_Text": "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i}:"
+    "Body_Text": "If you have a character named Maui in play, you may use this item's Shapeshift ability for free. {e}, 2{i} :"
   },
   {
-    "Body_Text": "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i}:"
+    "Body_Text": "If you have an Inventor character in play, you may pay 1{i} less to play this character. 2{i} :"
   },
   {
     "Body_Text": "Inventor characters"
@@ -261,7 +255,7 @@
     "Body_Text": "This character can't challenge. {e} :"
   },
   {
-    "Body_Text": "This character can't ready at the start of your turn. 2{i}:"
+    "Body_Text": "This character can't ready at the start of your turn. 2{i} :"
   },
   {
     "Body_Text": "This item"
@@ -291,16 +285,13 @@
     "Body_Text": "When you"
   },
   {
-    "Body_Text": "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one:"
+    "Body_Text": "When you play this character and whenever he banishes another character in a challenge during your turn, you may choose one :"
   },
   {
-    "Body_Text": "When you play this character, choose one:"
+    "Body_Text": "When you play this character, choose one :"
   },
   {
-    "Body_Text": "When you play this character, if you used Shift to play him, each opponent loses 2 lore. Raging Duck:"
-  },
-  {
-    "Body_Text": "When you play this character, you may pay 2{i} to choose one:"
+    "Body_Text": "When you play this character, you may pay 2{i} to choose one :"
   },
   {
     "Body_Text": "When you play this character, you may put chosen item or location into its player's inkwell facedown and exerted. 4{i} :"
@@ -331,6 +322,9 @@
   },
   {
     "Body_Text": "Whenever you"
+  },
+  {
+    "Body_Text": "Whenever you ready this character, gain 1 lore for each other undamaged character you have in play. {e} :"
   },
   {
     "Body_Text": "Whenever your"
@@ -366,9 +360,6 @@
     "Body_Text": "You may"
   },
   {
-    "Body_Text": "You may have up to 99 copies of Dalmatian Puppy :"
-  },
-  {
     "Body_Text": "You may only have 2 copies of The Glass Slipper in your deck. Banish this item, {e} one of your Prince characters :"
   },
   {
@@ -382,6 +373,9 @@
   },
   {
     "Body_Text": "Your Hero"
+  },
+  {
+    "Body_Text": "Your Hero characters gain Challenger +1  Shameless Promoter :"
   },
   {
     "Body_Text": "Your Inventor"
@@ -420,6 +414,12 @@
     "Body_Text": "Your other"
   },
   {
+    "Body_Text": "chosen opponent"
+  },
+  {
+    "Body_Text": "this character"
+  },
+  {
     "Body_Text": "{e} :"
   },
   {
@@ -429,22 +429,13 @@
     "Body_Text": "{e}, 1{i} :"
   },
   {
-    "Body_Text": "{e}, 1{i}:"
-  },
-  {
     "Body_Text": "{e}, 2{i} :"
   },
   {
-    "Body_Text": "{e}, 2{i}, Banish 2 of your items :"
+    "Body_Text": "{e}, 2{i},"
   },
   {
     "Body_Text": "{e}, 2{i}, Banish this item :"
-  },
-  {
-    "Body_Text": "{e}, 2{i}, Discard a card :"
-  },
-  {
-    "Body_Text": "{e}, 2{i}:"
   },
   {
     "Body_Text": "{e}, 3{i} :"
@@ -453,24 +444,21 @@
     "Body_Text": "{e}, 4{i} :"
   },
   {
+    "Body_Text": "{e}, Banish"
+  },
+  {
     "Body_Text": "{e}, Banish one of your items :"
   },
   {
-    "Body_Text": "{e}, Banish one of your other characters:"
+    "Body_Text": "{e}, Banish one of your other characters :"
   },
   {
-    "Body_Text": "{e}, Banish this character :"
+    "Body_Text": "{e}, Choose"
   },
   {
-    "Body_Text": "{e}, Choose and discard a character card :"
-  },
-  {
-    "Body_Text": "{e}, {e} one of you character :"
+    "Body_Text": "{e}, {e}"
   },
   {
     "Body_Text": "{e},1{i} :"
-  },
-  {
-    "Body_Text": "{e}:"
   }
 ]

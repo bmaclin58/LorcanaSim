@@ -13,7 +13,7 @@ input_file = os.path.join(parent_dir, "lorcana_cards_simplified.json")
 output_file = os.path.join(script_dir, "StartingText.json")
 
 
-def create_smaller_json (input_file, output_file):
+def unique_Text (input_file, output_file):
 	print(f"Attempting to open file at: {input_file}")
 	with open(input_file, "r", encoding = "utf-8") as f:
 		data = json.load(f)
@@ -41,7 +41,7 @@ def create_smaller_json (input_file, output_file):
 				activation = activation.start() + 1
 				bodyText = bodyText[:activation]
 				activation_count += 1
-				"""
+				
 				if bodyText in unique_Word_Count:
 					unique_Word_Count[bodyText] += 1
 				else:
@@ -51,12 +51,14 @@ def create_smaller_json (input_file, output_file):
 					unique_Keyword_Collection[bodyText].append(bodyTextFull)
 				else:
 					unique_Keyword_Collection[bodyText] = [bodyTextFull]
-			"""
 			elif " " in bodyText:
 				matches = list(re.finditer(" ", bodyText))
-				activation = matches[1].start()
+				if len(matches) > 1:
+					activation = matches[1].start()
+				else:
+					activation = matches[0].start()
 				# Change if you want 1 word or 2+
-				uniqueWordIndex = matches[1].start()
+				uniqueWordIndex = activation
 				bodyText = bodyText[:activation]
 				eachKeyword = bodyText[:uniqueWordIndex]
 				
@@ -97,7 +99,7 @@ def create_smaller_json (input_file, output_file):
 	for key, value in unique_Word_Count.items():
 		print(f"{key}: {value}")
 
-	with open("KeywordCollection NO ACTIVATION.JSON", "w", encoding = "utf-8") as f:
+	with open("KeywordCollection W ACTIVATION.JSON", "w", encoding = "utf-8") as f:
 		json.dump(unique_Keyword_Collection, f, indent = 2)
 		
 	with open(output_file, "w", encoding = "utf-8") as f:
@@ -107,4 +109,4 @@ def create_smaller_json (input_file, output_file):
 
 # Example usage
 if __name__ == "__main__":
-	create_smaller_json(input_file, output_file)
+	unique_Text(input_file, output_file)

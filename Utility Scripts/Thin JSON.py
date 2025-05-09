@@ -13,10 +13,10 @@ input_file = os.path.join(parent_dir, "lorcana_cards.json")
 output_file = os.path.join(parent_dir, "lorcana_cards_simplified.json")
 
 keyword_pattern = (
-    r"(?:Evasive|Bodyguard|Rush|Ward|Vanish|Support|Reckless|Shift: |"  # single word keywords
+    r"(?:Evasive|Bodyguard|Rush|Ward|Vanish|Support|Reckless|Shift : |"  # single word keywords
     r"Challenger \+\d+|Resist \+\d+|Challenger\+\d+|"  # + Keywords
     r"Singer \d+|Sing Together \d+|"  # singing
-    r"Puppy Shift \d+:?|Shift \d+:?|Universal Shift \d+:? )"
+    r"Puppy Shift \d+:?|Shift \d+:?|Universal Shift \d+:?|Shift \d+?)"
 )
 
 def clean_body_text (text, classifications):
@@ -25,27 +25,42 @@ def clean_body_text (text, classifications):
 
     pattern = re.compile(keyword_pattern)
     
-    text = re.sub('\r \r', '\n', text)
+    text = re.sub('\r \r', ' ', text)
     text = re.sub(r'\)\r', ')\n', text)
-    text = re.sub('\r', '', text)
+    text = text.replace('\r', ' ')
+    text = text.replace('\n', ' ')
+    text = text.replace('Mr.', '')
+    text = text.replace('Ms.', '')
+    text = text.replace('Mrs.', '')
+    text = text.replace("...", ".")
     
     # Remove parenthetical text
-    text = re.sub(r'(\([^)]*?)\n([^)]*\))', '', text)
+    text = re.sub(r'(\([^)]*?)([^)]*\))', '', text)
     text = re.sub(r'(\d+)\s+(\{)', r'\1\2', text)
     
     text = re.sub(r'([+-])\s*(\d+)\s*(\{[sw]\})', r'\1\2\3', text)
+    text = text.replace(')', '')
+    text = text.replace(': ', ' : ')
     
     # Split the text
-    text_parts = text.split('\n')
-    
+    text_parts = []
+    print(f"Raw Text: {text}")
+    parts = re.split(r'(?<=\.)', text)
+    print(f"Split Text: {parts}")
+    for part in parts:
+        text_parts.append(part.strip())
+        
     # Filter out lines that START WITH any of the keywords (notice the NOT operator)
-    text_parts = [line for line in text_parts if not pattern.match(line)]
-    
+    # text_parts = [line for line in text_parts if not pattern.match(line)]
+    print (f"Text Parts: {text_parts}")
     cleaned_parts = []
     
     # Process each part separately
     for part in text_parts:
+        part = part.strip()
+        print(part)
         cleaned_part = process_text_part(part, classifications)
+        print(cleaned_part)
         if cleaned_part:  # Only add non-empty parts
             cleaned_parts.append(cleaned_part)
     
@@ -84,7 +99,8 @@ def process_text_part (text, classifications):
         "Exert ",
         "For each ",
         "If an ",
-        "If it",
+        "If it's ",
+        "If it has "
         "If chosen ",
         "If you have ",
         "If you used ",
@@ -205,7 +221,8 @@ def process_text_part (text, classifications):
     text = text.replace("{e} one of your items - ", "{e} one of your items : ")
     text = text.replace("Banish one of your items - ", "Banish one of your items : ")
     text = text.replace(" characters - ", " characters : ")
-    text = text.replace(" - ", " : ")
+    
+    print(f"Cleaned Text: {text}")
     
     # Find the earliest occurrence of any keyword
     first_position = len(text)  # Default to end of text
@@ -224,7 +241,7 @@ def process_text_part (text, classifications):
         return text[first_position:].strip()
     else:
         # No keyword found, return the original text
-        return text.strip()
+        return ""
 
 
 def create_smaller_json (input_file, output_file):
@@ -281,7 +298,7 @@ def create_smaller_json (input_file, output_file):
                     shift_Extract = f'Shift {matches[0].strip()}'
                     card_Abilities = card_Abilities.replace("Shift", shift_Extract)
             
-            # Assuming clean_body_text is defined elsewhere
+            print(card.get("Name"))
             cleaned_body_text = clean_body_text(body_Text, classifications_list)
             
             simplified_card = {
@@ -362,19 +379,15 @@ def find_Unique_BodyTexts (input_file, output_file):
 
 # Example usage
 if __name__ == "__main__":
-    # Check if the file exists at the expected location
-    if not os.path.exists(input_file):
-        print(f"File not found at {input_file}")
-        user_input = input("Please enter the full path to lorcana_cards.json: ")
-        if user_input:
-            input_file = user_input
-            # Update output file to be in the same directory
-            output_dir = os.path.dirname(input_file)
-            output_file = os.path.join(output_dir, "lorcana_cards_simplified.json")
-
+    
     create_smaller_json(input_file, output_file)
     
     input_file = os.path.join(parent_dir, "lorcana_cards_simplified.json")
     output_file = os.path.join(script_dir, "bodytext.json")
     
     find_Unique_BodyTexts(input_file, output_file)
+    
+    output_file = os.path.join(script_dir, "StartingText.json")
+    
+    from WhatWeStartinWith import unique_Text
+    unique_Text(input_file, output_file)
